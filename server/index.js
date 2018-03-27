@@ -3,14 +3,23 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 // Own dependencies
-const item = require('./controllers/item');
+const item = require('./routes/item');
+const hero = require('./routes/hero');
+
 const config = require('./config/database');
 
 
 //Middleware for bodyparsing using both json and urlencoding
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+
+// Middelware for CORS
+app.use(cors());
+
+// * Enabels all origins (Not safe!)
+app.options('*', cors());
 
 // Connect to MongoDB
 mongoose.connect(config.databaseUri);
@@ -30,7 +39,7 @@ app.get('/api/:name', (req, res) => {
 
 //Routing all HTTP requests to /item to item controller
 app.use('/item',item);
-
+app.use('/hero', hero);
 
 app.listen(port, () => {
     console.log(`Starting the server at port ${port}`);
