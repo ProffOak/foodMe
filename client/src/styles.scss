@@ -1,2 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Material Theme
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  margin: 0;
+}
+
+.fill-remaining-space {
+  /*This fills the remaining space, by using flexbox.
+ Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+
+/*Remove spinners from number input fields */
+input.remove-spinner::-webkit-outer-spin-button,
+input.remove-spinner::-webkit-inner-spin-button {
+  display: none;
+}
+input.remove-spinner{
+  -moz-appearance:textfield;
+}

@@ -1,0 +1,60 @@
+<!-- Navbar -->
+<mat-toolbar #toolbar color="primary">
+  <mat-toolbar-row>
+
+    <!--Logo-->
+    <button mat-button routerLink="/">
+      <mat-icon>home</mat-icon>
+      Home
+    </button>
+
+    <!--Larger screen - Left-->
+    <div fxShow="false" fxShow.gt-xs>
+      <button mat-button routerLink="/">
+        Recepies
+      </button>
+    </div>
+
+
+    <!--Smaller screen - Left-->
+    <div fxHide="false" fxHide.gt-xs>
+    </div>
+
+    <!--Fill remaining space-->
+    <span class="fill-remaining-space"></span>
+
+    <!--Larger screen - Right-->
+    <div fxShow="false" fxShow.gt-xs>
+      <button mat-button>Login</button>
+    </div>
+
+    <!--Smaller screen - Right-->
+    <div fxHide="false" fxHide.gt-xs>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon >menu</mat-icon>
+      </button>
+    </div>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<!--Close sidenav by swiping left-->
+<mat-sidenav-container fullscreen (swipeleft)="sidenav.close()">
+
+  <!--Sidenav Content-->
+  <mat-sidenav #sidenav [mode]="'over'" (swipeleft)="sidenav.close()">
+    <!-- Common Buttons -->
+    <button mat-button (click)="sidenav.close()" routerLink="/">
+      <mat-icon class="sidenav-icon">home</mat-icon>
+      Hem
+    </button>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <!-- Page Content -->
+    <ng-content></ng-content>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
