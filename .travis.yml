@@ -1,23 +1,17 @@
 language: node_js
 node_js:
-  - "8.9"
+  - "6.9"
 
 branches:
   only:
     - deploy
 
-before_script:
+before_install:
   - cd server
   - openssl aes-256-cbc -k "$enc_pass" -in super_secret.txt.enc -out foodMe-046bd9fd6e24.json -d
-
-#  - npm install -g firebase-tools
- # - npm install -g @angular/cli
-#script:
- # - ng build --prod
-
-#after_success:
-#  - firebase deploy --token $FIREBASE_TOKEN
   
+install: 
+  - npm install
 deploy:
   provider: gae
   keyfile: "foodMe-046bd9fd6e24.json"
