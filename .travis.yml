@@ -16,6 +16,8 @@ deploy:
   provider: gae
   keyfile: "foodMe-046bd9fd6e24.json"
   project: "foodme-199118"
+  on:
+    all_branches: true
 
 notifications:
   email:
