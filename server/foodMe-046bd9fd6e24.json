@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "foodme-199118",
+  "private_key_id": "046bd9fd6e240d6eebfe9a94f22dc5b0799adee1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDkip2lRDK/SL9B\nypiKnIAYmHYQikT3IHp8pVYayIknZVmZu4x3VbXRW0ULS+Yo/qBhkssKL4KGX4ke\nb3je913Jp4NKcebU1bJDTAjHkx9hGwV+YPdwfMXLYq0Gmj3c37yCuERLW8XeeSq2\nBHSHqhNkCmArREpy7dJATItPl8zLdgi6wlA25sxFiRgYdFwZXoDVuGmrgDvulTpr\npaPFvPEiCtlP8ByhQak2d7Wjx7HPdrC2etf+yeQIW8xja9CiBVOcoVlSw6PBDuxe\nOUREnWfnlR60kQojO2talh1CsNoEdvHzyPol+qycl3FylTPgqr7hWBAFeRaYvwaS\njqz3+djzAgMBAAECggEAYNojm92ueeT89IdEpP1UxdeatUC7oFU5w2gX+OrCQRlQ\n4vcZvJrsnggFVxe3tujNk/wvIqZmtMZ46BaKjUccjnB4kcx6a/kR/jYTRGyjcDYQ\n2nGCez/NXPd45yLnk5qXm3g2rQ776F/GC3QQ5Etdw1goUD21JUaHAyvNIBJvPkt+\noCpwfcq1IqvRxJKw1wB4wac9PJQCBTTbtrvB4cSzz1vecxDxxNJVtWb9JmUbm1VR\n5zNRoUGmkSPX9oAf4G6DZQUbtSupT25JZB6H8GjXNjMDPfjH6x6Zol8UHx5LqZ90\nlOnvKS+kE9Ltjng+t2BEcd4eBGEtBOd7hySzIx+BYQKBgQD6CbbykGwBGqTBWMwy\nA+ouVaJgcCb5ewS1fhHE141djY/k2AoF9kWG8i5YJBWjm3sjLlQJMNbzwIrkKI/A\n67QNytGtsMF15CEWgodPgytRuDSCgnHRN0MrVQ5anO/SheVpaZazGp7r6AGIW7JS\nS2lp6XLD1P0hHF8o8Akq7HAlIQKBgQDp/a6Zqtspk/1IIX2vzJQetzmHXC3KELot\nmMS2fkym8MzhksAG2AB3PD9Gum5gZmJX5T7YBEA1uM3SrlgHD6T91fkMyVcnm67B\n8w2ES2G6rvHEQA75GexJw8Hok0mls/Rm8YvrvEnh4kMwm7mUsLDlh0uNV755BuJ2\noQfiw9ynkwKBgQCp7BQygEeF8I9q/me2zcZGOtgg5db20M2Ace6tcTeXDm9tvAwD\nxTu227r3F37FMxLZ89AUduZ9vKonKBGZsBUrElywx2CSN7jszUQbmy7DWIYG85NZ\n9U5mkmUw21p4HZqsqp9JlJvQAlmYS4jCOJGo8oeV4pcr+1YIQihYzVnhQQKBgQCR\nHSbfXjq1OnZl+X89O57QvckLzXsISf9sr8Wvd/yJu+UUMDKvC96eE9saPhyd5GEx\nKZcj2N8JcicTddRZ7LXiRoVCDMvkYISs+9NyLF3brQt7Lk8a5ZzI0oK7fjy6azQz\nc7HW7NrVH8GTr8AUGtBaSOHuMnCKFl70O0HsvJNnyQKBgBtOa8m03H9UvBKJgtsq\nwC584ZgLtjjIdmrv8RaiahpDP9fSUN7yrXHzhvr9aAkNo9f7MJb4qEHeOe7ncotU\npF9cH/r6yonHhpWZDU9B5bQGg54HXNIrr6RKktjc2UphWM5bBMSzC+yObITssqLh\njufXUI3ndA1LlDqfAZpPJSlM\n-----END PRIVATE KEY-----\n",
+  "client_email": "travis@foodme-199118.iam.gserviceaccount.com",
+  "client_id": "105882644253333032833",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/travis%40foodme-199118.iam.gserviceaccount.com"
+}
