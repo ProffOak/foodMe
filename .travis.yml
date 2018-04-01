@@ -5,9 +5,21 @@ node_js:
 branches:
   only:
     - deploy
+    
+efore_script:
+  - cd cleint
+  - npm install -g firebase-tools
+  - npm install -g @angular/cli
+  - npm install
+
+script:
+  - ng build --prod
+
+after_success:
+  - firebase deploy --token $FIREBASE_TOKEN
 
 before_install:
-  - cd server
+  - cd ../server
   - openssl aes-256-cbc -k "$enc_pass" -in super_secret.txt.enc -out foodMe-046bd9fd6e24.json -d
   
 install: 
@@ -18,6 +30,10 @@ deploy:
   project: "foodme-199118"
   on:
     all_branches: true
+  provider: firebase
+  token:
+    secure: "YOUR ENCRYPTED token"
+  project: "myapp-staging"
 
 notifications:
   email:
