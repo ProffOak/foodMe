@@ -18,13 +18,12 @@ script:
 after_success:
   - firebase deploy --token $FIREBASE_TOKEN
 
-before_install:
+before_deploy:
   - cd ..
   - cd server
   - openssl aes-256-cbc -k "$enc_pass" -in super_secret.txt.enc -out foodMe-046bd9fd6e24.json -d
-  
-install: 
   - npm install
+  
 deploy:
   provider: gae
   keyfile: "foodMe-046bd9fd6e24.json"
