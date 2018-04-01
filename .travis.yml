@@ -12,7 +12,6 @@ before_install:
   
 install: 
   - npm install
-  
 deploy:
   provider: gae
   keyfile: "foodMe-046bd9fd6e24.json"
