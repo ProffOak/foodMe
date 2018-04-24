@@ -7,6 +7,8 @@ const cors = require('cors');
 // Own dependencies
 const item = require('./routes/item');
 const hero = require('./routes/hero');
+const user = require('./routes/user');
+
 
 const config = require('./config/database');
 
@@ -40,6 +42,8 @@ app.get('/api/:name', (req, res) => {
 //Routing all HTTP requests to /item to item controller
 app.use('/item',item);
 app.use('/hero', hero);
+
+app.use('/users', user);
 
 app.listen(port, () => {
     console.log(`Starting the server at port ${port}`);
