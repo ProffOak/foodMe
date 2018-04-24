@@ -8,6 +8,8 @@ const cors = require('cors');
 const item = require('./routes/item');
 const hero = require('./routes/hero');
 const quisine = require('./routes/quisine');
+const user = require('./routes/user');
+
 
 const config = require('./config/database');
 
@@ -47,6 +49,7 @@ app.get('/api/:name', (req, res) => {
 app.use('/item',item);
 app.use('/hero', hero);
 app.use('/quisine', quisine);
+app.use('/users', user);
 
 app.listen(port, () => {
     console.log(`Starting the server at port ${port}`);
