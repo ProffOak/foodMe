@@ -7,6 +7,7 @@ const cors = require('cors');
 // Own dependencies
 const item = require('./routes/item');
 const hero = require('./routes/hero');
+const quisine = require('./routes/quisine');
 
 const config = require('./config/database');
 
@@ -23,6 +24,11 @@ app.options('*', cors());
 
 // Connect to MongoDB
 mongoose.connect(config.databaseUri);
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log('we are connected to the database')
+});
 
 //Value of Port
 const port = process.env.PORT || 3000;
@@ -40,6 +46,7 @@ app.get('/api/:name', (req, res) => {
 //Routing all HTTP requests to /item to item controller
 app.use('/item',item);
 app.use('/hero', hero);
+app.use('/quisine', quisine);
 
 app.listen(port, () => {
     console.log(`Starting the server at port ${port}`);
