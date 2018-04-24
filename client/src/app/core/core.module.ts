@@ -5,6 +5,10 @@ import {MatButtonModule, MatIconModule, MatSidenavModule, MatToolbarModule} from
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
 import {HAMMER_GESTURE_CONFIG, HammerGestureConfig} from '@angular/platform-browser';
+import {AuthService} from './auth/auth.service';
+import {AngularFireModule} from 'angularfire2';
+import {environment} from '../../environments/environment';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any> {
@@ -17,6 +21,9 @@ export class MyHammerConfig extends HammerGestureConfig {
   imports: [
     CommonModule,
     RouterModule,
+    // Firebase imports
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence(),
 
     MatButtonModule,
     MatSidenavModule,
@@ -27,6 +34,7 @@ export class MyHammerConfig extends HammerGestureConfig {
   declarations: [NavComponent],
   exports: [NavComponent],
   providers: [
+    AuthService,
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
