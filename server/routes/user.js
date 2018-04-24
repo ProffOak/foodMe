@@ -9,7 +9,7 @@ router.get("/", (req, res, next) => {
        if(err) {
            res.status(500).json({error: err});
        }else {
-           res.status(200).json({users});
+           res.status(200).json(users);
            res.end();
        }
     });
@@ -22,7 +22,7 @@ router.get("/:uid", (req, res, next) => {
             res.status(500).json({error: err});
             res.end();
         }else {
-            res.status(200).json({user});
+            res.status(200).json(user);
             res.end();
         }
     });
@@ -44,10 +44,39 @@ router.post("/", (req, res, next) => {
             res.status(500).json({error: err});
             res.end();
         } else {
-            res.status(200).json({user});
+            res.status(200).json(user);
             res.end();
         }
     });
+});
+
+// Update Certain fields of the user object
+router.patch("/:uid", (req, res, next) => {
+    const id = req.params.uid;
+    const updateOps = {};
+    for(const key in req.body) {
+        if(req.body.hasOwnProperty(key)){
+            updateOps[key] = req.body[key]
+        }
+    }
+    User.update({ uid: id }, { $set: updateOps }, (err, user) => {
+       if(err) {
+           res.status(500).json({error: err});
+       } else {
+           res.status(200).json(user)
+       }
+    });
+});
+
+router.delete("/:uid", (req, res, next) => {
+    const uid = req.params.uid;
+    User.remove({uid: uid}, (err, user) => {
+        if(err) {
+            res.status(500).json({error: err});
+        } else {
+            res.status(200).send("Deleted successfully")
+        }
+    })
 });
 
 
