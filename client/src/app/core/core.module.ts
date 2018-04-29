@@ -9,6 +9,9 @@ import {AuthService} from './auth/auth.service';
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../../environments/environment';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+import {AngularFireStorageModule} from 'angularfire2/storage';
+import {ObjectService} from './database/object.service';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any> {
@@ -24,6 +27,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     // Firebase imports
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
+    AngularFireStorageModule,
+    AngularFireAuthModule,
 
     MatButtonModule,
     MatSidenavModule,

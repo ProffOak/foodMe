@@ -3,21 +3,23 @@ const router = express.Router();
 
 const User = require("../models/user");
 
-// Handle incoming GET requests to /users
+// Handle incoming GET requests to /users, also supports query params
 router.get("/", (req, res, next) => {
-    User.find((err, users) => {
-       if(err) {
-           res.status(500).json({error: err});
-       }else {
-           res.status(200).json(users);
-           res.end();
-       }
+    User.find(req.query, (err, users) => {
+        if(err) {
+            res.status(500).json({error: err});
+        }else {
+            res.status(200).json(users);
+            res.end();
+        }
     });
 });
 
-// Get user by uid (not the id in the mongoose database)
-router.get("/:uid", (req, res, next) => {
-    User.findOne({uid: req.params.uid}, (err, user) => {
+
+
+// Get user by id (not the id in the mongoose database)
+router.get("/:id", (req, res, next) => {
+    User.findOne({_id: req.params.id}, (err, user) => {
         if(err) {
             res.status(500).json({error: err});
             res.end();
@@ -51,26 +53,34 @@ router.post("/", (req, res, next) => {
 });
 
 // Update Certain fields of the user object
-router.patch("/:uid", (req, res, next) => {
-    const id = req.params.uid;
+router.patch("/", (req, res, next) => {
+    patchUser(req.query, req, res)
+});
+
+router.patch("/:id", (req, res, next) => {
+    const id = req.params.id;
+    patchUser({_id: id}, req, res)
+});
+
+function patchUser(queryObj, req, res) {
     const updateOps = {};
     for(const key in req.body) {
         if(req.body.hasOwnProperty(key)){
             updateOps[key] = req.body[key]
         }
     }
-    User.update({ uid: id }, { $set: updateOps }, (err, user) => {
-       if(err) {
-           res.status(500).json({error: err});
-       } else {
-           res.status(200).json(user)
-       }
+    User.update(queryObj, { $set: updateOps }, (err, user) => {
+        if(err) {
+            res.status(500).json({error: err});
+        } else {
+            res.status(200).json(user)
+        }
     });
-});
+}
 
-router.delete("/:uid", (req, res, next) => {
-    const uid = req.params.uid;
-    User.remove({uid: uid}, (err, user) => {
+router.delete("/:id", (req, res, next) => {
+    const id = req.params.id;
+    User.remove({_id: id}, (err, user) => {
         if(err) {
             res.status(500).json({error: err});
         } else {
