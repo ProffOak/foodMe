@@ -68,7 +68,7 @@ export abstract class ObjectService<ObjectClass> {
   }
 
   /** PUT: update the object on the server */
-  patchObject (objectData: ObjectClass, queryObject: any | string): Observable<any> {
+  patchObject (objectData: any, queryObject: any | string): Observable<any> {
     const id = typeof queryObject === 'string' ? queryObject : null;
     let url = this.url;
     const options = httpOptions;

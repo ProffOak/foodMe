@@ -4,6 +4,7 @@ import * as firebase from 'firebase/app';
 import {User} from './shared/user.model';
 import {Observable} from 'rxjs/Observable';
 import {UserService} from './user.service';
+import {Roles} from './shared/roles';
 
 
 @Injectable()
@@ -51,11 +52,30 @@ export class AuthService {
   }
 
   // TODO: Implement set User data to DB
-  private updateUserData(newUserData) {
+  private updateUserData(user) {
     // Sets user data to DB on login
+    const newUserData = {
+      uid: user.uid,
+      email: user.email,
+      emailVerified: false,
+      createdAt: user.metadata.creationTime,
+      lastLoginAt: user.metadata.lastSignInTime,
+    };
     this.userService.patchObject(newUserData, {uid: newUserData.uid});
-
   }
+  private createUser(user, roles: Roles, name) {
+    const data: User = {
+      uid: user.uid,
+      email: user.email,
+      emailVerified: false,
+      createdAt: user.metadata.creationTime,
+      lastLoginAt: user.metadata.lastSignInTime,
+      roles: roles,
+      name: name,
+    };
+    return this.userService.addObject(data);
+  }
+
 }
 
 
