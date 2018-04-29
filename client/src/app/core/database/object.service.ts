@@ -44,6 +44,13 @@ export abstract class ObjectService<ObjectClass> {
       );
   }
 
+  getObjectsByQuery(queryParams: any): Observable<ObjectClass[]> {
+    return this.httpClient.get<ObjectClass[]>(this.url, {params: queryParams})
+      .pipe(
+        catchError(this.handleError<any>(`getHero query=${queryParams}`))
+      );
+  }
+
 
   /** POST: add a new object to the server */
   addObject (object: ObjectClass): Observable<ObjectClass> {
@@ -61,15 +68,22 @@ export abstract class ObjectService<ObjectClass> {
   }
 
   /** PUT: update the object on the server */
-  patchObject (hero: ObjectClass, id: string): Observable<any> {
-    return this.httpClient.patch(this.url + '/' + id, hero, httpOptions).pipe(
+  patchObject (objectData: ObjectClass, queryObject: any | string): Observable<any> {
+    const id = typeof queryObject === 'string' ? queryObject : null;
+    let url = this.url;
+    const options = httpOptions;
+    if (id) {
+       url = `${this.url}/${id}`;
+    } else {
+      options['params'] = queryObject;
+    }
+    return this.httpClient.patch(url, objectData, options).pipe(
       catchError(this.handleError<any>('updateObject'))
     );
   }
-
   /** DELETE: delete the object from the server */
-  deleteHero (hero: ObjectClass | string): Observable<ObjectClass> {
-    const id = typeof hero === 'string' ? hero : hero['id'];
+  deleteHero (object: ObjectClass | string): Observable<ObjectClass> {
+    const id = typeof object === 'string' ? object : object['_id'];
     const url = `${this.url}/${id}`;
 
     return this.httpClient.delete<ObjectClass>(url, httpOptions).pipe(

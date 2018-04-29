@@ -3,6 +3,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import {User} from './shared/user.model';
 import {Observable} from 'rxjs/Observable';
+import {UserService} from './user.service';
 
 
 @Injectable()
@@ -10,14 +11,14 @@ export class AuthService {
 
   user$: Observable<User>;
 
-  constructor(private afAuth: AngularFireAuth) { }
+  constructor(private afAuth: AngularFireAuth, private userService: UserService) { }
 
   // Update the user Observable with the user from the database
   private setUserObs() {
     this.user$ = this.afAuth.authState
       .switchMap(user => {
         if (user) {
-          // TODO: Get user from DB
+          this.user$ = this.userService.getUserByUid(user.uid);
         } else {
           return Observable.of(null);
         }
@@ -40,6 +41,7 @@ export class AuthService {
   private oAuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
+        this.setUserObs();
         this.updateUserData(credential.user);
       });
   }
@@ -49,8 +51,9 @@ export class AuthService {
   }
 
   // TODO: Implement set User data to DB
-  private updateUserData(user) {
+  private updateUserData(newUserData) {
     // Sets user data to DB on login
+    this.userService.patchObject(newUserData, {uid: newUserData.uid});
 
   }
 }

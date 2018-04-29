@@ -1,6 +1,7 @@
 import {Roles} from './roles';
 
 export interface User {
+  _id: string;
   uid: string;
   email: string;
   emailVerified: boolean;
