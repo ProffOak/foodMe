@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import {HeroModule} from './hero/hero.module';
+import {SharedModule} from './shared/shared.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {HeroModule} from './hero/hero.module';
     // Own modules
     AppRoutingModule,
     CoreModule,
-    HeroModule
+    HeroModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
