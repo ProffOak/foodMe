@@ -12,6 +12,7 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {ObjectService} from './database/object.service';
+import {UserService} from './auth/user.service';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any> {
@@ -40,6 +41,7 @@ export class MyHammerConfig extends HammerGestureConfig {
   exports: [NavComponent],
   providers: [
     AuthService,
+    UserService,
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig

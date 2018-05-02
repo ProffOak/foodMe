@@ -17,4 +17,8 @@ export class UserService extends ObjectService<User> {
       map(users => users[0])
     );
   }
+  addUser(user: User): Observable<User> {
+    return this.addObject(user);
+  }
+
 }

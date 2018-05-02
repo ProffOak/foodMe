@@ -9,4 +9,5 @@ export interface User {
   lastLoginAt: string;
   name: string;
   roles: Roles;
+
 }

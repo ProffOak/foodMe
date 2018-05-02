@@ -47,6 +47,15 @@ export class AuthService {
       });
   }
 
+  emailRegister(user: User, password: string): Observable<any> {
+    return  Observable.fromPromise(this.afAuth.auth.createUserWithEmailAndPassword(user.email, password))
+      .switchMap(res => {
+        return this.createUser(res, <Roles>{regular: true}, user.name);
+      }, error => {
+        return error;
+      });
+  }
+
   signOut() {
     return this.afAuth.auth.signOut();
   }
@@ -63,7 +72,8 @@ export class AuthService {
     };
     this.userService.patchObject(newUserData, {uid: newUserData.uid});
   }
-  private createUser(user, roles: Roles, name) {
+
+  private createUser(user, roles: Roles, name): Observable<User> {
     const data: User = {
       uid: user.uid,
       email: user.email,
@@ -73,7 +83,7 @@ export class AuthService {
       roles: roles,
       name: name,
     };
-    return this.userService.addObject(data);
+    return this.userService.addUser(data);
   }
 
 }
