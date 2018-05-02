@@ -73,7 +73,7 @@ function patchUser(queryObj, req, res) {
             updateOps[key] = req.body[key]
         }
     }
-    const options= {setDefaultsOnInsert:true, upsert: true, new:true};
+    const options= {setDefaultsOnInsert:true, upsert: true, new:true, runValidators:true};
     User.findOneAndUpdate(queryObj, { $set: updateOps }, options, (err, user) => {
         if(err) {
             res.status(500).json({error: err});
