@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../auth/auth.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  isLoggedInObs: boolean;
+
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
+    // this.isLoggedInObs = this.authService.isLoggedIn();
+    this.authService.user$.subscribe(res => {
+      console.log(res);
+    });
+    this.authService.isLoggedInObs().subscribe(res => console.log(res));
   }
 
+  onLogoutClick() {
+    this.authService.signOut();
+  }
 }

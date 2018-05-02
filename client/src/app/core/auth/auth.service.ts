@@ -12,18 +12,32 @@ export class AuthService {
 
   user$: Observable<User>;
 
-  constructor(private afAuth: AngularFireAuth, private userService: UserService) { }
+  constructor(private afAuth: AngularFireAuth, private userService: UserService) {
+    this.setUserObs();
+  }
+
+  get currentUserObservable(): Observable<firebase.User> {
+    return this.afAuth.authState;
+
+  }
 
   // Update the user Observable with the user from the database
   private setUserObs() {
     this.user$ = this.afAuth.authState
       .switchMap(user => {
         if (user) {
-          this.user$ = this.userService.getUserByUid(user.uid);
+          // console.log(user);
+          return this.userService.getUserByUid(user.uid);
         } else {
           return Observable.of(null);
         }
       });
+  }
+
+  isLoggedInObs(): Observable<boolean> {
+    return this.user$.map(user => {
+      return user !== null;
+    });
   }
 
   ///// Login/Signup //////
@@ -51,8 +65,6 @@ export class AuthService {
     return  Observable.fromPromise(this.afAuth.auth.createUserWithEmailAndPassword(user.email, password))
       .switchMap(res => {
         return this.createUser(res, <Roles>{regular: true}, user.name);
-      }, error => {
-        return error;
       });
   }
 

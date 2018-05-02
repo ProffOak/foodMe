@@ -24,8 +24,12 @@
     <span class="fill-remaining-space"></span>
 
     <!--Larger screen - Right-->
-    <div fxShow="false" fxShow.gt-xs>
+    <div *ngIf="true" fxShow="false" fxShow.gt-xs>
       <button mat-button routerLink="login">Login</button>
+    </div>
+
+    <div *ngIf="true " fxShow="false" fxShow.gt-xs (click)="onLogoutClick()">
+      <button mat-button>Logout</button>
     </div>
 
     <!--Smaller screen - Right-->
