@@ -8,7 +8,7 @@ const UserSchema = mongoose.Schema({
     lastLoginAt: String,
     name: String,
     // An array with strings defining the role
-    roles: [{type: String, enum: ['regular', 'chef', 'admin']}]
+    roles: { type:[{type: String, enum: ['regular', 'chef', 'admin']}], default: ['regular']}
 });
 
 module.exports = mongoose.model('User', UserSchema);

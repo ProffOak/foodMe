@@ -1,4 +1,4 @@
-const express = require("express");
+    const express = require("express");
 const router = express.Router();
 
 const User = require("../models/user");
@@ -54,7 +54,11 @@ router.post("/", (req, res, next) => {
 
 // Update Certain fields of the user object
 router.patch("/", (req, res, next) => {
-    patchUser(req.query, req, res)
+    let query=req.query;
+    if(Object.keys(query).length === 0) {
+        query={uid: req.body.uid}
+    }
+    patchUser(query, req, res)
 });
 
 router.patch("/:id", (req, res, next) => {
@@ -69,7 +73,8 @@ function patchUser(queryObj, req, res) {
             updateOps[key] = req.body[key]
         }
     }
-    User.update(queryObj, { $set: updateOps }, (err, user) => {
+    const options= {setDefaultsOnInsert:true, upsert: true, new:true};
+    User.findOneAndUpdate(queryObj, { $set: updateOps }, options, (err, user) => {
         if(err) {
             res.status(500).json({error: err});
         } else {
