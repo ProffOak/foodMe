@@ -2,6 +2,9 @@
 
 // Material Theme
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// Import theming functions
+@import '~@angular/material/theming';
+
 
 body {
   margin: 0;

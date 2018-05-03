@@ -8,4 +8,5 @@ export const environment = {
     storageBucket: 'foodme-199118.appspot.com',
     messagingSenderId: '278463345420'
   },
+  apiBaseUrl: 'https://foodme-199118.appspot.com/'
 };

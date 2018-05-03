@@ -13,4 +13,5 @@ export const environment = {
     storageBucket: 'foodme-199118.appspot.com',
     messagingSenderId: '278463345420'
   },
+  apiBaseUrl: 'http://localhost:3000/'
 };

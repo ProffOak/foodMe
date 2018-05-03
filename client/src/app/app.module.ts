@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import {HeroModule} from './hero/hero.module';
 import { QuisineComponent } from './quisine/quisine.component';
+import {SharedModule} from './shared/shared.module';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { QuisineComponent } from './quisine/quisine.component';
     // Own modules
     AppRoutingModule,
     CoreModule,
-    HeroModule
+    HeroModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
