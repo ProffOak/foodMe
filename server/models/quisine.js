@@ -6,4 +6,5 @@ const QuisineSchema = mongoose.Schema({
     name: String
 });
 
+module.exports = mongoose.model('Quisine', QuisineSchema);
 
