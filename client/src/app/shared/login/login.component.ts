@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {User} from '../../core/auth/shared/user.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,11 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  email:string;
-  password:string;
-  constructor() { }
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  onLogin(user: Observable<User>) {
+    user.take(1).subscribe(res => {
+      this.router.navigate(['']);
+    });
   }
 
 }

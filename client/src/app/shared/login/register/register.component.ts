@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {User} from '../../../core/auth/shared/user.model';
 import {PasswordValidation} from './password-validation';
 import {AuthService} from '../../../core/auth/auth.service';
 import {ErrorStateMatcher} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
+import {Router} from '@angular/router';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +17,7 @@ export class RegisterComponent implements OnInit {
 
   user = <User>{};
   registerForm: FormGroup;
+  @Output() register: EventEmitter<Observable<User>> = new EventEmitter();
 
   // password: string;
   // passwordRepeat: string;
@@ -52,7 +55,7 @@ export class RegisterComponent implements OnInit {
     if (!this.registerForm.invalid && this.passwordRepeat.value === this.passwordRepeat.value) {
       this.user.email = this.email.value;
       this.user.name = this.name.value;
-      this.authService.emailRegister(this.user, this.password.value).subscribe(res => console.log(res));
+      this.register.emit(this.authService.emailRegister(this.user, this.password.value));
     }
 
   }

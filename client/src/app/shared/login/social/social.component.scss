@@ -1,0 +1,24 @@
+.google-login{
+  height: 46px;
+  width: 100%;
+  //font-family: Roboto,arial,sans-serif;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: .21px;
+  background: #4285F4 url('../../../../assets/icons/google.svg') no-repeat 0px;
+  background-size: 45px;
+  margin-top: 15px;
+}
+.facebookLogin{
+  height: 46px;
+  width: 100%;
+  //font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: .21px;
+  color: #fff;
+  background: #3b5998 url('../../../../assets/icons/facebook.svg') no-repeat 10px;
+  background-size: 25px;
+  margin-top:15px;
+}

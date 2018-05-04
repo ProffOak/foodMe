@@ -1,0 +1,17 @@
+<form #emailLoginForm="ngForm" (ngSubmit)="onSubmit()">
+  <mat-form-field class="full-width">
+    <input #emailField="ngModel" email="" type="email" matInput name="Email" placeholder="Email" [(ngModel)]="email" required>
+    <mat-error *ngIf="!email && (emailField.dirty || emailField.touched)">Email är obligatoriskt</mat-error>
+    <mat-error *ngIf="email && (emailField.dirty || emailField.touched)">Skriv in en korrekt email</mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input #passwordField="ngModel" type="password" matInput name="Password" placeholder="Password" [(ngModel)]="password" required>
+    <mat-error *ngIf="!password && (passwordField.dirty || passwordField.touched)">Lösenord är obligatoriskt</mat-error>
+  </mat-form-field>
+  <button
+    class="full-width"
+    mat-raised-button
+    color="primary"
+    [disabled]="!emailLoginForm.form.valid"
+  ><mat-icon>email</mat-icon>Logga in med email</button>
+</form>
