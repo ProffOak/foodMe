@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 
 const RecipeSchema = mongoose.Schema({
     name: String,
@@ -12,4 +14,4 @@ const RecipeSchema = mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('Recipe', UserSchema);
+module.exports = mongoose.model('Recipe', RecipeSchema);
