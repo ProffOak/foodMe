@@ -1,9 +1,14 @@
 # Food Me
 
-A project for a new way to find interesting recipies online,
+A MEAN-stack project for a new way to find interesting recipies online,
 and facilitate the weekly grocery shopping for the whole family.
+Built with Angular 2+ and Node express.
 
-Built with angular 2 and Node express.
+
+##Live
+Application live at https://foodme-199118.firebaseapp.com/#/
+API at https://foodme-199118.appspot.com/
+
 
 ## Install and startup
 
