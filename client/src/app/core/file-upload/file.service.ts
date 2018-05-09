@@ -5,7 +5,7 @@ import UploadMetadata = firebase.storage.UploadMetadata;
 import * as firebase from 'firebase';
 
 @Injectable()
-export class FileUploadService {
+export class FileService {
 
   constructor(private storage: AngularFireStorage) { }
 
