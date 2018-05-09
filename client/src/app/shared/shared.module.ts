@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
-import {FormsModule} from '@angular/forms';
-import {MatCardModule, MatIconModule, MatInputModule, MatTabsModule} from '@angular/material';
-import { RegisterComponent } from './login/register/register.component';
 import {LoginModule} from './login/login.module';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   imports: [
@@ -13,7 +10,7 @@ import {LoginModule} from './login/login.module';
 
     LoginModule
   ],
-  declarations: [],
+  declarations: [ProfileComponent],
   exports: []
 })
 export class SharedModule { }

@@ -4,6 +4,8 @@ import {MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatTabsMo
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoginComponent} from './login.component';
 import {RegisterComponent} from './register/register.component';
+import { EmailComponent } from './email/email.component';
+import { SocialComponent } from './social/social.component';
 
 @NgModule({
   imports: [
@@ -17,7 +19,7 @@ import {RegisterComponent} from './register/register.component';
     MatTabsModule,
     MatButtonModule
   ],
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, EmailComponent, SocialComponent],
   exports: [LoginComponent]
 })
 export class LoginModule { }

@@ -29,11 +29,15 @@
     <span class="fill-remaining-space"></span>
 
     <!--Larger screen - Right-->
-    <div *ngIf="true" fxShow="false" fxShow.gt-xs>
+    <div *ngIf="isLoggedIn" fxShow="false" fxShow.gt-xs>
+      <button mat-button routerLink="profile">Profile</button>
+    </div>
+
+    <div *ngIf="!isLoggedIn" fxShow="false" fxShow.gt-xs>
       <button mat-button routerLink="login">Login</button>
     </div>
 
-    <div *ngIf="true " fxShow="false" fxShow.gt-xs (click)="onLogoutClick()">
+    <div *ngIf="isLoggedIn" fxShow="false" fxShow.gt-xs (click)="onLogoutClick()">
       <button mat-button>Logout</button>
     </div>
 

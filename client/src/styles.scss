@@ -15,7 +15,9 @@ body {
  Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
 }
-
+.full-width {
+  width: 100%;
+}
 
 /*Remove spinners from number input fields */
 input.remove-spinner::-webkit-outer-spin-button,

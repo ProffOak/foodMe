@@ -18,7 +18,7 @@
   </mat-input-container>
 
   <mat-input-container class="full-width">
-    <input matInput placeholder="Password" formControlName="password">
+    <input type="password" matInput placeholder="Password" formControlName="password">
     <mat-error *ngIf="password.touched && password.hasError('minlength') && !password.hasError('required')" >
       Password needs to be at least 6 characters
     </mat-error>
@@ -28,7 +28,7 @@
   </mat-input-container>
 
   <mat-input-container class="full-width">
-    <input matInput placeholder="Repeat Password" formControlName="passwordRepeat">
+    <input type="password" matInput placeholder="Repeat Password" formControlName="passwordRepeat">
     <mat-hint class="warn-color" *ngIf="passwordRepeat.touched && registerForm.errors && registerForm.errors['MatchPassword']">
       Passwords need to match
     </mat-hint>

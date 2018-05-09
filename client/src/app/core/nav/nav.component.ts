@@ -9,16 +9,18 @@ import {Observable} from 'rxjs/Observable';
 })
 export class NavComponent implements OnInit {
 
-  isLoggedInObs: boolean;
+  isLoggedIn = false;
 
   constructor(public authService: AuthService) { }
 
   ngOnInit() {
-    // this.isLoggedInObs = this.authService.isLoggedIn();
-    this.authService.user$.subscribe(res => {
+    // this.isLoggedIn = this.authService.isLoggedIn();
+    /*this.authService.user$.subscribe(res => {
       console.log(res);
+    });*/
+    this.authService.isLoggedInObs().subscribe(res => {
+      this.isLoggedIn = res;
     });
-    this.authService.isLoggedInObs().subscribe(res => console.log(res));
   }
 
   onLogoutClick() {
