@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import {HeroModule} from './hero/hero.module';
 import {SharedModule} from './shared/shared.module';
+import {RecipeModule} from './recipes/recipe.module';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {SharedModule} from './shared/shared.module';
     AppRoutingModule,
     CoreModule,
     HeroModule,
-    SharedModule
+    SharedModule,
+    RecipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
