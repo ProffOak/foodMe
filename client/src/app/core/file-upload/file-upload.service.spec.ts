@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { FileUploadService } from './file-upload.service';
+import { FileService } from './file.service';
 
-describe('FileUploadService', () => {
+describe('FileService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FileUploadService]
+      providers: [FileService]
     });
   });
 
-  it('should be created', inject([FileUploadService], (service: FileUploadService) => {
+  it('should be created', inject([FileService], (service: FileService) => {
     expect(service).toBeTruthy();
   }));
 });

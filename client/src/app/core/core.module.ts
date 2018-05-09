@@ -12,6 +12,7 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {UserService} from './auth/user.service';
+import {FileService} from './file-upload/file.service';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any> {
@@ -39,6 +40,7 @@ export class MyHammerConfig extends HammerGestureConfig {
   declarations: [NavComponent],
   exports: [NavComponent],
   providers: [
+    FileService,
     AuthService,
     UserService,
     {
