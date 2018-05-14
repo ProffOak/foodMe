@@ -5,14 +5,38 @@ const Recipe = require("../models/recipe");
 
 // Handle incoming GET requests to /users, also supports query params
 router.get("/", (req, res, next) => {
-    Recipe.find(req.query, (err, users) => {
-        if(err) {
-            res.status(500).json({error: err});
-        }else {
-            res.status(200).json(users);
-            res.end();
-        }
-    });
+    if("random" in req.query && "limit" in req.query) {
+        let query = req.query;
+        const limit = parseInt(req.query.limit);
+        delete query.random;
+        delete query.limit;
+        Recipe.count(query, (err, count) => {
+            // Random number between count-limit and 1
+            const r = Math.floor(Math.random() * (count-limit -1) + 1);
+            console.log("r:"+r+" count:"+count);
+            Recipe.find(query).limit(limit).skip(r).exec((err, recipes) => {
+                if(err) {
+                    res.status(500).json({error: err});
+                    res.end();
+                }else {
+                    res.status(200).json(recipes);
+                    res.end();
+                }
+            });
+
+        });
+
+    } else {
+        Recipe.find(req.query, (err, recipes) => {
+            if(err) {
+                res.status(500).json({error: err});
+            }else {
+                res.status(200).json(recipes);
+                res.end();
+            }
+        });
+    }
+
 });
 
 

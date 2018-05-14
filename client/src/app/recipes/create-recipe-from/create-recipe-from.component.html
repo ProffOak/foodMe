@@ -27,12 +27,14 @@
     <textarea #instructions matInput name="Instructios" placeholder="Instruktioner"
               [(ngModel)]="recipe.instructions" [rows]="8"></textarea>
     </mat-form-field>
+    <div class="full-width">
+      <img *ngIf="recipe.imgUrl" [src]="recipe.imgUrl" class="recipe-img">
+    </div>
     <button type="button" type="button" mat-raised-button color="accent" onclick="document.getElementById('fileInput').click()">
       Välj BIld
     </button>
     <input style="display:none;" id="fileInput" [multiple]="false" [accept]="'image/*'" type="file"
            (change)="fileSelected($event.target.files)">
-    <img *ngIf="recipe.imgUrl" [src]="recipe.imgUrl" class="recipe-img">
     <button
       class="full-width"
       mat-raised-button

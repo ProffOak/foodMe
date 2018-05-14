@@ -4,6 +4,7 @@ import { CreateRecipeFromComponent } from './create-recipe-from/create-recipe-fr
 import {RecipeService} from './shared/recipe.service';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule, MatCardModule, MatChipsModule, MatIconModule, MatInputModule} from '@angular/material';
+import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import {MatButtonModule, MatCardModule, MatChipsModule, MatIconModule, MatInputM
     MatCardModule,
     MatChipsModule
   ],
-  declarations: [CreateRecipeFromComponent],
+  declarations: [CreateRecipeFromComponent, RecipeCardComponent],
   providers: [RecipeService]
 })
 export class RecipeModule { }
