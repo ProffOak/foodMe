@@ -27,3 +27,11 @@ input.remove-spinner::-webkit-inner-spin-button {
 input.remove-spinner{
   -moz-appearance:textfield;
 }
+
+.snackbar-error {
+  background-color: red!important;
+}
+
+.snackbar-success {
+  background-color: #4BB543!important;
+}
