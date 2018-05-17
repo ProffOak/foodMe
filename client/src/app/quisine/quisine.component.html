@@ -1,6 +1,5 @@
 
 
-
 <div class="container color-dark">
   <div class="col">
     <h1>Choose quisines</h1>
@@ -8,32 +7,20 @@
 </div>
 <div class="container color-light">
   <div class="col">
-    <p class="sm">Use this form below to add a new bucket list goal. What do you want to accomplish in your life?</p>
 
-    <form>
-      <input type="text" class="txt" name="item" placeholder="Life goal.." >
-      <input type="submit" class="btn" [value]=btnText >
-    </form>
+    <button mat-raised-button *ngFor="let q of quisines; let i = index" [color]="clickColor(q) ? 'primary' : 'accent'"  (click)="isSelected(q)">{{q?.name}}</button>
+
 
   </div>
 
-  <ul>
-    <li *ngFor="let quisine of quisines">{{quisine}}</li>
-  </ul>
   <div class="col">
 
-    <mat-chip-list class="mat-chip-list-stacked" >
-      <mat-chip (remove)="onclick($event)" [color]="warn" *ngFor="let chip of quisines; let i = index" selected="{{chip.checked}}" multiple="true" (click)="getSelected(i)" >
-        {{chip.name}}
-      </mat-chip>
-    </mat-chip-list>
+
+  </div>
+
+  <div class="col">
 </div>
 
-
-  <p>Du har valt följande mat:</p>
-  <ul>
-    <li *ngFor="let q of selectedQuisines; let i = index">{{q.name}}</li>
-  </ul>
 
 </div>
 <div class="container color-light">

@@ -12,13 +12,13 @@ import {HeroModule} from './hero/hero.module';
 import { QuisineComponent } from './quisine/quisine.component';
 import {SharedModule} from './shared/shared.module';
 import { HttpModule} from "@angular/http";
-import { QuisineService} from "./quisine.service";
+import {QuisineModule} from "./quisine/quisine.module";
+
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    QuisineComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +26,7 @@ import { QuisineService} from "./quisine.service";
     HttpModule,
 
     // Own modules
+    QuisineModule,
     AppRoutingModule,
     CoreModule,
     HeroModule,
@@ -34,7 +35,7 @@ import { QuisineService} from "./quisine.service";
     MatChipsModule,
     MatCheckboxModule
   ],
-  providers: [QuisineService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

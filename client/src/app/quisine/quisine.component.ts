@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {QuisineService} from "../quisine.service";
+import {log} from "util";
+import {Quisine} from "./quisine.model";
+import {Observable} from 'rxjs/Observable';
+import {QuisineService} from "./quisine.service";
 
 @Component({
   selector: 'app-quisine',
@@ -9,45 +11,29 @@ import {QuisineService} from "../quisine.service";
 })
 export class QuisineComponent implements OnInit {
 
-  lars = 'god mat';
-  checked = false;
-  clickMessage = 'inte klickad';
+  constructor(private quisineService : QuisineService) {}
 
-  quisines: any = [
-    { id: 1, name:'Skandinaviskt', checked: false },
-    { id: 2, name:'Amerikanskt', checked: false  },
-    { id: 3, name:'Franskt', checked: false  }
-  ];
+quisines: Quisine[] = [];
+selectedQuisines: Quisine[] = [];
 
-
-
-
-  selectedQuisines: any = [];
-/*
-    quisines: Array<any>;
-    constructor(private _quisineService: QuisineService) {
-
-
-      this._quisineService.getQuisines()
-        .subscribe(res => this.quisines = res);
-
-    }
-*/
   ngOnInit() {
+  this.quisineService.getQuisines().subscribe(quisines => {
+    this.quisines=quisines;
+  })
   }
 
-  addQuisine() {
-    this.selectedQuisines.push()
+    isSelected(quisine){
+      if (this.selectedQuisines.includes(quisine) == false) {
+        this.selectedQuisines.push(quisine);
+      } else {
+        this.selectedQuisines.splice(this.selectedQuisines.indexOf(quisine), 1)
+      }
   }
-  getSelected(i) {
-    this.selectedQuisines.push(this.quisines[i]);
 
-    }
-
-  onClick(event) {
-    console.log(event);
-    console.log(event.target);
+  clickColor(quisine) {
+    return this.selectedQuisines.includes(quisine) != true;
   }
+
 
 
 }

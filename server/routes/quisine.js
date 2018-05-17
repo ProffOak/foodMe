@@ -18,7 +18,7 @@ router.get('/',(req,res) => {
         if(err) {
             res.status(500).json({error: err});
         }else {
-            res.status(200).json({quisines});
+            res.status(200).json(quisines);
             res.end();
         }
     });
@@ -48,7 +48,7 @@ router.post("/", (req, res, next) => {
             res.status(400).json({error: err});
             res.end();
         } else {
-            res.status(200).json({quisine});
+            res.status(200).json(quisine);
             res.end();
         }
     });

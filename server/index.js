@@ -48,7 +48,7 @@ app.get('/api/:name', (req, res) => {
 //Routing all HTTP requests to /item to item controller
 app.use('/item',item);
 app.use('/hero', hero);
-app.use('/quisine', quisine);
+app.use('/quisines', quisine);
 app.use('/users', user);
 
 app.listen(port, () => {
