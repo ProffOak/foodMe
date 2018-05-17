@@ -9,13 +9,30 @@ import {Recipe} from '../shared/recipe.model';
 })
 export class RecipeCardComponent implements OnInit {
 
-  recipe: Recipe;
+  currentRecipe: Recipe;
+  recipes: Recipe[];
+  numberOfRecipesPerLoad: 20;
+
   constructor(private recipeService: RecipeService) { }
 
-  ngOnInit() {
-    this.recipeService.getRecipes().subscribe(recipes => {
-      this.recipe = recipes[2];
+  private getRandomRecipes() {
+    this.recipeService.getRandomRecipes(this.numberOfRecipesPerLoad).subscribe(recipes => {
+      this.recipes = recipes;
+      this.currentRecipe = this.recipes.pop();
     });
+  }
+
+  ngOnInit() {
+    this.getRandomRecipes();
+  }
+
+  onCancelClick() {
+    this.currentRecipe = this.recipes.pop();
+    // When out of recipes, get new ones
+    if (this.recipes.length === 0) {
+      this.getRandomRecipes();
+    }
+
   }
 
 }

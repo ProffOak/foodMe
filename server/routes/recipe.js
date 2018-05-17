@@ -19,7 +19,7 @@ router.get("/", (req, res, next) => {
             res.end();
         }
     };
-    if(random.toLowerCase() === "true") {
+    if(random && random.toLowerCase() === "true") {
         if(!limit) limit = 50;
        Recipe.findRandom(req.query, {}, {limit: limit}, handler);
     }else {

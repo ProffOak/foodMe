@@ -19,4 +19,8 @@ export class RecipeService extends ObjectService<Recipe> {
     return this.addObject(recipe);
   }
 
+  getRandomRecipes(limit: number): Observable<Recipe[]> {
+    return this.getObjectsByQuery({limit: limit, random: true});
+  }
+
 }

@@ -1,14 +1,14 @@
 <mat-card class="recipe-card-max-width auto-margin">
   <mat-card-header>
-    <mat-card-title>{{recipe?.name}}</mat-card-title>
+    <h3 class="mat-h3">{{currentRecipe?.name}}</h3>
   </mat-card-header>
+  <img class="recipe-card-img" mat-card-image *ngIf="currentRecipe?.imgUrl" [src]="currentRecipe.imgUrl">
   <mat-card-content>
-    <img *ngIf="recipe?.imgUrl" [src]="recipe.imgUrl" class="recipe-card-img">
-    <div class="mat-body">{{recipe?.description}}</div>
+    <div class="mat-body">{{currentRecipe?.description}}</div>
   </mat-card-content>
   <mat-card-actions>
     <div class="wrapper">
-      <button mat-fab color="warn" class="card-action-button">
+      <button (click)="onCancelClick()" mat-fab color="warn" class="card-action-button">
         <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
       </button>
       <button mat-fab color="primary" class="card-action-button">
@@ -19,4 +19,4 @@
   </mat-card-actions>
 </mat-card>
 
-<pre>{{recipe | json}}</pre>
+<pre>{{currentRecipe | json}}</pre>
