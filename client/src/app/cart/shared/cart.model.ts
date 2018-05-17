@@ -1,6 +1,6 @@
 export interface Cart {
   _id: String;
-  ownerUid: String;
+  uid: String;
   recipeIds: String[];
   isActive: boolean;
   date: Date;
