@@ -8,10 +8,10 @@
   </mat-card-content>
   <mat-card-actions>
     <div class="wrapper">
-      <button (click)="onCancelClick()" mat-fab color="warn" class="card-action-button">
+      <button (click)="nextRecipe()" mat-fab color="warn" class="card-action-button">
         <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
       </button>
-      <button mat-fab color="primary" class="card-action-button">
+      <button (click)="onAddClick()" mat-fab color="primary" class="card-action-button">
         <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
       </button>
     </div>
@@ -20,3 +20,8 @@
 </mat-card>
 
 <pre>{{currentRecipe | json}}</pre>
+
+<!--<pre>{{cartObs | async | json}}</pre>-->
+<div *ngIf="cartObs | async as cart">
+<button (click)="deleteRecipe(item)" mat-button *ngFor="let item of cart?.recipeIds">{{item}}</button>
+</div>

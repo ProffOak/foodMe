@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {RecipeService} from '../shared/recipe.service';
 import {Recipe} from '../shared/recipe.model';
+import {CartService} from '../../cart/shared/cart.service';
+import {Observable} from 'rxjs/Observable';
+import {Cart} from '../../cart/shared/cart.model';
 
 @Component({
   selector: 'app-recipe-card',
@@ -13,7 +16,9 @@ export class RecipeCardComponent implements OnInit {
   recipes: Recipe[];
   numberOfRecipesPerLoad: 20;
 
-  constructor(private recipeService: RecipeService) { }
+  cartObs: Observable<Cart>;
+
+  constructor(private recipeService: RecipeService, private cartService: CartService) { }
 
   private getRandomRecipes() {
     this.recipeService.getRandomRecipes(this.numberOfRecipesPerLoad).subscribe(recipes => {
@@ -24,15 +29,28 @@ export class RecipeCardComponent implements OnInit {
 
   ngOnInit() {
     this.getRandomRecipes();
+    this.cartObs = this.cartService.currentCartObs;
   }
 
-  onCancelClick() {
+
+  nextRecipe() {
     this.currentRecipe = this.recipes.pop();
     // When out of recipes, get new ones
     if (this.recipes.length === 0) {
       this.getRandomRecipes();
     }
+  }
 
+
+  onAddClick() {
+    this.cartService.addToCart(this.currentRecipe).subscribe(res => {
+    });
+    this.nextRecipe();
+  }
+
+  deleteRecipe(item){
+    this.cartService.removeFromCart(item).subscribe(res => {
+    });
   }
 
 }
