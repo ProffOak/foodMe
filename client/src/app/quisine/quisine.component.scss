@@ -1,9 +1,13 @@
 
 
-.container {
-  display: grid;
-  grid-template-columns: 50% auto;
+.top-section {
+  height: 100%;
 }
+
+.quisines-section {
+  height: 20%;
+}
+
 .col {
   padding: .4em 1.3em;
 }
@@ -13,6 +17,8 @@
 .color-light {
   background: #57B3F1;
 }
+
+
 
 input.txt {
   border: 0;

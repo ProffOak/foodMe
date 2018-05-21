@@ -1,11 +1,11 @@
 <mat-card class="login-card">
   <mat-tab-group>
-    <mat-tab label="Logga in">
+    <mat-tab label="Logga in" class="tab-width">
       <app-email (login)="onLogin($event)"></app-email>
       <app-social (login)="onLogin($event)"></app-social>
     </mat-tab>
     <!--Sign Up Tab--->
-    <mat-tab label="Registrera">
+    <mat-tab label="Registrera" class="tab-width">
       <app-register (register)="onLogin($event)"></app-register>
     </mat-tab>
   </mat-tab-group>

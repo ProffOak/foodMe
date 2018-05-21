@@ -1,0 +1,45 @@
+<mat-card class="card-max-width auto-margin">
+  <form #createRecipe="ngForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="full-width">
+      <input #name="ngModel" matInput name="Name" placeholder="Name" [(ngModel)]="recipe.name" required>
+      <mat-error *ngIf="!recipe.name && (name.dirty || name.touched)">Namn är obligatoriskt</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+    <textarea #description matInput name="Description" placeholder="Short description"
+              [(ngModel)]="recipe.description" maxlength="50"></textarea>
+      <mat-hint align="end">{{description.value.length}} / 50</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-chip-list #chipList>
+        <mat-chip color="primary" *ngFor="let ingredient of recipe.ingredients" [selectable]="false" [selected]="true"
+                  [removable]="removable" (removed)="removeIngredient(ingredient)">
+          {{ingredient}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Skriv in ingredienser..."
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="true"
+               (matChipInputTokenEnd)="addIngredient($event)"/>
+      </mat-chip-list>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+    <textarea #instructions matInput name="Instructios" placeholder="Instruktioner"
+              [(ngModel)]="recipe.instructions" [rows]="8"></textarea>
+    </mat-form-field>
+    <div class="full-width">
+      <img *ngIf="recipe.imgUrl" [src]="recipe.imgUrl" class="recipe-img">
+    </div>
+    <button type="button" type="button" mat-raised-button color="accent" onclick="document.getElementById('fileInput').click()">
+      Välj BIld
+    </button>
+    <input style="display:none;" id="fileInput" [multiple]="false" [accept]="'image/*'" type="file"
+           (change)="fileSelected($event.target.files)">
+    <button
+      class="full-width"
+      mat-raised-button
+      color="primary"
+      [disabled]="!createRecipe.form.valid"
+    ><mat-icon>restaurant</mat-icon>Skapa Recept</button>
+  </form>
+</mat-card>

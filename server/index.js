@@ -9,6 +9,7 @@ const item = require('./routes/item');
 const hero = require('./routes/hero');
 const quisine = require('./routes/quisine');
 const user = require('./routes/user');
+const recipe = require('./routes/recipe');
 
 
 const config = require('./config/database');
@@ -50,6 +51,7 @@ app.use('/item',item);
 app.use('/hero', hero);
 app.use('/quisines', quisine);
 app.use('/users', user);
+app.use('/recipes', recipe);
 
 app.listen(port, () => {
     console.log(`Starting the server at port ${port}`);

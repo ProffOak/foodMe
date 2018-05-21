@@ -15,7 +15,12 @@ export class QuisineService extends ObjectService<Quisine>{
     super(http, 'quisines');
   }
 
+  quisineArray: Quisine[] = [];
 
+
+  updateQuisines(quisines: Quisine[]){
+    this.quisineArray=quisines;
+  }
 
   getQuisines(): Observable<Quisine[]> {
     return this.getObjects();

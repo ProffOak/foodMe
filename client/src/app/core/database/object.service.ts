@@ -52,7 +52,7 @@ export abstract class ObjectService<ObjectClass> {
   }
 
 
-  /** POST: add a new object to the server */
+  /** POST: addIngredient a new object to the server */
   addObject (object: ObjectClass): Observable<ObjectClass> {
     return this.httpClient.post<ObjectClass>(this.url, object, httpOptions)
       .pipe(

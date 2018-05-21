@@ -1,0 +1,34 @@
+.recipe-card-max-width{
+  max-width: 300px;
+}
+.auto-margin{
+  margin: auto;
+}
+.recipe-card-img{
+  display: block;
+  object-fit: contain;
+  margin: auto;
+  width: 100%;
+  height:300px;
+}
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-action-button{
+  margin: 0 5px
+}
+.container {
+  width: 100%;
+  padding-bottom: 100%;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.container img {
+  object-fit: cover;
+  position: absolute;
+  height: 100%;
+}

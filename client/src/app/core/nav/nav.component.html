@@ -10,7 +10,7 @@
 
     <!--Larger screen - Left-->
     <div fxShow="false" fxShow.gt-xs>
-      <button mat-button routerLink="/">
+      <button mat-button routerLink="/recipes">
         Recepies
       </button>
     </div>
@@ -31,6 +31,10 @@
     <!--Larger screen - Right-->
     <div *ngIf="isLoggedIn" fxShow="false" fxShow.gt-xs>
       <button mat-button routerLink="profile">Profile</button>
+    </div>
+
+    <div fxShow="false" fxShow.gt-xs>
+      <button mat-button routerLink="recipes/add">Add Recipe</button>
     </div>
 
     <div *ngIf="!isLoggedIn" fxShow="false" fxShow.gt-xs>

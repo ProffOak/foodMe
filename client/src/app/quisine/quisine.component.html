@@ -5,26 +5,18 @@
     <h1>Choose quisines</h1>
   </div>
 </div>
-<div class="container color-light">
-  <div class="col">
-
-    <button mat-raised-button *ngFor="let q of quisines; let i = index" [color]="clickColor(q) ? 'primary' : 'accent'"  (click)="isSelected(q)">{{q?.name}}</button>
+<div class="container color-light quisines-section"  fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxLayoutAlign="center center" >
 
 
-  </div>
-
-  <div class="col">
-
-
-  </div>
-
-  <div class="col">
-</div>
+    <button mat-raised-button fxFlex="20%"  *ngFor="let q of quisines; let i = index" [color]="clickColor(q) ? 'primary' : 'accent'"  (click)="isSelected(q)">{{q?.name}}</button>
 
 
 </div>
-<div class="container color-light">
-  <button mat-raised-button color="warn">Börja Svepa</button>
+
+<div class="container color-light" fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxLayoutAlign="center">
+  <button mat-raised-button color="warn" (click)="nextRoute()">Börja Svepa</button>
 </div>
 
+<div class="container color-light top-section">
+</div>
 
