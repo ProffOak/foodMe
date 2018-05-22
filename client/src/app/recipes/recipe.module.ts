@@ -3,7 +3,15 @@ import { CommonModule } from '@angular/common';
 import { CreateRecipeFromComponent } from './create-recipe-from/create-recipe-from.component';
 import {RecipeService} from './shared/recipe.service';
 import {FormsModule} from '@angular/forms';
-import {MatButtonModule, MatCardModule, MatChipsModule, MatIconModule, MatInputModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule
+} from '@angular/material';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import {CartModule} from '../cart/cart.module';
 
@@ -19,7 +27,9 @@ import {CartModule} from '../cart/cart.module';
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSelectModule,
+    MatCheckboxModule
   ],
   declarations: [CreateRecipeFromComponent, RecipeCardComponent],
   providers: [RecipeService]

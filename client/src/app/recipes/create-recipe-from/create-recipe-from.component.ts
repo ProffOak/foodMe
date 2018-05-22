@@ -11,6 +11,9 @@ import {Subscription} from 'rxjs/Subscription';
 import {SnackbarService} from '../../core/snackbar/snackbar.service';
 import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
 import {Router} from '@angular/router';
+import {QuisineService} from '../../quisine/quisine.service';
+import {Observable} from 'rxjs/Observable';
+import {Quisine} from '../../quisine/quisine.model';
 
 
 @Component({
@@ -25,18 +28,23 @@ export class CreateRecipeFromComponent implements OnInit, OnDestroy {
   imageFile: File;
 
   separatorKeysCodes = [ENTER, COMMA];
-  removable = true;
 
   userSub: Subscription;
   currentUser: User;
 
+  quisinesObs: Observable<Quisine[]>;
+
+  selectedQuisines = <Quisine[]>[];
+
   constructor(private recipeService: RecipeService, private fileService: FileService, private sanitizer: DomSanitizer,
-              private authService: AuthService, private snackbarService: SnackbarService, private router: Router) { }
+              private authService: AuthService, private snackbarService: SnackbarService, private router: Router,
+              private quisineService: QuisineService) { }
 
   ngOnInit() {
     this.userSub = this.authService.user$.subscribe(user => {
       this.currentUser = user;
     });
+    this.quisinesObs = this.quisineService.getQuisines();
   }
   addIngredient(event: MatChipInputEvent): void {
     const input = event.input;
@@ -62,6 +70,10 @@ export class CreateRecipeFromComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    // Add the quisine ids to the recipe
+    for (const quisine of this.selectedQuisines) {
+      this.recipe.quisines.push(quisine._id);
+    }
     this.recipe.uid = this.currentUser.uid;
     const uploadTask = this.fileService.uploadFile(this.imageFile);
     uploadTask.downloadURL().take(1).subscribe(url => {
@@ -77,5 +89,6 @@ export class CreateRecipeFromComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
+
 
 }

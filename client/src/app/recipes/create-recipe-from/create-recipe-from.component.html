@@ -6,15 +6,15 @@
     </mat-form-field>
     <mat-form-field class="full-width">
     <textarea #description matInput name="Description" placeholder="Short description"
-              [(ngModel)]="recipe.description" maxlength="50"></textarea>
+              [(ngModel)]="recipe.description" maxlength="50" [rows]="2"></textarea>
       <mat-hint align="end">{{description.value.length}} / 50</mat-hint>
     </mat-form-field>
     <mat-form-field class="full-width">
       <mat-chip-list #chipList>
         <mat-chip color="primary" *ngFor="let ingredient of recipe.ingredients" [selectable]="false" [selected]="true"
-                  [removable]="removable" (removed)="removeIngredient(ingredient)">
+                  [removable]="true" (removed)="removeIngredient(ingredient)">
           {{ingredient}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
         <input placeholder="Skriv in ingredienser..."
                [matChipInputFor]="chipList"
@@ -24,15 +24,25 @@
       </mat-chip-list>
     </mat-form-field>
     <mat-form-field class="full-width">
-    <textarea #instructions matInput name="Instructios" placeholder="Instruktioner"
-              [(ngModel)]="recipe.instructions" [rows]="8"></textarea>
+      <textarea #instructions matInput name="Instructios" placeholder="Instruktioner"
+                [(ngModel)]="recipe.instructions" [rows]="8"></textarea>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-select name="Quisnes" placeholder="Quisines" [(ngModel)]="selectedQuisines" multiple>
+        <mat-select-trigger>
+          <div class="chip" *ngFor="let quisine of selectedQuisines">{{quisine.name}}</div>
+        </mat-select-trigger>
+        <mat-option *ngFor="let quisine of (quisinesObs | async)" [value]="quisine">{{quisine.name}}</mat-option>
+      </mat-select>
     </mat-form-field>
     <div class="full-width">
       <img *ngIf="recipe.imgUrl" [src]="recipe.imgUrl" class="recipe-img">
     </div>
-    <button type="button" type="button" mat-raised-button color="accent" onclick="document.getElementById('fileInput').click()">
-      Välj BIld
-    </button>
+    <div class="full-width center-wrapper">
+      <button mat-raised-button type="button" class="add-image-button"  color="accent" onclick="document.getElementById('fileInput').click()">
+        Välj BIld
+      </button>
+    </div>
     <input style="display:none;" id="fileInput" [multiple]="false" [accept]="'image/*'" type="file"
            (change)="fileSelected($event.target.files)">
     <button
@@ -43,3 +53,5 @@
     ><mat-icon>restaurant</mat-icon>Skapa Recept</button>
   </form>
 </mat-card>
+
+<pre>{{recipe | json}}</pre>
