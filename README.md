@@ -5,8 +5,8 @@ and facilitate the weekly grocery shopping for the whole family.
 Built with Angular 2+ and Node express.
 
 
-##Live
-Application live at https://foodme-199118.firebaseapp.com/#/
+## Live
+Application at https://foodme-199118.firebaseapp.com/#/
 API at https://foodme-199118.appspot.com/
 
 

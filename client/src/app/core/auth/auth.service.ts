@@ -29,7 +29,7 @@ export class AuthService {
           // console.log(user);
           return this.userService.getUserByUid(user.uid);
         } else {
-          return from(null);
+          return of(null);
         }
       }));
   }

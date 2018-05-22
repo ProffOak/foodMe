@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {Cart} from './cart.model';
 import {ObjectService} from '../../core/database/object.service';
 import {HttpClient} from '@angular/common/http';
@@ -30,25 +30,40 @@ export class CartService extends ObjectService<Cart> {
   private initializeCart() {
     this.authService.user$.pipe(
       switchMap(user => {
-      this.currentUser = user;
-      return this.getObjectsByQuery({uid: user.uid});
-    })).subscribe((cart: Cart[]) => {
-      if (cart[0]) {
-        this.cartSubject.next(cart[0]);
+        this.currentUser = user;
+        if (user) {
+          // Get cart from databse based on the CurrentUser's uid
+          return this.getObjectsByQuery({uid: user.uid});
+        } else {
+          // If no user signed in return null
+          return of(null);
+        }
+      })).subscribe((cart: Cart[]) => {
+      if (cart && cart[0]) {
         this.currentCart = cart[0];
+        this.cartSubject.next(cart[0]);
+      } else {
+        // Reset cart and emit null
+        this.currentCart = <Cart>{date: new Date(), recipeIds: []};
+        this.cartSubject.next(this.currentCart);
       }
     });
   }
 
   addToCart(recipe: Recipe): Observable<Cart> {
+    // Check if current user is logged in
     if (this.currentUser) {
       this.currentCart.uid = this.currentUser.uid;
     }
     this.currentCart.recipeIds.push(recipe._id);
     // Output the updated cart as next
     this.cartSubject.next(this.currentCart);
-    // Update the cart in the databse
-    return this.patchObject(this.currentCart, {uid: this.currentCart.uid});
+    // Update the cart in the database if user is logged in
+    if (this.currentUser) {
+      return this.patchObject(this.currentCart, {uid: this.currentCart.uid});
+    } else {
+      return this.cartSubject.asObservable();
+    }
   }
 
   removeFromCart(recipeId: string): Observable<Cart> {
@@ -56,7 +71,12 @@ export class CartService extends ObjectService<Cart> {
     // Output the updated value
     this.cartSubject.next(this.currentCart);
     // Update the cart in the database
-    return this.patchObject(this.currentCart, {uid: this.currentCart.uid});
+    if (this.currentUser) {
+      return this.patchObject(this.currentCart, {uid: this.currentCart.uid});
+    } else {
+      return this.cartSubject.asObservable();
+    }
+
   }
 
 }
