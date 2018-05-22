@@ -7,13 +7,15 @@ import {RecipeService} from '../shared/recipe.service';
 import {FileService} from '../../core/file-upload/file.service';
 import {AuthService} from '../../core/auth/auth.service';
 import {User} from '../../core/auth/shared/user.model';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription, Observable} from 'rxjs';
+import { take } from 'rxjs/operators';
 import {SnackbarService} from '../../core/snackbar/snackbar.service';
 import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
 import {Router} from '@angular/router';
 import {QuisineService} from '../../quisine/quisine.service';
-import {Observable} from 'rxjs/Observable';
 import {Quisine} from '../../quisine/quisine.model';
+import {tap} from 'rxjs/operators';
+import {takeLast} from 'rxjs/internal/operators';
 
 
 @Component({
@@ -30,6 +32,7 @@ export class CreateRecipeFromComponent implements OnInit, OnDestroy {
   separatorKeysCodes = [ENTER, COMMA];
 
   userSub: Subscription;
+  fileSub: Subscription;
   currentUser: User;
 
   quisinesObs: Observable<Quisine[]>;
@@ -75,19 +78,22 @@ export class CreateRecipeFromComponent implements OnInit, OnDestroy {
       this.recipe.quisines.push(quisine._id);
     }
     this.recipe.uid = this.currentUser.uid;
-    const uploadTask = this.fileService.uploadFile(this.imageFile);
-    uploadTask.downloadURL().take(1).subscribe(url => {
-      this.recipe.imgUrl = url;
-      this.recipeService.addRecipe(this.recipe).toPromise().then(res => {
+    // Subscribe to the snapshot from firebase but only take use it when completed using takeLast
+    this.fileSub = this.fileService.uploadFile(this.imageFile).snapshotChanges().pipe(takeLast(1)).subscribe(snap => {
+      snap.ref.getDownloadURL().then(url => {
+        this.recipe.imgUrl = url;
+        this.recipeService.addRecipe(this.recipe).toPromise().then(res => {
           this.snackbarService.showSnackBar(SnackbarStyle.Success, SnackbarMessage.Create);
           this.router.navigate(['']);
+        });
       });
     });
   }
 
-  // Unsubscribe from user observable
+// Unsubscribe from user observable
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+    this.fileSub.unsubscribe();
   }
 
 

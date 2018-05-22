@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ObjectService } from "../core/database/object.service";
-import {HttpClient} from "@angular/common/http";
-import {Quisine} from "./quisine.model";
-import {Observable} from "rxjs/Observable";
-import {map} from "rxjs/operator/map";
-import {tap} from "rxjs/operators";
-import {environment} from "../../environments/environment";
+import { ObjectService } from '../core/database/object.service';
+import {HttpClient} from '@angular/common/http';
+import {Quisine} from './quisine.model';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators/';
 
 
 @Injectable()
-export class QuisineService extends ObjectService<Quisine>{
+export class QuisineService extends ObjectService<Quisine> {
 
   constructor(private http: HttpClient) {
     super(http, 'quisines');
@@ -18,8 +16,8 @@ export class QuisineService extends ObjectService<Quisine>{
   quisineArray: Quisine[] = [];
 
 
-  updateQuisines(quisines: Quisine[]){
-    this.quisineArray=quisines;
+  updateQuisines(quisines: Quisine[]) {
+    this.quisineArray = quisines;
   }
 
   getQuisines(): Observable<Quisine[]> {
@@ -28,7 +26,9 @@ export class QuisineService extends ObjectService<Quisine>{
 
 
     getQuisineByQid(id: string): Observable<Quisine> {
-      return this.getObjectsByQuery({_id: id}).map(quisines => quisines[0]);
+      return this.getObjectsByQuery({_id: id}).pipe(
+        map(quisines => quisines[0])
+      );
     }
 
 //ÄNDRA OVAN TILL getObjectById istället

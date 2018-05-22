@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {ObjectService} from '../../core/database/object.service';
 import {Recipe} from './recipe.model';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class RecipeService extends ObjectService<Recipe> {

@@ -1,8 +1,7 @@
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of} from 'rxjs';
 import {Hero} from './hero.model';
 import { catchError, map, tap } from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
 import {ObjectService} from '../../core/database/object.service';
 import {Injectable} from '@angular/core';
 

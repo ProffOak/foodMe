@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RecipeService} from '../shared/recipe.service';
 import {Recipe} from '../shared/recipe.model';
 import {CartService} from '../../cart/shared/cart.service';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Cart} from '../../cart/shared/cart.model';
 
 @Component({

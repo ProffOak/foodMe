@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
+import {take} from 'rxjs/operators';
 import {User} from '../../core/auth/shared/user.model';
 import {Router} from '@angular/router';
 
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(user: Observable<User>) {
-    user.take(1).subscribe(res => {
+    user.pipe(take(1)).subscribe(res => {
       this.router.navigate(['']);
     });
   }

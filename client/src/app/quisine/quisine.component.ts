@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {log} from "util";
 import {Quisine} from "./quisine.model";
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {QuisineService} from "./quisine.service";
 import {Router} from "@angular/router";
 

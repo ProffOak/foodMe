@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable, Subject} from 'rxjs';
 import {Cart} from './cart.model';
 import {ObjectService} from '../../core/database/object.service';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../core/auth/auth.service';
 import {User} from '../../core/auth/shared/user.model';
 import {Recipe} from '../../recipes/shared/recipe.model';
-import {Subject} from 'rxjs/Subject';
+import {switchMap} from 'rxjs/operators';
 
 @Injectable()
 export class CartService extends ObjectService<Cart> {
@@ -28,10 +28,11 @@ export class CartService extends ObjectService<Cart> {
 
   // Get the cart based on the User ID
   private initializeCart() {
-    this.authService.user$.switchMap(user => {
+    this.authService.user$.pipe(
+      switchMap(user => {
       this.currentUser = user;
       return this.getObjectsByQuery({uid: user.uid});
-    }).subscribe((cart: Cart[]) => {
+    })).subscribe((cart: Cart[]) => {
       if (cart[0]) {
         this.cartSubject.next(cart[0]);
         this.currentCart = cart[0];
