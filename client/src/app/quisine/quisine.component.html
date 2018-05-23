@@ -8,7 +8,7 @@
 <div class="container color-light quisines-section"  fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxLayoutAlign="center center" >
 
 
-    <button mat-raised-button fxFlex="20%"  *ngFor="let q of quisines; let i = index" [color]="clickColor(q) ? 'primary' : 'accent'"  (click)="isSelected(q)">{{q?.name}}</button>
+    <button mat-raised-button fxFlex="20%"  *ngFor="let q of quisines; let i = index" [color]="clickColor(q) ? 'primary' : 'accent'"  (click)="clickQuisine(q)">{{q?.name}}</button>
 
 
 </div>
