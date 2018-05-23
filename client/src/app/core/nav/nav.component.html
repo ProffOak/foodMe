@@ -34,7 +34,7 @@
     </div>
 
     <button mat-button [matBadge]="(cartObs | async)?.recipeIds.length" matBadgeOverlap="true"
-            matBadgePosition="after" matBadgeColor="accent"  >
+            matBadgePosition="after" matBadgeColor="accent" routerLink="cart" >
       <span>Cart</span>
     </button>
 
