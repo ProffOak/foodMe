@@ -1,16 +1,23 @@
-<mat-tab-group>
-  <mat-tab label="Valda Recept">
-    <div *ngFor="let recipe of recipes">
-      <app-recipe-cart-card [recipe]="recipe"></app-recipe-cart-card>
-    </div>
-  </mat-tab>
-  <mat-tab label="Samtliga ingredienser">
-    <mat-list role="list">
+<mat-card class="card-margin">
+  <mat-tab-group>
+    <mat-tab label="Valda Recept">
       <div *ngFor="let recipe of recipes">
-        <h3 class="mat-h3">{{recipe.name}}</h3>
-        <mat-list-item *ngFor="let ingridient of recipe.ingredients" role="listitem">{{ingridient}}</mat-list-item>
+        <app-recipe-cart-card [recipe]="recipe"></app-recipe-cart-card>
       </div>
-    </mat-list>
-  </mat-tab>
-</mat-tab-group>
+      <div fxLayout="row" fxLayoutAlign="center center" >
+        <button mat-raised-button class="cart-button" color="primary">
+          <mat-icon>forward</mat-icon>Gå vidare till beställning
+        </button>
+      </div>
+    </mat-tab>
+    <mat-tab label="Samtliga ingredienser">
+      <app-ingredient-cart-card [recipes]="recipes"></app-ingredient-cart-card>
+      <div fxLayout="row" fxLayoutAlign="center center" >
+        <button mat-raised-button class="cart-button" color="primary">
+          <mat-icon>shopping_cart</mat-icon>
+          Gör beställing</button>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>
 

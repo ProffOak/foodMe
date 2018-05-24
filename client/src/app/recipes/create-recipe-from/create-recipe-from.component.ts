@@ -92,8 +92,12 @@ export class CreateRecipeFromComponent implements OnInit, OnDestroy {
 
 // Unsubscribe from user observable
   ngOnDestroy(): void {
-    this.userSub.unsubscribe();
-    this.fileSub.unsubscribe();
+    if (this.userSub) {
+      this.userSub.unsubscribe();
+    }
+    if (this.fileSub) {
+      this.fileSub.unsubscribe();
+    }
   }
 
 

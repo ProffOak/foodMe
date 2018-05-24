@@ -1,0 +1,9 @@
+<mat-card class="ingredient-card-margin">
+  <h2 class="mat-h2">Inköpslista</h2>
+  <mat-list role="list">
+    <div *ngFor="let recipe of recipes">
+      <!--<h3 class="mat-h3">{{recipe.name}}</h3>-->
+      <mat-list-item *ngFor="let ingredient of recipe.ingredients" role="listitem">{{ingredient}}</mat-list-item>
+    </div>
+  </mat-list>
+</mat-card>
