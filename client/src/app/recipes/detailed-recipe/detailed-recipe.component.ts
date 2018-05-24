@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RecipeService} from "../shared/recipe.service";
 import {Recipe} from "../shared/recipe.model";
 import {ActivatedRoute, Router} from "@angular/router";
-import {switchMap} from "rxjs/operators";
+import {CartService} from "../../cart/shared/cart.service";
 
 @Component({
   selector: 'app-detailed-recipe',
@@ -11,7 +11,7 @@ import {switchMap} from "rxjs/operators";
 })
 export class DetailedRecipeComponent implements OnInit {
 
-  constructor(private recipeService : RecipeService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private recipeService : RecipeService, private route: ActivatedRoute, private router: Router, private cartService: CartService) { }
 
   recipeLoaded = false;
   recipe: Recipe;
@@ -31,6 +31,7 @@ export class DetailedRecipeComponent implements OnInit {
   }
 
   addRecipe() {
+    this.cartService.addToCart(this.recipe);
     this.router.navigate(['/recipes']);
 }
 

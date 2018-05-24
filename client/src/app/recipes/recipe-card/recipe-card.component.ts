@@ -4,6 +4,7 @@ import {Recipe} from '../shared/recipe.model';
 import {CartService} from '../../cart/shared/cart.service';
 import {Observable} from 'rxjs';
 import {Cart} from '../../cart/shared/cart.model';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-recipe-card',
@@ -18,7 +19,7 @@ export class RecipeCardComponent implements OnInit {
 
   cartObs: Observable<Cart>;
 
-  constructor(private recipeService: RecipeService, private cartService: CartService) { }
+  constructor(private recipeService: RecipeService, private cartService: CartService, private router: Router) { }
 
   private getRandomRecipes() {
     this.recipeService.getRandomRecipes(this.numberOfRecipesPerLoad).subscribe(recipes => {
@@ -53,4 +54,7 @@ export class RecipeCardComponent implements OnInit {
     });
   }
 
+  moreInfo() {
+    this.router.navigate(['recipes/' + this.currentRecipe._id]);
+  }
 }

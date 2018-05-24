@@ -1,14 +1,14 @@
-<mat-card class="recipe-card-max-width auto-margin">
+<mat-card class="recipe-card-max-width auto-margin" >
   <mat-card-header>
-    <h3 class="mat-h3">{{currentRecipe?.name}}</h3>
+    <h3 class="mat-h3" matTooltip="Tryck för mer information" matTooltipPosition="after" (click)="moreInfo()">{{currentRecipe?.name}}</h3>
   </mat-card-header>
-  <img class="recipe-card-img" mat-card-image *ngIf="currentRecipe?.imgUrl" [src]="currentRecipe.imgUrl">
+  <img matTooltip="Tryck för mer information" matTooltipPosition="after" class="recipe-card-img" mat-card-image *ngIf="currentRecipe?.imgUrl" [src]="currentRecipe.imgUrl" (click)="moreInfo()">
   <mat-card-content>
     <div class="mat-body">{{currentRecipe?.description}}</div>
   </mat-card-content>
   <mat-card-actions>
     <div class="wrapper">
-      <button (click)="nextRecipe()" mat-fab color="warn" class="card-action-button">
+      <button  (click)="nextRecipe()" mat-fab color="warn" class="card-action-button">
         <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
       </button>
       <button (click)="onAddClick()" mat-fab color="primary" class="card-action-button">

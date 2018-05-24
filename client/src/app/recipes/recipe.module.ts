@@ -13,7 +13,8 @@ import {
   MatChipsModule,
   MatIconModule,
   MatInputModule,
-  MatSelectModule
+  MatSelectModule,
+  MatTooltipModule
 } from '@angular/material';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import {CartModule} from '../cart/cart.module';
@@ -31,6 +32,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 
     FlexLayoutModule,
     // Material imports
+    MatTooltipModule,
     MatGridListModule,
     MatExpansionModule,
     MatListModule,
