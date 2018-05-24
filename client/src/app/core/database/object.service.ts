@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
+import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
   import {environment} from '../../../environments/environment';
-import {map} from 'rxjs/operator/map';
+
 
 
 
@@ -87,7 +86,8 @@ export abstract class ObjectService<ObjectClass> {
     const url = `${this.url}/${id}`;
 
     return this.httpClient.delete<ObjectClass>(url, httpOptions).pipe(
-      catchError(this.handleError<ObjectClass>('deleteObject'))
+      // catchError(this.handleError<ObjectClass>('deleteObject'))
+      catchError(this.handleError<ObjectClass>('deleteHero'))
     );
   }
 

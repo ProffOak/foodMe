@@ -27,8 +27,7 @@ router.get("/", (req, res, next) => {
     }
 });
 
-
-// Get user by id (not the id in the mongoose database)
+// Get Recipe by _id
 router.get("/:id", (req, res, next) => {
     Recipe.findOne({_id: req.params.id}, (err, user) => {
         if(err) {
@@ -55,7 +54,7 @@ router.post("/", (req, res, next) => {
     });
 });
 
-// Update Certain fields of the user object
+// Update Certain fields of the user object, query by params is allowed
 router.patch("/", (req, res, next) => {
     let query=req.query;
     if(Object.keys(query).length === 0) {
@@ -65,21 +64,21 @@ router.patch("/", (req, res, next) => {
             res.end();
         }
     }
-    patchUser(query, req, res)
+    patchRecipe(query, req, res)
 });
 
 router.patch("/:id", (req, res, next) => {
     const id = req.params.id;
-    patchUser({_id: id}, req, res)
+    patchRecipe({_id: id}, req, res)
 });
 
-function patchUser(queryObj, req, res) {
+function patchRecipe(queryObj, req, res) {
     const options= {setDefaultsOnInsert:true, upsert: true, new:true, runValidators:true};
-    Recipe.findOneAndUpdate(queryObj, { $set: req.body }, options, (err, user) => {
+    Recipe.findOneAndUpdate(queryObj, { $set: req.body }, options, (err, recipe) => {
         if(err) {
             res.status(500).json({error: err});
         } else {
-            res.status(200).json(user)
+            res.status(200).json(recipe)
         }
     });
 }

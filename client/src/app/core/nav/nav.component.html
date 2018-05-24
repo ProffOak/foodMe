@@ -33,6 +33,11 @@
       <button mat-button routerLink="profile">Profile</button>
     </div>
 
+    <button mat-button [matBadge]="(cartObs | async)?.recipeIds.length" matBadgeOverlap="true"
+            matBadgePosition="after" matBadgeColor="accent" routerLink="cart" >
+      <span>Cart</span>
+    </button>
+
     <div fxShow="false" fxShow.gt-xs>
       <button mat-button routerLink="recipes/add">Add Recipe</button>
     </div>

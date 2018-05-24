@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFireStorage, AngularFireUploadTask} from 'angularfire2/storage';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import UploadMetadata = firebase.storage.UploadMetadata;
 import * as firebase from 'firebase';
 
@@ -24,7 +24,8 @@ export class FileService {
       }
     }
     const path = `${folder}/${name}`;
-    return this.storage.upload(path, file, metadata);
+    const ref = this.storage.ref(path);
+    return ref.put(file, metadata);
   }
 
   // Delete a file based on the downloadUrl

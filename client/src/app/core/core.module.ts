@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavComponent } from './nav/nav.component';
-import {MatButtonModule, MatIconModule, MatSidenavModule, MatSnackBarModule, MatToolbarModule} from '@angular/material';
+import {MatBadgeModule, MatButtonModule, MatIconModule, MatSidenavModule, MatSnackBarModule, MatToolbarModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
 import {HAMMER_GESTURE_CONFIG, HammerGestureConfig} from '@angular/platform-browser';
@@ -37,6 +37,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     MatIconModule,
     MatToolbarModule,
     MatSnackBarModule,
+    MatBadgeModule,
     FlexLayoutModule
   ],
   declarations: [NavComponent],

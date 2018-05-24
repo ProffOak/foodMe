@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../auth/auth.service';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
+import {CartService} from '../../cart/shared/cart.service';
+import {Cart} from '../../cart/shared/cart.model';
 
 @Component({
   selector: 'app-nav',
@@ -10,14 +12,12 @@ import {Observable} from 'rxjs/Observable';
 export class NavComponent implements OnInit {
 
   isLoggedIn = false;
+  cartObs: Observable<Cart>;
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService, private cartService: CartService) { }
 
   ngOnInit() {
-    // this.isLoggedIn = this.authService.isLoggedIn();
-    /*this.authService.user$.subscribe(res => {
-      console.log(res);
-    });*/
+    this.cartObs = this.cartService.currentCartObs;
     this.authService.isLoggedInObs().subscribe(res => {
       this.isLoggedIn = res;
     });

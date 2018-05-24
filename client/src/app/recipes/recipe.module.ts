@@ -4,8 +4,17 @@ import { CreateRecipeFromComponent } from './create-recipe-from/create-recipe-fr
 import {RecipeService} from './shared/recipe.service';
 import {FormsModule} from '@angular/forms';
 import {
-  MatButtonModule, MatCardModule, MatChipsModule, MatIconModule, MatInputModule, MatListModule,
-  MatExpansionModule, MatGridListModule} from '@angular/material';
+  MatListModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule
+} from '@angular/material';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import {CartModule} from '../cart/cart.module';
 import { DetailedRecipeComponent } from './detailed-recipe/detailed-recipe.component';
@@ -29,7 +38,9 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSelectModule,
+    MatCheckboxModule
   ],
   declarations: [CreateRecipeFromComponent, RecipeCardComponent, DetailedRecipeComponent],
   providers: [RecipeService]

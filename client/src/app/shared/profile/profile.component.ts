@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../core/auth/auth.service';
 import {User} from '../../core/auth/shared/user.model';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {FileService} from '../../core/file-upload/file.service';
 import {QuisineService} from "../../quisine/quisine.service";
 

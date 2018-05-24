@@ -1,0 +1,19 @@
+<mat-card class="recipe-cart-card">
+  <mat-grid-list cols="6" rowHeight="100px">
+    <mat-grid-tile [colspan]="1">
+      <img class="recipe-thumbnail" [src]="recipe.imgUrl">
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="4">
+      <span class="text-inside-grid">{{recipe?.name}}</span>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1">
+      <button mat-fab (click)="onRemoveClick(recipe)">
+        <mat-icon aria-label="Delete recipe from cart">delete</mat-icon>
+      </button>
+    </mat-grid-tile>
+
+
+  </mat-grid-list>
+
+
+</mat-card>

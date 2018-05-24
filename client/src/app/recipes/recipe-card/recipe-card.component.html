@@ -22,6 +22,6 @@
 <pre>{{currentRecipe | json}}</pre>
 
 <!--<pre>{{cartObs | async | json}}</pre>-->
-<div *ngIf="cartObs | async as cart">
-<button (click)="deleteRecipe(item)" mat-button *ngFor="let item of cart?.recipeIds">{{item}}</button>
-</div>
+
+<button (click)="deleteRecipe(item)" mat-button *ngFor="let item of (cartObs | async)?.recipeIds">{{item}}</button>
+

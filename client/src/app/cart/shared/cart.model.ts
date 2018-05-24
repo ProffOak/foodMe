@@ -1,7 +1,7 @@
 export interface Cart {
-  _id: String;
-  uid: String;
-  recipeIds: String[];
+  _id: string;
+  uid: string;
+  recipeIds: string[];
   isActive: boolean;
   date: Date;
 

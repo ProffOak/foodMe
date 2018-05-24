@@ -4,9 +4,9 @@ import {User} from '../../../core/auth/shared/user.model';
 import {PasswordValidation} from './password-validation';
 import {AuthService} from '../../../core/auth/auth.service';
 import {ErrorStateMatcher} from '@angular/material';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
-import 'rxjs/add/operator/take';
+
 
 @Component({
   selector: 'app-register',

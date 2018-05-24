@@ -7,10 +7,15 @@ import {RecipeService} from '../shared/recipe.service';
 import {FileService} from '../../core/file-upload/file.service';
 import {AuthService} from '../../core/auth/auth.service';
 import {User} from '../../core/auth/shared/user.model';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription, Observable} from 'rxjs';
+import { take } from 'rxjs/operators';
 import {SnackbarService} from '../../core/snackbar/snackbar.service';
 import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
 import {Router} from '@angular/router';
+import {QuisineService} from '../../quisine/quisine.service';
+import {Quisine} from '../../quisine/quisine.model';
+import {tap} from 'rxjs/operators';
+import {takeLast} from 'rxjs/internal/operators';
 
 
 @Component({
@@ -25,18 +30,24 @@ export class CreateRecipeFromComponent implements OnInit, OnDestroy {
   imageFile: File;
 
   separatorKeysCodes = [ENTER, COMMA];
-  removable = true;
 
   userSub: Subscription;
+  fileSub: Subscription;
   currentUser: User;
 
+  quisinesObs: Observable<Quisine[]>;
+
+  selectedQuisines = <Quisine[]>[];
+
   constructor(private recipeService: RecipeService, private fileService: FileService, private sanitizer: DomSanitizer,
-              private authService: AuthService, private snackbarService: SnackbarService, private router: Router) { }
+              private authService: AuthService, private snackbarService: SnackbarService, private router: Router,
+              private quisineService: QuisineService) { }
 
   ngOnInit() {
     this.userSub = this.authService.user$.subscribe(user => {
       this.currentUser = user;
     });
+    this.quisinesObs = this.quisineService.getQuisines();
   }
   addIngredient(event: MatChipInputEvent): void {
     const input = event.input;
@@ -62,20 +73,32 @@ export class CreateRecipeFromComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    // Add the quisine ids to the recipe
+    for (const quisine of this.selectedQuisines) {
+      this.recipe.quisines.push(quisine._id);
+    }
     this.recipe.uid = this.currentUser.uid;
-    const uploadTask = this.fileService.uploadFile(this.imageFile);
-    uploadTask.downloadURL().take(1).subscribe(url => {
-      this.recipe.imgUrl = url;
-      this.recipeService.addRecipe(this.recipe).toPromise().then(res => {
+    // Subscribe to the snapshot from firebase but only take use it when completed using takeLast
+    this.fileSub = this.fileService.uploadFile(this.imageFile).snapshotChanges().pipe(takeLast(1)).subscribe(snap => {
+      snap.ref.getDownloadURL().then(url => {
+        this.recipe.imgUrl = url;
+        this.recipeService.addRecipe(this.recipe).toPromise().then(res => {
           this.snackbarService.showSnackBar(SnackbarStyle.Success, SnackbarMessage.Create);
           this.router.navigate(['']);
+        });
       });
     });
   }
 
-  // Unsubscribe from user observable
+// Unsubscribe from user observable
   ngOnDestroy(): void {
-    this.userSub.unsubscribe();
+    if (this.userSub) {
+      this.userSub.unsubscribe();
+    }
+    if (this.fileSub) {
+      this.fileSub.unsubscribe();
+    }
   }
+
 
 }
