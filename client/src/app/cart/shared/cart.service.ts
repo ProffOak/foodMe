@@ -42,6 +42,7 @@ export class CartService extends ObjectService<Cart> {
       })).subscribe((cart: Cart[]) => {
       if (cart && cart[0]) {
         this.currentCart = cart[0];
+        this.currentCart.date = new Date();
         this.cartSubject.next(cart[0]);
       } else {
         // Reset cart and emit null
@@ -57,23 +58,25 @@ export class CartService extends ObjectService<Cart> {
       this.currentCart.uid = this.currentUser.uid;
     }
     this.currentCart.recipeIds.push(<string>recipe._id);
-    // Output the updated cart as next
-    this.cartSubject.next(this.currentCart);
-    // Update the cart in the database if user is logged in
-    if (this.currentUser) {
-      // __v causes error when patching
-      delete this.currentCart['__v'];
-      return this.patchObject(this.currentCart, {uid: this.currentCart.uid});
-    } else {
-      return this.cartSubject.asObservable();
-    }
+    return this.updateCartInDatabase();
   }
 
   removeFromCart(recipeId: string): Observable<Cart> {
     this.currentCart.recipeIds.splice(this.currentCart.recipeIds.indexOf(recipeId), 1);
     // Output the updated value
+    return this.updateCartInDatabase();
+  }
+
+  removeAllFromCart(): Observable<Cart> {
+    // Remove all recipes from cart
+    this.currentCart.recipeIds = [];
+    return this.updateCartInDatabase();
+  }
+
+  private updateCartInDatabase(): Observable<Cart> {
+    // Output the updated cart as next
     this.cartSubject.next(this.currentCart);
-    // Update the cart in the database
+    // Update the cart in the database if user is logged in
     if (this.currentUser) {
       // __v causes error when patching
       delete this.currentCart['__v'];
@@ -95,5 +98,7 @@ export class CartService extends ObjectService<Cart> {
       );
     }));
   }
+
+
 
 }
