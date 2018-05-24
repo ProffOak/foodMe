@@ -37,7 +37,7 @@ export abstract class ObjectService<ObjectClass> {
 
   /** GET object by id. */
   getObjectById(id: string): Observable<ObjectClass> {
-    const url = `${this.url}${id}`;
+    const url = `${this.url}/${id}`;
     return this.httpClient.get<ObjectClass>(url)
       .pipe(
         catchError(this.handleError<any>(`getHero id=${id}`))

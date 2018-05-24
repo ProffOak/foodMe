@@ -15,6 +15,10 @@ export class RecipeService extends ObjectService<Recipe> {
     return this.getObjects();
   }
 
+  getRecipeById(id: string): Observable<Recipe> {
+    return this.getObjectById(id);
+  }
+
   addRecipe(recipe: Recipe): Observable<Recipe> {
     return this.addObject(recipe);
   }
