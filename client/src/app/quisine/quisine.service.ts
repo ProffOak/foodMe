@@ -33,8 +33,30 @@ export class QuisineService extends ObjectService<Quisine> {
 
 //ÄNDRA OVAN TILL getObjectById istället
 
+  isSelected(quisine){
+    if (this.includes(this.quisineArray, quisine) == false) {
+      this.quisineArray.push(quisine);
+    } else {
+      this.quisineArray.splice(this.indexOf(this.quisineArray, quisine), 1);
+    }
+  }
 
+  includes(qArray: Quisine[], q2: Quisine){
+    for (let q1 of qArray){
+      if (q1._id==q2._id){
+        return true;
+      }
+    }
+    return false;
+  }
 
-
+  indexOf(qArray: Quisine[], q2: Quisine) {
+    for (let i=0; i<qArray.length; i++){
+      if (qArray[i]._id==q2._id){
+        return i;
+      }
+    }
+    return null;
+  }
 
 }

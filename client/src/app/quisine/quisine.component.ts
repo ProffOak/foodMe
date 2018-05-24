@@ -26,34 +26,19 @@ selectedQuisines: Quisine[];
   console.log(this.selectedQuisines);
   }
 
-    isSelected(quisine){
-      if (this.includes(this.selectedQuisines, quisine) == false) {
-        this.selectedQuisines.push(quisine);
-        this.quisineService.updateQuisines(this.selectedQuisines);
-        console.log(this.quisineService.quisineArray);
-      } else {
-        this.quisineService.quisineArray.splice(this.selectedQuisines.indexOf(quisine), 1);
-        this.quisineService.updateQuisines(this.selectedQuisines);
-        console.log(this.quisineService.quisineArray);
-      }
+  clickQuisine(quisine) {
+    this.quisineService.isSelected(quisine);
   }
 
   clickColor(quisine) {
-    return this.includes(this.quisineService.quisineArray, quisine) != true;
+    return this.quisineService.includes(this.quisineService.quisineArray, quisine) != true;
   }
 
   nextRoute() {
       this.router.navigate(['/recipes']);
   }
 
-  includes(qArray: Quisine[], q2: Quisine){
-    for (let q1 of qArray){
-      if (q1._id==q2._id){
-        return true;
-      }
-    }
-    return false;
-  }
+
 
 }
 
