@@ -4,7 +4,7 @@
       <div *ngFor="let recipe of recipes">
         <app-recipe-cart-card [recipe]="recipe"></app-recipe-cart-card>
       </div>
-      <div *ngIf="recipes.length>0" fxLayout="row" fxLayoutAlign="center center" >
+      <div *ngIf="recipes?.length>0" fxLayout="row" fxLayoutAlign="center center" >
         <button mat-raised-button class="cart-button" color="primary" (click)="toIngredients()">
           <mat-icon>forward</mat-icon>Gå vidare till beställning
         </button>
@@ -12,7 +12,7 @@
     </mat-tab>
     <mat-tab label="Samtliga ingredienser">
       <app-ingredient-cart-card [recipes]="recipes"></app-ingredient-cart-card>
-      <div *ngIf="recipes.length>0" fxLayout="row" fxLayoutAlign="center center" >
+      <div *ngIf="recipes?.length>0" fxLayout="row" fxLayoutAlign="center center" >
         <button mat-raised-button class="cart-button" color="primary" (click)="onPurchaseClick()">
           <mat-icon>shopping_cart</mat-icon>
           Gör beställing</button>

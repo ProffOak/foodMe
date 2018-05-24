@@ -21,7 +21,7 @@ export class CartDetailsComponent implements OnInit {
 
   cartObs: Observable<Cart>;
 
-  recipes: Recipe[];
+  recipes: Recipe[] = [];
 
   constructor(private cartService: CartService, private snackbarStervie: SnackbarService) { }
 
