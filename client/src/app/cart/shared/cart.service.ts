@@ -14,7 +14,7 @@ export class CartService extends ObjectService<Cart> {
 
   private currentCart = <Cart>{date: new Date(), recipeIds: []};
 
-  private cartSubject = new BehaviorSubject<Cart>(this.currentCart);
+  private cartSubject = new BehaviorSubject<Cart>(null);
 
   private currentUser: User;
 
@@ -89,6 +89,7 @@ export class CartService extends ObjectService<Cart> {
 
   getCurrentRecipes(): Observable<Recipe[]> {
     return this.currentCartObs.pipe(switchMap(cart => {
+      if (!cart) return of (null);
       const arr = <[Observable<Recipe>]> [];
       for (const id of cart.recipeIds) {
         arr.push(this.recipeService.getRecipeById(<string>id));

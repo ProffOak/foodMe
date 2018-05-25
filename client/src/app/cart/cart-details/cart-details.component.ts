@@ -21,16 +21,16 @@ export class CartDetailsComponent implements OnInit {
 
   cartObs: Observable<Cart>;
 
-  recipes: Recipe[] = [];
+  recipes: Recipe[];
 
-  constructor(private cartService: CartService, private snackbarStervie: SnackbarService) { }
+  constructor(private cartService: CartService, private snackbarService: SnackbarService) { }
 
   ngOnInit() {
     this.cartObs = this.cartService.currentCartObs;
     // this.recipesObs = this.cartService.getCurrentRecipes();
     this.cartService.getCurrentRecipes().subscribe(recipes => {
-      this.recipes = [];
       this.recipes = recipes;
+      console.log(this.recipes);
     });
   }
 
@@ -39,7 +39,7 @@ export class CartDetailsComponent implements OnInit {
   }
 
   onPurchaseClick() {
-    this.snackbarStervie.showSnackBar(SnackbarStyle.Success, SnackbarMessage.Custom, 'Tack för din beställning!');
+    this.snackbarService.showSnackBar(SnackbarStyle.Success, SnackbarMessage.Custom, 'Tack för din beställning!');
     this.cartService.removeAllFromCart().subscribe(() => {
 
     });

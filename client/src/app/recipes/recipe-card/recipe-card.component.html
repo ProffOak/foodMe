@@ -2,7 +2,11 @@
   <mat-card-header>
     <h3 class="mat-h3" matTooltip="Tryck för mer information" matTooltipPosition="after" (click)="moreInfo()">{{currentRecipe?.name}}</h3>
   </mat-card-header>
-  <img matTooltip="Tryck för mer information" matTooltipPosition="after" class="recipe-card-img" mat-card-image *ngIf="currentRecipe?.imgUrl" [src]="currentRecipe.imgUrl" (click)="moreInfo()">
+  <div class="image-min-height">
+    <img matTooltip="Tryck för mer information" matTooltipPosition="after"
+         class="recipe-card-img" mat-card-image *ngIf="currentRecipe?.imgUrl"
+         [src]="currentRecipe.imgUrl" (click)="moreInfo()">
+  </div>
   <mat-card-content>
     <div class="mat-body">{{currentRecipe?.description}}</div>
   </mat-card-content>
@@ -18,10 +22,3 @@
 
   </mat-card-actions>
 </mat-card>
-
-<pre>{{currentRecipe | json}}</pre>
-
-<!--<pre>{{cartObs | async | json}}</pre>-->
-
-<button (click)="deleteRecipe(item)" mat-button *ngFor="let item of (cartObs | async)?.recipeIds">{{item}}</button>
-
