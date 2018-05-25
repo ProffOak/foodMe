@@ -1,10 +1,15 @@
-<mat-card class="recipe-card-max-width auto-margin" >
-  <mat-card-header>
-    <h3 class="mat-h3" matTooltip="Tryck för mer information" matTooltipPosition="after" (click)="moreInfo()">{{currentRecipe?.name}}</h3>
-  </mat-card-header>
+<mat-card class="recipe-card-max-width auto-margin">
+
+    <mat-card-title class="mat-h3 pointer" matTooltip="Tryck för mer information" matTooltipPosition="after" (click)="moreInfo()">{{currentRecipe?.name}}</mat-card-title>
+
+  <div class="chip-margin">
+  <mat-chip-list>
+    <mat-chip color="primary" selected="true" *ngFor="let q of currentRecipe?.quisines">{{q?.name}}</mat-chip>
+  </mat-chip-list>
+  </div>
   <div class="image-min-height">
     <img matTooltip="Tryck för mer information" matTooltipPosition="after"
-         class="recipe-card-img" mat-card-image *ngIf="currentRecipe?.imgUrl"
+         class="recipe-card-img pointer" mat-card-image *ngIf="currentRecipe?.imgUrl"
          [src]="currentRecipe.imgUrl" (click)="moreInfo()">
   </div>
   <mat-card-content>

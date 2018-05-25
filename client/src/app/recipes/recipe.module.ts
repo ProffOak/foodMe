@@ -20,6 +20,9 @@ import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import {CartModule} from '../cart/cart.module';
 import { DetailedRecipeComponent } from './detailed-recipe/detailed-recipe.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserModule} from "@angular/platform-browser";
+import {AppComponent} from "../app.component";
 
 
 
@@ -27,10 +30,15 @@ import {FlexLayoutModule} from "@angular/flex-layout";
   imports: [
     CommonModule,
     FormsModule,
+    FlexLayoutModule,
+
+
     // Own Imports
     CartModule,
 
-    FlexLayoutModule,
+   //Animations
+    BrowserAnimationsModule,
+    BrowserModule,
     // Material imports
     MatTooltipModule,
     MatGridListModule,
@@ -45,6 +53,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MatCheckboxModule
   ],
   declarations: [CreateRecipeFromComponent, RecipeCardComponent, DetailedRecipeComponent],
-  providers: [RecipeService]
+  providers: [RecipeService],
+  bootstrap: [RecipeCardComponent]
 })
 export class RecipeModule { }
