@@ -5,6 +5,7 @@ const Recipe = require("../models/recipe");
 
 // Handle incoming GET requests to /users, also supports query params
 router.get("/", (req, res, next) => {
+    console.log(req.query.quisines);
     const random = req.query.random;
     let limit = parseInt(req.query.limit);
     // Remove random and limit fields from query that are not present att Recipe model
@@ -12,6 +13,7 @@ router.get("/", (req, res, next) => {
     delete req.query.limit;
     // Handle result from queries
     const handler = function (err, recipes) {
+        console.log(recipes[0].quisines);
         if(err) {
             res.status(500).json({error: err});
         }else {
@@ -21,7 +23,12 @@ router.get("/", (req, res, next) => {
     };
     if(random && random.toLowerCase() === "true") {
         if(!limit) limit = 50;
-       Recipe.findRandom(req.query, {}, {limit: limit}, handler);
+        console.log(Array.isArray(req.query.quisines));
+        if (Array.isArray(req.query.quisines) === true) {
+            req.query.quisines={ $in: req.query.quisines};
+            console.log(req.query);
+        }
+       Recipe.findRandom(req.query, {}, {limit: limit, populate: 'quisines'}, handler);
     }else {
         Recipe.find(req.query).limit(limit).exec(handler);
     }
@@ -29,7 +36,7 @@ router.get("/", (req, res, next) => {
 
 // Get Recipe by _id
 router.get("/:id", (req, res, next) => {
-    Recipe.findOne({_id: req.params.id}, (err, user) => {
+    Recipe.findOne({_id: req.params.id}).populate('quisines').exec((err, user) => {
         if(err) {
             res.status(500).json({error: err});
             res.end();

@@ -59,4 +59,13 @@ export class QuisineService extends ObjectService<Quisine> {
     return null;
   }
 
+  getQuisindeIdArray() {
+    const idArray: string[] = [];
+    for (let q of this.quisineArray) {
+      idArray.push(q._id);
+    }
+    console.log(idArray);
+    return idArray;
+  }
+
 }
