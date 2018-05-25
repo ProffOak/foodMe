@@ -67,14 +67,8 @@ router.patch("/:id", (req, res, next) => {
 });
 
 function patchUser(queryObj, req, res) {
-    const updateOps = {};
-    for(const key in req.body) {
-        if(req.body.hasOwnProperty(key)){
-            updateOps[key] = req.body[key]
-        }
-    }
     const options= {setDefaultsOnInsert:true, upsert: true, new:true, runValidators:true};
-    User.findOneAndUpdate(queryObj, { $set: updateOps }, options, (err, user) => {
+    User.findOneAndUpdate(queryObj, { $set: req.body }, options, (err, user) => {
         if(err) {
             res.status(500).json({error: err});
         } else {

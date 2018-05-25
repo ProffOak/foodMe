@@ -108,6 +108,10 @@ export class AuthService {
     return this.userService.addUser(data);
   }
 
+  getToken(): Observable<string> {
+    return this.afAuth.idToken;
+  }
+
 }
 
 

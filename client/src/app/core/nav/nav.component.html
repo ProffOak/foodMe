@@ -11,18 +11,12 @@
     <!--Larger screen - Left-->
     <div fxShow="false" fxShow.gt-xs>
       <button mat-button routerLink="/recipes">
-        Recepies
-      </button>
-    </div>
-
-    <div fxShow="false" fxShow.gt-xs>
-      <button mat-button routerLink="/quisine">
-        Quisines
+        Börja svepa
       </button>
     </div>
 
     <!--Smaller screen - Left-->
-    <div fxHide="false" fxHide.gt-xs>
+    <div  fxHide="false" fxHide.gt-xs>
     </div>
 
     <!--Fill remaining space-->
@@ -31,15 +25,17 @@
     <!--Larger screen - Right-->
     <div *ngIf="isLoggedIn" fxShow="false" fxShow.gt-xs>
       <button mat-button routerLink="profile">Profile</button>
+
+      <button mat-button [matBadge]="(cartObs | async)?.recipeIds.length" matBadgeOverlap="true"
+              matBadgePosition="after" matBadgeColor="accent" routerLink="cart" >
+        <span>Cart</span>
+      </button>
     </div>
 
-    <button mat-button [matBadge]="(cartObs | async)?.recipeIds.length" matBadgeOverlap="true"
-            matBadgePosition="after" matBadgeColor="accent" routerLink="cart" >
-      <span>Cart</span>
-    </button>
+
 
     <div fxShow="false" fxShow.gt-xs>
-      <button mat-button routerLink="recipes/add">Add Recipe</button>
+      <button *ngIf="isLoggedIn" mat-button routerLink="recipes/add">Lägg till Recept</button>
     </div>
 
     <div *ngIf="!isLoggedIn" fxShow="false" fxShow.gt-xs>
