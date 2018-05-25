@@ -6,10 +6,12 @@ import { RecipeCartCardComponent } from './recipe-cart-card/recipe-cart-card.com
 import {MatButtonModule, MatCardModule, MatGridListModule, MatIconModule, MatListModule, MatTabsModule} from '@angular/material';
 import { IngredientCartCardComponent } from './ingredient-cart-card/ingredient-cart-card.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
 
     FlexLayoutModule,
 

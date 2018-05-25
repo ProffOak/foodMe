@@ -3,7 +3,7 @@ import {AuthService} from '../../core/auth/auth.service';
 import {User} from '../../core/auth/shared/user.model';
 import {Observable} from 'rxjs';
 import {FileService} from '../../core/file-upload/file.service';
-import {QuisineService} from "../../quisine/quisine.service";
+import {QuisineService} from "../../quisine/shared/quisine.service";
 
 
 

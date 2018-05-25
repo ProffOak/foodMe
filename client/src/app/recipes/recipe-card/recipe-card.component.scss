@@ -2,7 +2,7 @@
   max-width: 300px;
 }
 .auto-margin{
-  margin: auto;
+  margin: 5px auto;
 }
 .recipe-card-img{
   display: block;
@@ -13,7 +13,7 @@
 }
 
 .chip-margin{
-  margin: 1px;
+  margin-bottom: 25px;
 }
 
 .wrapper {
@@ -39,4 +39,8 @@
   object-fit: cover;
   position: absolute;
   height: 100%;
+}
+
+.image-min-height {
+  min-height: 300px;
 }

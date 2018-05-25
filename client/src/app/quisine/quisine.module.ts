@@ -1,20 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {QuisineComponent} from "./quisine.component";
-import {QuisineService} from "./quisine.service";
+import {QuisineComponent} from './quisine.component';
+import {QuisineService} from './shared/quisine.service';
 import {MatButtonModule} from '@angular/material/button';
-import {RouterModule} from "@angular/router";
-import {FlexLayoutModule} from "@angular/flex-layout";
-import {MatGridListModule} from "@angular/material";
+import {RouterModule} from '@angular/router';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatCardModule, MatGridListModule} from '@angular/material';
 
 
 @NgModule({
   imports: [
-    MatButtonModule,
     CommonModule,
     RouterModule,
     FlexLayoutModule,
-    MatGridListModule
+    MatGridListModule,
+    MatButtonModule,
+    MatCardModule,
+    MatButtonModule
+
   ],
   declarations: [QuisineComponent],
   providers: [QuisineService],

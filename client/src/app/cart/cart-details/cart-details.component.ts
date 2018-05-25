@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CartService} from '../shared/cart.service';
 import {Observable} from 'rxjs/index';
 import {Cart} from '../shared/cart.model';
 import {Recipe} from '../../recipes/shared/recipe.model';
-import {switchMap} from 'rxjs/internal/operators';
 import {RecipeService} from '../../recipes/shared/recipe.service';
+import {MatTabGroup} from '@angular/material';
+import {SnackbarService} from '../../core/snackbar/snackbar.service';
+import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
 
 @Component({
   selector: 'app-cart-details',
@@ -13,21 +15,35 @@ import {RecipeService} from '../../recipes/shared/recipe.service';
 })
 export class CartDetailsComponent implements OnInit {
 
+
+  @ViewChild('tab') private tabRef: MatTabGroup;
+
+
   cartObs: Observable<Cart>;
-  recipesObs: Observable<Recipe[]>;
 
   recipes: Recipe[];
-  ingredients = [];
 
-  constructor(private cartService: CartService, private recipeService: RecipeService) { }
+  constructor(private cartService: CartService, private snackbarService: SnackbarService) { }
 
   ngOnInit() {
     this.cartObs = this.cartService.currentCartObs;
     // this.recipesObs = this.cartService.getCurrentRecipes();
     this.cartService.getCurrentRecipes().subscribe(recipes => {
-      this.recipes = [];
       this.recipes = recipes;
+      console.log(this.recipes);
     });
   }
 
+  toIngredients() {
+    this.tabRef.selectedIndex = 1;
+  }
+
+  onPurchaseClick() {
+    this.snackbarService.showSnackBar(SnackbarStyle.Success, SnackbarMessage.Custom, 'Tack för din beställning!');
+    this.cartService.removeAllFromCart().subscribe(() => {
+
+    });
+
+
+  }
 }

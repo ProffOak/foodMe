@@ -1,22 +1,14 @@
 
-
-<div class="container color-dark">
-  <div class="col">
-    <h1>Choose quisines</h1>
-  </div>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <h1 class="mat-h1">Välkommen till Foodme</h1>
+  <h2 class="mat-h2">Välj Quisine</h2>
 </div>
-<div class="container color-light quisines-section"  fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxLayoutAlign="center center" >
-
-
-    <button mat-raised-button fxFlex="20%"  *ngFor="let q of quisines; let i = index" [color]="clickColor(q) ? 'primary' : 'accent'"  (click)="clickQuisine(q)">{{q?.name}}</button>
-
-
+<div fxLayout="row wrap" fxLayoutGap="2%" style="margin-bottom: 5px;">
+  <button mat-raised-button fxFlex="18"
+          style="margin-bottom: 5px"
+          *ngFor="let q of quisines; let i = index" [color]="clickColor(q) ? 'primary' : 'accent'"
+          (click)="clickQuisine(q)">{{q?.name}}</button>
 </div>
-
-<div class="container color-light" fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxLayoutAlign="center">
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxLayoutAlign="center">
   <button mat-raised-button color="warn" (click)="nextRoute()">Börja Svepa</button>
 </div>
-
-<div class="container color-light top-section">
-</div>
-

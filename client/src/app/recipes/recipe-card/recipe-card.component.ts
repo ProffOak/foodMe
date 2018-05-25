@@ -5,7 +5,7 @@ import {CartService} from '../../cart/shared/cart.service';
 import {Observable} from 'rxjs';
 import {Cart} from '../../cart/shared/cart.model';
 import {Router} from "@angular/router";
-import {QuisineService} from "../../quisine/quisine.service";
+import {QuisineService} from "../../quisine/shared/quisine.service";
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 
 @Component({

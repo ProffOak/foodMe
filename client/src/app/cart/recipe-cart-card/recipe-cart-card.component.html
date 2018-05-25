@@ -4,7 +4,7 @@
       <img class="recipe-thumbnail" [src]="recipe.imgUrl">
     </mat-grid-tile>
     <mat-grid-tile [colspan]="4">
-      <span class="text-inside-grid">{{recipe?.name}}</span>
+      <h2 class="text-inside-grid mat-h2">{{recipe?.name}}</h2>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="1">
       <button mat-fab (click)="onRemoveClick(recipe)">
