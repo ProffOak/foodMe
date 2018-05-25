@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ObjectService } from '../core/database/object.service';
+import { ObjectService } from '../../core/database/object.service';
 import {HttpClient} from '@angular/common/http';
 import {Quisine} from './quisine.model';
 import {Observable} from 'rxjs';

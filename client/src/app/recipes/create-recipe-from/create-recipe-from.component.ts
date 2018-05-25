@@ -12,8 +12,8 @@ import { take } from 'rxjs/operators';
 import {SnackbarService} from '../../core/snackbar/snackbar.service';
 import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
 import {Router} from '@angular/router';
-import {QuisineService} from '../../quisine/quisine.service';
-import {Quisine} from '../../quisine/quisine.model';
+import {QuisineService} from '../../quisine/shared/quisine.service';
+import {Quisine} from '../../quisine/shared/quisine.model';
 import {tap} from 'rxjs/operators';
 import {takeLast} from 'rxjs/internal/operators';
 
