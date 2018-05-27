@@ -19,18 +19,17 @@ export class CartDetailsComponent implements OnInit {
   @ViewChild('tab') private tabRef: MatTabGroup;
 
 
-  cartObs: Observable<Cart>;
 
   recipes: Recipe[];
 
   constructor(private cartService: CartService, private snackbarService: SnackbarService) { }
 
   ngOnInit() {
-    this.cartObs = this.cartService.currentCartObs;
     // this.recipesObs = this.cartService.getCurrentRecipes();
     this.cartService.getCurrentRecipes().subscribe(recipes => {
+      this.recipes = [];
       this.recipes = recipes;
-      console.log(this.recipes);
+      console.log(recipes);
     });
   }
 

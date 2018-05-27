@@ -1,4 +1,4 @@
-import {Quisine} from "../../quisine/quisine.model";
+import {Quisine} from '../../quisine/shared/quisine.model';
 
 export interface Recipe {
   _id: String;

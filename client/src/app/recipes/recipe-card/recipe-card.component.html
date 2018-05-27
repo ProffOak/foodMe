@@ -1,4 +1,10 @@
-<mat-card class="recipe-card-max-width auto-margin">
+<mat-card class="recipe-card-max-width auto-margin"
+          [@cardAnimator]="animationState"
+          (@cardAnimator.done)="resetAnimationState()"
+          (swipeleft)="startAnimation('slideOutLeft')"
+          (swiperight)="startAnimation('zoomOutRight')"
+          (swipeup)="startAnimation('rotateOutUpRight')"
+          (swipedown)="startAnimation('flipOutY')">
 
     <mat-card-title class="mat-h3 pointer" matTooltip="Tryck för mer information" matTooltipPosition="after" (click)="moreInfo()">{{currentRecipe?.name}}</mat-card-title>
 

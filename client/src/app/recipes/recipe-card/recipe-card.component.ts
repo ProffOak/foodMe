@@ -4,14 +4,27 @@ import {Recipe} from '../shared/recipe.model';
 import {CartService} from '../../cart/shared/cart.service';
 import {Observable} from 'rxjs';
 import {Cart} from '../../cart/shared/cart.model';
-import {Router} from "@angular/router";
-import {QuisineService} from "../../quisine/shared/quisine.service";
-import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
+import {Router} from '@angular/router';
+import {QuisineService} from '../../quisine/shared/quisine.service';
+import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
+import * as kf from '../../shared/keyframes';
+
 
 @Component({
   selector: 'app-recipe-card',
   templateUrl: './recipe-card.component.html',
-  styleUrls: ['./recipe-card.component.scss']
+  styleUrls: ['./recipe-card.component.scss'],
+  animations: [
+    trigger('cardAnimator', [
+      transition('* => wobble', animate(1000, keyframes(kf.wobble))),
+      transition('* => swing', animate(1000, keyframes(kf.swing))),
+      transition('* => jello', animate(1000, keyframes(kf.jello))),
+      transition('* => zoomOutRight', animate(600, keyframes(kf.zoomOutRight))),
+      transition('* => slideOutLeft', animate(400, keyframes(kf.slideOutLeft))),
+      transition('* => rotateOutUpRight', animate(1000, keyframes(kf.rotateOutUpRight))),
+      transition('* => flipOutY', animate(1000, keyframes(kf.flipOutY))),
+    ])
+  ]
 })
 export class RecipeCardComponent implements OnInit {
 
@@ -20,14 +33,17 @@ export class RecipeCardComponent implements OnInit {
   numberOfRecipesPerLoad: 20;
 
   cartObs: Observable<Cart>;
+  animationState: string;
 
-  constructor(private recipeService: RecipeService, private cartService: CartService, private router: Router, private quisineService: QuisineService) { }
+  constructor(private recipeService: RecipeService, private cartService: CartService,
+              private router: Router, private quisineService: QuisineService) { }
 
   private getRandomRecipes() {
-    this.recipeService.getRandomQuisineRecipes(this.numberOfRecipesPerLoad, this.quisineService.getQuisindeIdArray() ).subscribe(recipes => {
+    this.recipeService.getRandomQuisineRecipes(this.numberOfRecipesPerLoad,
+      this.quisineService.getQuisindeIdArray() ).subscribe(recipes => {
       this.recipes = recipes;
       this.currentRecipe = this.recipes.pop();
-      //console.log(this.currentRecipe.quisines[0].name);
+      // console.log(this.currentRecipe.quisines[0].name);
     });
   }
 
@@ -47,14 +63,27 @@ export class RecipeCardComponent implements OnInit {
 
 
   onAddClick() {
-    this.cartService.addToCart(this.currentRecipe).subscribe(res => {
+    this.cartService.addToCart(this.currentRecipe).subscribe(() => {
     });
     this.nextRecipe();
   }
 
-  deleteRecipe(item){
-    this.cartService.removeFromCart(item).subscribe(res => {
-    });
+  startAnimation(state) {
+    console.log(state);
+    if (!this.animationState) {
+      this.animationState = state;
+    }
+    if (state === 'slideOutLeft') {
+      setTimeout(this.nextRecipe(), 200);
+    }
+    if (state === 'zoomOutRight') {
+      setTimeout(this.onAddClick(), 500);
+    }
+  }
+
+
+  resetAnimationState() {
+    this.animationState = '';
   }
 
   moreInfo() {

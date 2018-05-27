@@ -5,6 +5,7 @@ import {Recipe} from '../../recipes/shared/recipe.model';
 import {CartService} from '../shared/cart.service';
 import {SnackbarService} from '../../core/snackbar/snackbar.service';
 import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
+import {take} from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-recipe-cart-card',
@@ -15,13 +16,14 @@ export class RecipeCartCardComponent implements OnInit {
 
   @Input() recipe: Recipe;
 
-  constructor(private recipeService: RecipeService, private cartService: CartService, private snackbarService: SnackbarService) { }
+  constructor(private recipeService: RecipeService, private cartService: CartService,
+              private snackbarService: SnackbarService) { }
 
   ngOnInit() {
   }
 
   onRemoveClick(recipe: Recipe) {
-    this.cartService.removeFromCart(<string> recipe._id).subscribe(() => {
+    this.cartService.removeFromCart(<string> recipe._id).pipe(take(1)).subscribe(() => {
       this.snackbarService.showSnackBar(SnackbarStyle.Success, SnackbarMessage.Delete);
 
     });

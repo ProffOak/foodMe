@@ -8,7 +8,6 @@ const checkAuth = require('../middleware/check-auth');
 
 // Handle incoming GET requests to /users, also supports query params
 router.get("/", (req, res, next) => {
-    console.log(req.query.quisines);
     const random = req.query.random;
     let limit = parseInt(req.query.limit);
     // Remove random and limit fields from query that are not present att Recipe model
@@ -16,7 +15,6 @@ router.get("/", (req, res, next) => {
     delete req.query.limit;
     // Handle result from queries
     const handler = function (err, recipes) {
-        console.log(recipes[0].quisines);
         if(err) {
             res.status(500).json({error: err});
         }else {
