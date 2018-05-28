@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { RecipeService} from "../shared/recipe.service";
-import {Recipe} from "../shared/recipe.model";
-import {ActivatedRoute, Router} from "@angular/router";
-import {CartService} from "../../cart/shared/cart.service";
+import { RecipeService} from '../shared/recipe.service';
+import {Recipe} from '../shared/recipe.model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CartService} from '../../cart/shared/cart.service';
 import {SnackbarService} from '../../core/snackbar/snackbar.service';
 import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
 import {Subscription} from 'rxjs/index';
@@ -20,16 +20,17 @@ export class DetailedRecipeComponent implements OnInit, OnDestroy {
   recipeLoaded = false;
   recipe: Recipe;
 
+  ingredientPanelState = true;
+  instructionPanelState = true;
+
+
   recipeSub: Subscription;
 
   ngOnInit() {
-    console.log(this.route.snapshot.params['id']);
-    this.recipeService.getRecipeById(this.route.snapshot.params['id']).subscribe(recipe => {
+    this.recipeSub = this.recipeService.getRecipeById(this.route.snapshot.params['id']).subscribe(recipe => {
       this.recipe = recipe;
       this.recipeLoaded = true;
-      console.log(recipe);
     });
-
   }
 
   nextRecipe() {
@@ -43,6 +44,9 @@ export class DetailedRecipeComponent implements OnInit, OnDestroy {
 }
 
   ngOnDestroy(): void {
+    if (this.recipeSub) {
+      this.recipeSub.unsubscribe();
+    }
 
   }
 

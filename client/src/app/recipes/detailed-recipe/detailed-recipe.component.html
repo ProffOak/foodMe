@@ -1,52 +1,22 @@
 <mat-card>
-  <mat-grid-list cols="4" rowHeight="140px">
-    <mat-grid-tile colspan="4">
-      <div class="expansions">
-        <mat-card-title>{{recipe?.name}}</mat-card-title>
-        <mat-card-content>{{recipe?.description}}</mat-card-content>
-        <mat-chip-list>
-          <mat-chip color="primary" selected="true" *ngFor="let q of recipe?.cuisines">{{q?.name}}</mat-chip>
-        </mat-chip-list>
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="2" rowspan="8">
-      <mat-accordion multi="true">
-        <div class="expansions">
-          <mat-expansion-panel  expanded="true" (opened)="panelOpenState1 = true"
-                                (closed)="panelOpenState1 = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Ingredienser
-              </mat-panel-title>
-              <mat-panel-description>
-                Visa {{panelOpenState1 ? 'mindre' : 'mer'}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <mat-list>
-              <mat-list-item *ngFor="let i of recipe?.ingredients">{{i}}</mat-list-item>
-            </mat-list>
-          </mat-expansion-panel>
-          <mat-expansion-panel expanded="true" (opened)="panelOpenState2 = true"
-                               (closed)="panelOpenState2 = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Instruktioner
-              </mat-panel-title>
-              <mat-panel-description>
-                Visa {{panelOpenState2 ? 'mindre' : 'mer'}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <div class="mat-body" [innerHTML]="recipe?.instructions | addNewLines"></div>
-          </mat-expansion-panel>
-        </div>
-      </mat-accordion>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="2" rowspan="2">
-      <img *ngIf="recipe!=null" class=image [src]="recipe?.imgUrl">
-    </mat-grid-tile>
-    <mat-grid-tile colspan="2" rowspan="2">
+
+  <div fxLayout="row wrap" fxLayoutGap="1%">
+
+    <div fxFlex="100" class="expansions" style="margin-bottom: 100px">
+      <mat-card-title>{{recipe?.name}}</mat-card-title>
+      <mat-card-content>{{recipe?.description}}</mat-card-content>
+      <mat-chip-list>
+        <mat-chip color="primary" selected="true" *ngFor="let q of recipe?.cuisines">{{q?.name}}</mat-chip>
+      </mat-chip-list>
+    </div>
+
+
+
+    <!--Image and action buttons-->
+    <div  fxFlex.xs="100" fxFlex.sm="49" >
+      <img *ngIf="recipe!=null" class="recipe-detail-image" [src]="recipe?.imgUrl">
       <mat-card-actions fxLayoutAlign="center">
-        <div class="wrapper">
+        <div>
           <button (click)="nextRecipe()" mat-fab color="warn" class="card-action-button">
             <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
           </button>
@@ -55,8 +25,46 @@
           </button>
         </div>
       </mat-card-actions>
-    </mat-grid-tile>
-  </mat-grid-list>
+    </div>
+
+    <!--Ingredients and instructions-->
+    <div fxFlex.xs="100" fxFlex.sm="49">
+      <mat-accordion multi="true">
+          <mat-expansion-panel  expanded="true" (opened)="ingredientPanelState = true"
+                                (closed)="ingredientPanelState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Ingredienser
+              </mat-panel-title>
+              <mat-panel-description>
+                Visa {{ingredientPanelState ? 'mindre' : 'mer'}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item *ngFor="let i of recipe?.ingredients">{{i}}</mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+          <mat-expansion-panel expanded="true" (opened)="instructionPanelState = true"
+                               (closed)="instructionPanelState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Instruktioner
+              </mat-panel-title>
+              <mat-panel-description>
+                Visa {{instructionPanelState ? 'mindre' : 'mer'}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="mat-body" [innerHTML]="recipe?.instructions | addNewLines"></div>
+          </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+
+
+
+
+
+  </div>
 </mat-card>
 
 

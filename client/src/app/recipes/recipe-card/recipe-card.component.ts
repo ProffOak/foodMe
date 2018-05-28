@@ -7,7 +7,7 @@ import {Cart} from '../../cart/shared/cart.model';
 import {Router} from '@angular/router';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import * as kf from '../../shared/keyframes';
-import {CuisineService} from "../../cuisine/shared/cuisine.service";
+import {CuisineService} from '../../cuisine/shared/cuisine.service';
 import {SnackbarService} from '../../core/snackbar/snackbar.service';
 import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
 
@@ -65,6 +65,7 @@ export class RecipeCardComponent implements OnInit {
 
 
   onAddClick() {
+    console.log('hej');
     this.cartService.addToCart(this.currentRecipe).subscribe(() => {
     });
     this.nextRecipe();
@@ -76,10 +77,10 @@ export class RecipeCardComponent implements OnInit {
       this.animationState = state;
     }
     if (state === 'slideOutLeft') {
-      setTimeout(this.nextRecipe(), 200);
+      setTimeout(() => {this.nextRecipe(); }, 100);
     }
     if (state === 'zoomOutRight') {
-      setTimeout(this.onAddClick(), 500);
+      setTimeout(() => {this.onAddClick(); }, 200);
       this.snackbarService.showSnackBar(SnackbarStyle.Success, SnackbarMessage.AddedToCart);
     }
   }
