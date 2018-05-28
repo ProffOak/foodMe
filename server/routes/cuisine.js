@@ -19,8 +19,6 @@ router.get('/', (req,res) => {
             res.end();
         }
     });
-   //res.send()
-
 });
 
 
@@ -47,8 +45,6 @@ router.post("/", checkAuth, (req, res, next) => {
     });
 });
 
-/*
-router.delete('/', (req, res) => {
 
 router.delete("/:id", checkAuth, (req, res, next) => {
     const id = req.params.id;
@@ -56,11 +52,10 @@ router.delete("/:id", checkAuth, (req, res, next) => {
         if(err) {
             res.status(500).json({error: err});
         } else {
-            res.status(200).send("Deleted successfully")
+            res.status(200).json({status:"Deleted successfully"})
         }
     })
 });
-*/
 
 function validateCuisine(cuisine) {
     const schema = {

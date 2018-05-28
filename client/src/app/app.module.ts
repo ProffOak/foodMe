@@ -6,9 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
-import {HeroModule} from './hero/hero.module';
 import {SharedModule} from './shared/shared.module';
-import {CuisineModule} from "./cuisine/cuisine.module";
+import {CuisineModule} from './cuisine/cuisine.module';
 import {RecipeModule} from './recipes/recipe.module';
 
 
@@ -24,7 +23,6 @@ import {RecipeModule} from './recipes/recipe.module';
     CuisineModule,
     AppRoutingModule,
     CoreModule,
-    HeroModule,
     SharedModule,
     RecipeModule
   ],

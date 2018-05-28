@@ -8,15 +8,13 @@ const checkAuth = require('../middleware/check-auth');
 
 // Handle incoming GET requests to /users, also supports query params
 router.get("/", (req, res, next) => {
-    console.log(req.query.cuisines);
     const random = req.query.random;
     let limit = parseInt(req.query.limit);
     // Remove random and limit fields from query that are not present att Recipe model
     delete req.query.random;
     delete req.query.limit;
-    // Handle result from queries
+    // Handle result from executed queries
     const handler = function (err, recipes) {
-        //console.log(recipes[0].cuisines);
         if(err) {
             res.status(500).json({error: err});
         }else {
@@ -26,11 +24,11 @@ router.get("/", (req, res, next) => {
     };
     if(random && random.toLowerCase() === "true") {
         if(!limit) limit = 50;
-        console.log(Array.isArray(req.query.cuisines));
         if (Array.isArray(req.query.cuisines) === true) {
+            // Only get recipes with cuisines from the query array of cuisines
             req.query.cuisines={ $in: req.query.cuisines};
-            console.log(req.query);
         }
+        // Find maximum of limit recipes and populate them with the cuisines objects
        Recipe.findRandom(req.query, {}, {limit: limit, populate: 'cuisines'}, handler);
     }else {
         Recipe.find(req.query).limit(limit).exec(handler);
@@ -51,7 +49,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 
-
+// Includes checkAuth to make sure user is logged in
 router.post("/", checkAuth, (req, res, next) => {
     // You can only create a recipe with your own uid, else send 401
     if(!(req.body.uid === req.uid)){
@@ -70,16 +68,12 @@ router.post("/", checkAuth, (req, res, next) => {
     });
 });
 
-// Update Certain fields of the user object, query by params is allowed
+// Update Certain fields of the recipe object, query by params is allowed
 router.patch("/", checkAuth, (req, res, next) => {
-    console.log(req.req);
     let query=req.query;
-    if(Object.keys(query).length === 0) {
-        query={uid: req.body._id};
-        if(!query){
-            res.status(500).json({error: 'missing query params'});
-            res.end();
-        }
+    if(!query){
+        res.status(500).json({error: 'missing query params'});
+        res.end();
     }
     patchRecipe(query, req, res)
 });
@@ -89,7 +83,9 @@ router.patch("/:id", checkAuth, (req, res, next) => {
     patchRecipe({_id: id}, req, res)
 });
 
+// Help function to execute patch from either id or query params
 function patchRecipe(queryObj, req, res) {
+    // Create a new document if no document found
     const options= {setDefaultsOnInsert:true, upsert: true, new:true, runValidators:true};
     Recipe.findOneAndUpdate(queryObj, { $set: req.body }, options, (err, recipe) => {
         if(err) {
@@ -99,10 +95,10 @@ function patchRecipe(queryObj, req, res) {
         }
     });
 }
-
+// Remove a recipe based on id
 router.delete("/:id", checkAuth, (req, res, next) => {
     const id = req.params.id;
-    Recipe.remove({_id: id}, (err, user) => {
+    Recipe.remove({_id: id}, (err, recipe) => {
         if(err) {
             res.status(500).json({error: err});
         } else {
