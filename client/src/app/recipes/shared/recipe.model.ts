@@ -1,4 +1,5 @@
-import {Quisine} from "../../quisine/quisine.model";
+
+import {Cuisine} from "../../cuisine/shared/cuisine.model";
 
 export interface Recipe {
   _id: String;
@@ -9,5 +10,5 @@ export interface Recipe {
   imgUrl: String;
   instructions: String;
   ingredients: [String];
-  quisines: [String] ;
+  cuisines: [String] ;
 }

@@ -11,7 +11,7 @@ const RecipeSchema = mongoose.Schema({
     imgUrl:String,
     instructions:String,
     ingredients :[String],
-    quisines: [{ type: Schema.Types.ObjectId, ref: 'Quisine' }]
+    cuisines: [{ type: Schema.Types.ObjectId, ref: 'Cuisine' }]
 
 });
 RecipeSchema.plugin(random);

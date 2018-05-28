@@ -28,11 +28,11 @@
                 [(ngModel)]="recipe.instructions" [rows]="8"></textarea>
     </mat-form-field>
     <mat-form-field class="full-width">
-      <mat-select name="Quisnes" placeholder="Quisines" [(ngModel)]="selectedQuisines" multiple>
+      <mat-select name="Quisnes" placeholder="Cuisines" [(ngModel)]="selectedCuisines" multiple>
         <mat-select-trigger>
-          <div class="chip" *ngFor="let quisine of selectedQuisines">{{quisine.name}}</div>
+          <div class="chip" *ngFor="let cuisine of selectedCuisines">{{cuisine.name}}</div>
         </mat-select-trigger>
-        <mat-option *ngFor="let quisine of (quisinesObs | async)" [value]="quisine">{{quisine.name}}</mat-option>
+        <mat-option *ngFor="let cuisine of (cuisinesObs | async)" [value]="cuisine">{{cuisine.name}}</mat-option>
       </mat-select>
     </mat-form-field>
     <div class="full-width">

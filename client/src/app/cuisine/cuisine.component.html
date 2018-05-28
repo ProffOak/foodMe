@@ -1,13 +1,13 @@
 
 <div fxLayout="column" fxLayoutAlign="center center">
   <h1 class="mat-h1">Välkommen till Foodme</h1>
-  <h2 class="mat-h2">Välj Quisine</h2>
+  <h2 class="mat-h2">Välj vilken typ av mat du vill ha</h2>
 </div>
 <div fxLayout="row wrap" fxLayoutGap="2%" style="margin-bottom: 5px;">
   <button mat-raised-button fxFlex="18"
           style="margin-bottom: 5px"
-          *ngFor="let q of quisines; let i = index" [color]="clickColor(q) ? 'primary' : 'accent'"
-          (click)="clickQuisine(q)">{{q?.name}}</button>
+          *ngFor="let q of cuisines; let i = index" [color]="clickColor(q) ? 'primary' : 'accent'"
+          (click)="clickCuisine(q)">{{q?.name}}</button>
 </div>
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxLayoutAlign="center">
   <button mat-raised-button color="warn" (click)="nextRoute()">Börja Svepa</button>

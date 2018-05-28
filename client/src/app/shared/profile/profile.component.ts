@@ -3,7 +3,7 @@ import {AuthService} from '../../core/auth/auth.service';
 import {User} from '../../core/auth/shared/user.model';
 import {Observable} from 'rxjs';
 import {FileService} from '../../core/file-upload/file.service';
-import {QuisineService} from "../../quisine/shared/quisine.service";
+import {CuisineService} from "../../cuisine/shared/cuisine.service";
 
 
 
@@ -15,11 +15,11 @@ import {QuisineService} from "../../quisine/shared/quisine.service";
 export class ProfileComponent implements OnInit {
   userObs: Observable<User>;
   bytes: number;
-  constructor(private authService: AuthService, private fileService: FileService, private quisineService: QuisineService) { }
+  constructor(private authService: AuthService, private fileService: FileService, private cuisineService: CuisineService) { }
 
   ngOnInit() {
     this.userObs = this.authService.user$;
-    console.log(this.quisineService.quisineArray);
+    console.log(this.cuisineService.cuisineArray);
   }
 
 

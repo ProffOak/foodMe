@@ -7,7 +7,7 @@ const cors = require('cors');
 // Own dependencies
 const item = require('./routes/item');
 const hero = require('./routes/hero');
-const quisine = require('./routes/quisine');
+const cuisine = require('./routes/cuisine');
 const user = require('./routes/user');
 const recipe = require('./routes/recipe');
 const cart = require('./routes/cart');
@@ -50,7 +50,7 @@ app.get('/api/:name', (req, res) => {
 //Routing all HTTP requests to /item to item controller
 app.use('/item',item);
 app.use('/hero', hero);
-app.use('/quisines', quisine);
+app.use('/cuisines', cuisine);
 app.use('/users', user);
 app.use('/recipes', recipe);
 

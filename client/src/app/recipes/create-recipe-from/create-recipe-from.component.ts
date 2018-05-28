@@ -12,8 +12,8 @@ import { take } from 'rxjs/operators';
 import {SnackbarService} from '../../core/snackbar/snackbar.service';
 import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
 import {Router} from '@angular/router';
-import {QuisineService} from '../../quisine/shared/quisine.service';
-import {Quisine} from '../../quisine/shared/quisine.model';
+import {CuisineService} from '../../cuisine/shared/cuisine.service';
+import {Cuisine} from '../../cuisine/shared/cuisine.model';
 import {tap} from 'rxjs/operators';
 import {takeLast} from 'rxjs/internal/operators';
 
@@ -25,7 +25,7 @@ import {takeLast} from 'rxjs/internal/operators';
 })
 export class CreateRecipeFromComponent implements OnInit, OnDestroy {
 
-  recipe = <Recipe>{ingredients: [], quisines: []};
+  recipe = <Recipe>{ingredients: [], cuisines: []};
 
   imageFile: File;
 
@@ -35,19 +35,19 @@ export class CreateRecipeFromComponent implements OnInit, OnDestroy {
   fileSub: Subscription;
   currentUser: User;
 
-  quisinesObs: Observable<Quisine[]>;
+  cuisinesObs: Observable<Cuisine[]>;
 
-  selectedQuisines = <Quisine[]>[];
+  selectedCuisines = <Cuisine[]>[];
 
   constructor(private recipeService: RecipeService, private fileService: FileService, private sanitizer: DomSanitizer,
               private authService: AuthService, private snackbarService: SnackbarService, private router: Router,
-              private quisineService: QuisineService) { }
+              private cuisineService: CuisineService) { }
 
   ngOnInit() {
     this.userSub = this.authService.user$.subscribe(user => {
       this.currentUser = user;
     });
-    this.quisinesObs = this.quisineService.getQuisines();
+    this.cuisinesObs = this.cuisineService.getCuisines();
   }
   addIngredient(event: MatChipInputEvent): void {
     const input = event.input;
@@ -73,9 +73,9 @@ export class CreateRecipeFromComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // Add the quisine ids to the recipe
-    for (const quisine of this.selectedQuisines) {
-      this.recipe.quisines.push(quisine._id);
+    // Add the cuisine ids to the recipe
+    for (const cuisine of this.selectedCuisines) {
+      this.recipe.cuisines.push(cuisine._id);
     }
     this.recipe.uid = this.currentUser.uid;
     // Subscribe to the snapshot from firebase but only take use it when completed using takeLast

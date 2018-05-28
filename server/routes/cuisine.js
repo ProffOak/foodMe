@@ -2,7 +2,7 @@
 const Joi = require('joi');
 const express = require('express');
 const router = express.Router();
-const Quisine = require("../models/quisine");
+const Cuisine = require("../models/cuisine");
 
 const recipes = [
     {id: 1, name: 'Köttbullar', description: 'Ett bra recept för bullar'},
@@ -14,11 +14,11 @@ const recipes = [
 
 router.get('/',(req,res) => {
    //res.send(recipes);
-    Quisine.find((err, quisines) => {
+    Cuisine.find((err, cuisines) => {
         if(err) {
             res.status(500).json({error: err});
         }else {
-            res.status(200).json(quisines);
+            res.status(200).json(cuisines);
             res.end();
         }
     });
@@ -34,21 +34,21 @@ router.get('/:id', (req, res) => {
 
 router.post("/", (req, res, next) => {
 
-    const { error } = validateQuisine(req.body);
+    const { error } = validateCuisine(req.body);
     if (error) {
         //400 bad request
         res.status(400).send(error.details[0].message);
         return;
     }
-    const newQuisine = new Quisine({
+    const newCuisine = new Cuisine({
         name: req.body.name
     });
-    Quisine.create(newQuisine, (err, quisine) => {
+    Cuisine.create(newCuisine, (err, cuisine) => {
         if(err) {
             res.status(400).json({error: err});
             res.end();
         } else {
-            res.status(200).json(quisine);
+            res.status(200).json(cuisine);
             res.end();
         }
     });
@@ -57,23 +57,23 @@ router.post("/", (req, res, next) => {
 /*
 router.delete('/', (req, res) => {
 
-    Quisine.find({ name: req.body.name }, (err, res) => {
+    Cuisine.find({ name: req.body.name }, (err, res) => {
     if (err) {
         res.status(400).send(err.details[0].message);
         return;
     }
-    Quisine.remove({ name: req.body.name }, function (err, res) {
+    Cuisine.remove({ name: req.body.name }, function (err, res) {
         res.status(200);
         });
     });
 });
 */
 
-function validateQuisine(quisine) {
+function validateCuisine(cuisine) {
     const schema = {
         name: Joi.string().min(3).required()
     };
-    return Joi.validate(quisine, schema);
+    return Joi.validate(cuisine, schema);
 }
 
 

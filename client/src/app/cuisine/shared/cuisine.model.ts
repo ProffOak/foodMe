@@ -1,4 +1,4 @@
-export interface Quisine {
+export interface Cuisine {
   _id?: string;
   name: string
 }

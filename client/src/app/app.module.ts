@@ -8,7 +8,7 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import {HeroModule} from './hero/hero.module';
 import {SharedModule} from './shared/shared.module';
-import {QuisineModule} from "./quisine/quisine.module";
+import {CuisineModule} from "./cuisine/cuisine.module";
 import {RecipeModule} from './recipes/recipe.module';
 
 
@@ -21,7 +21,7 @@ import {RecipeModule} from './recipes/recipe.module';
     BrowserAnimationsModule,
 
     // Own modules
-    QuisineModule,
+    CuisineModule,
     AppRoutingModule,
     CoreModule,
     HeroModule,

@@ -3,7 +3,7 @@ import {ObjectService} from '../../core/database/object.service';
 import {Recipe} from './recipe.model';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Quisine} from "../../quisine/quisine.model";
+import {Cuisine} from "../../cuisine/shared/cuisine.model";
 
 @Injectable()
 export class RecipeService extends ObjectService<Recipe> {
@@ -28,8 +28,8 @@ export class RecipeService extends ObjectService<Recipe> {
     return this.getObjectsByQuery({limit: limit, random: true});
   }
 
-  getRandomQuisineRecipes(limit: number, quisines: string[]): Observable<Recipe[]> {
+  getRandomCuisineRecipes(limit: number, cuisines: string[]): Observable<Recipe[]> {
 
-    return this.getObjectsByQuery({limit: limit, random: true, quisines: quisines})
+    return this.getObjectsByQuery({limit: limit, random: true, cuisines: cuisines})
   }
 }
