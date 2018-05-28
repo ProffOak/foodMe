@@ -42,3 +42,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+#decrypted files
+/server/foodMe-046bd9fd6e24.json
