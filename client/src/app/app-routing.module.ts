@@ -7,6 +7,7 @@ import {CreateRecipeFromComponent} from './recipes/create-recipe-from/create-rec
 import {RecipeCardComponent} from './recipes/recipe-card/recipe-card.component';
 import {DetailedRecipeComponent} from './recipes/detailed-recipe/detailed-recipe.component';
 import {CartDetailsComponent} from './cart/cart-details/cart-details.component';
+import {RecipeAdminComponent} from './recipes/recipe-admin/recipe-admin.component';
 
 const routes: Routes = [
   { path: '', component: QuisineComponent },
@@ -14,8 +15,10 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'recipes/add', component: CreateRecipeFromComponent },
   { path: 'recipes', component: RecipeCardComponent},
+  { path: 'recipes/admin', component: RecipeAdminComponent},
   { path: 'recipes/:id', component: DetailedRecipeComponent},
-  { path: 'cart', component: CartDetailsComponent}
+  { path: 'cart', component: CartDetailsComponent},
+
 
 ];
 

@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import {ObjectService} from '../../core/database/object.service';
 import {Recipe} from './recipe.model';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Quisine} from '../../quisine/shared/quisine.model';
+import {FileService} from '../../core/file-upload/file.service';
+import {subscribeToPromise} from 'rxjs/internal/util/subscribeToPromise';
+import {merge} from 'rxjs/operators';
+import {concat, switchMap, toArray} from 'rxjs/internal/operators';
 
 @Injectable()
 export class RecipeService extends ObjectService<Recipe> {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private fileService: FileService) {
     super(http, 'recipes');
   }
 
@@ -32,4 +36,11 @@ export class RecipeService extends ObjectService<Recipe> {
 
     return this.getObjectsByQuery({limit: limit, random: true, quisines: quisines});
   }
+
+  removeRecipe(recipe: Recipe): Observable<any> {
+    return of(this.fileService.deleteFromUrl(<string>recipe.imgUrl)).pipe(switchMap(res => {
+      return this.deleteObject(recipe);
+    }));
+  }
+
 }

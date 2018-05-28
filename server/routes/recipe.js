@@ -24,10 +24,8 @@ router.get("/", (req, res, next) => {
     };
     if(random && random.toLowerCase() === "true") {
         if(!limit) limit = 50;
-        console.log(Array.isArray(req.query.quisines));
         if (Array.isArray(req.query.quisines) === true) {
             req.query.quisines={ $in: req.query.quisines};
-            console.log(req.query);
         }
        Recipe.findRandom(req.query, {}, {limit: limit, populate: 'quisines'}, handler);
     }else {
@@ -104,7 +102,7 @@ router.delete("/:id", checkAuth, (req, res, next) => {
         if(err) {
             res.status(500).json({error: err});
         } else {
-            res.status(200).send("Deleted successfully")
+            res.status(200).json({status:"Deleted successfully"})
         }
     })
 });

@@ -1,6 +1,6 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CartService} from '../shared/cart.service';
-import {Observable} from 'rxjs/index';
+import {Observable, Subscription} from 'rxjs/index';
 import {Cart} from '../shared/cart.model';
 import {Recipe} from '../../recipes/shared/recipe.model';
 import {RecipeService} from '../../recipes/shared/recipe.service';
@@ -13,12 +13,14 @@ import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConsta
   templateUrl: './cart-details.component.html',
   styleUrls: ['./cart-details.component.scss']
 })
-export class CartDetailsComponent implements OnInit {
+export class CartDetailsComponent implements OnInit, OnDestroy {
 
 
   @ViewChild('tab') private tabRef: MatTabGroup;
 
 
+
+  recipesSub: Subscription;
 
   recipes: Recipe[];
 
@@ -26,7 +28,7 @@ export class CartDetailsComponent implements OnInit {
 
   ngOnInit() {
     // this.recipesObs = this.cartService.getCurrentRecipes();
-    this.cartService.getCurrentRecipes().subscribe(recipes => {
+    this.recipesSub = this.cartService.getCurrentRecipes().subscribe(recipes => {
       this.recipes = [];
       this.recipes = recipes;
       console.log(recipes);
@@ -44,5 +46,12 @@ export class CartDetailsComponent implements OnInit {
     });
 
 
+  }
+
+  // Unsubscribe from recipes when component is destroyed to avoid multiple subs
+  ngOnDestroy(): void {
+    if (this.recipesSub) {
+      this.recipesSub.unsubscribe();
+    }
   }
 }

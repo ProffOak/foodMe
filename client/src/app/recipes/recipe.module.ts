@@ -23,6 +23,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {BrowserModule} from "@angular/platform-browser";
 import {AppComponent} from "../app.component";
+import { RecipeAdminComponent } from './recipe-admin/recipe-admin.component';
 
 
 
@@ -52,7 +53,11 @@ import {AppComponent} from "../app.component";
     MatSelectModule,
     MatCheckboxModule
   ],
-  declarations: [CreateRecipeFromComponent, RecipeCardComponent, DetailedRecipeComponent],
+  declarations: [
+    CreateRecipeFromComponent,
+    RecipeCardComponent,
+    DetailedRecipeComponent,
+    RecipeAdminComponent],
   providers: [RecipeService],
   bootstrap: [RecipeCardComponent]
 })
