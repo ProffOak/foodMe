@@ -6,6 +6,7 @@ import {CartService} from '../shared/cart.service';
 import {SnackbarService} from '../../core/snackbar/snackbar.service';
 import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
 import {take} from 'rxjs/internal/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-recipe-cart-card',
@@ -21,7 +22,7 @@ export class RecipeCartCardComponent implements OnInit {
   @Output() recipeDeleted = new EventEmitter<Recipe>();
 
   constructor(private recipeService: RecipeService, private cartService: CartService,
-              private snackbarService: SnackbarService) { }
+              private snackbarService: SnackbarService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -43,4 +44,7 @@ export class RecipeCartCardComponent implements OnInit {
 
   }
 
+  viewDetails() {
+    this.router.navigate([`/recipes/${this.recipe._id}`]);
+  }
 }

@@ -13,6 +13,7 @@ export class NavComponent implements OnInit {
 
   isLoggedIn = false;
   cartObs: Observable<Cart>;
+  isAdminObs: Observable<boolean>;
 
   constructor(public authService: AuthService, private cartService: CartService) { }
 
@@ -21,6 +22,8 @@ export class NavComponent implements OnInit {
     this.authService.isLoggedInObs().subscribe(res => {
       this.isLoggedIn = res;
     });
+    this.isAdminObs = this.authService.isAdminObs();
+
   }
 
   onLogoutClick() {

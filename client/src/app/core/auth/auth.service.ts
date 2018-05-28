@@ -15,6 +15,7 @@ export class AuthService {
     return this._user$;
   }
 
+  // An Observable of current logged in user. If not logged in observable of null
   private _user$: Observable<User>;
 
   constructor(private afAuth: AngularFireAuth, private userService: UserService) {
@@ -26,14 +27,16 @@ export class AuthService {
     this._user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
-          // console.log(user);
+          // Return the user from own database
           return this.userService.getUserByUid(user.uid);
         } else {
+          // Set user to null if not signed In
           return of(null);
         }
       }));
   }
 
+  // Returns an Observable if user is signed in or not
   isLoggedInObs(): Observable<boolean> {
     return this.afAuth.authState.pipe(
       map(user => {
@@ -49,14 +52,17 @@ export class AuthService {
     return this.oAuthLogin(provider);
   }
 
+  // Facebook provider
   facebookLogin() {
     const provider = new firebase.auth.FacebookAuthProvider();
     return this.oAuthLogin(provider);
   }
 
+  // Help fucntion to logiin with Social providers
   private oAuthLogin(provider): Observable<User> {
     return from(this.afAuth.auth.signInWithPopup(provider)).pipe(
       switchMap((credential) => {
+        // Return the updated user object from own DB
         return this.updateUserData(credential.user);
       }));
   }
@@ -64,6 +70,7 @@ export class AuthService {
   emailLogin(email: string, password: string): Observable<User> {
     return  from (this.afAuth.auth.signInWithEmailAndPassword(email, password)).pipe(
       switchMap(user => {
+        // Return the updated user object from own DB
         return this.updateUserData(user);
       }));
   }
@@ -71,6 +78,7 @@ export class AuthService {
   emailRegister(user: User, password: string): Observable<User> {
     return  from (this.afAuth.auth.createUserWithEmailAndPassword(user.email, password)).pipe(
       switchMap(res => {
+        // Return a newly cratered user in the DB
         return this.createUser(res, <Roles>{regular: true}, user.name);
       }));
   }
@@ -79,7 +87,6 @@ export class AuthService {
     return this.afAuth.auth.signOut();
   }
 
-  // TODO: Implement set User data to DB
   private updateUserData(user) {
     // Sets user data to DB on login
     const newUserData = <User>{
@@ -105,11 +112,21 @@ export class AuthService {
       roles: roles,
       name: name,
     };
+    // Create a new User in DB
     return this.userService.addUser(data);
   }
 
+  // Return an Observable of the current JWT-token of current user
   getToken(): Observable<string> {
     return this.afAuth.idToken;
+  }
+
+  // Return an Observable of if current user is Admin
+  isAdminObs(): Observable<boolean> {
+    return this.user$.pipe(map(user => {
+      if (!user) { return false; }
+      return user.roles.admin;
+    }));
   }
 
 }

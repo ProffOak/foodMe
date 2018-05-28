@@ -3,6 +3,6 @@
   <button mat-button routerLink="../recipes">Börja Swepa!</button></div>
 <mat-list role="list">
   <div *ngFor="let recipe of recipes">
-    <mat-list-item *ngFor="let ingredient of recipe.ingredients" role="listitem">{{ingredient}}</mat-list-item>
+    <mat-list-item *ngFor="let ingredient of recipe?.ingredients" role="listitem">{{ingredient}}</mat-list-item>
   </div>
 </mat-list>

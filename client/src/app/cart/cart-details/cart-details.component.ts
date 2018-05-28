@@ -31,7 +31,6 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     this.recipesSub = this.cartService.getCurrentRecipes().subscribe(recipes => {
       this.recipes = [];
       this.recipes = recipes;
-      console.log(recipes);
     });
   }
 

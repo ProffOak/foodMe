@@ -24,6 +24,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {BrowserModule} from "@angular/platform-browser";
 import {AppComponent} from "../app.component";
 import { RecipeAdminComponent } from './recipe-admin/recipe-admin.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 
@@ -36,6 +37,7 @@ import { RecipeAdminComponent } from './recipe-admin/recipe-admin.component';
 
     // Own Imports
     CartModule,
+    SharedModule,
 
    //Animations
     BrowserAnimationsModule,
