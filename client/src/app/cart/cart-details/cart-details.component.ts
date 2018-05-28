@@ -15,10 +15,7 @@ import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConsta
 })
 export class CartDetailsComponent implements OnInit, OnDestroy {
 
-
   @ViewChild('tab') private tabRef: MatTabGroup;
-
-
 
   recipesSub: Subscription;
 
@@ -27,17 +24,18 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
   constructor(private cartService: CartService, private snackbarService: SnackbarService) { }
 
   ngOnInit() {
-    // this.recipesObs = this.cartService.getCurrentRecipes();
     this.recipesSub = this.cartService.getCurrentRecipes().subscribe(recipes => {
       this.recipes = [];
       this.recipes = recipes;
     });
   }
 
+  // Switch tab to ingredients tab
   toIngredients() {
     this.tabRef.selectedIndex = 1;
   }
 
+  // For now in purchase click just empties the whole cart
   onPurchaseClick() {
     this.snackbarService.showSnackBar(SnackbarStyle.Success, SnackbarMessage.Custom, 'Tack för din beställning!');
     this.cartService.removeAllFromCart().subscribe(() => {

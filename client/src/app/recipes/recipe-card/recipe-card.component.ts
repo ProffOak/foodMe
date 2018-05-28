@@ -65,14 +65,13 @@ export class RecipeCardComponent implements OnInit {
 
 
   onAddClick() {
-    console.log('hej');
     this.cartService.addToCart(this.currentRecipe).subscribe(() => {
     });
     this.nextRecipe();
   }
 
+  // Check swipe direction, and add if right, pass if left
   startAnimation(state) {
-    console.log(state);
     if (!this.animationState) {
       this.animationState = state;
     }

@@ -52,9 +52,10 @@ router.post("/", (req, res, next) => {
     });
 });
 
-// Update Certain fields of the user object
+// Update Certain fields of the user object, query params allowed
 router.patch("/", (req, res, next) => {
     let query=req.query;
+    // Find object to update based on uid
     if(Object.keys(query).length === 0) {
         query={uid: req.body.uid}
     }
@@ -66,6 +67,7 @@ router.patch("/:id", (req, res, next) => {
     patchUser({_id: id}, req, res)
 });
 
+// Help function to update a user
 function patchUser(queryObj, req, res) {
     const options= {setDefaultsOnInsert:true, upsert: true, new:true, runValidators:true};
     User.findOneAndUpdate(queryObj, { $set: req.body }, options, (err, user) => {
@@ -76,14 +78,14 @@ function patchUser(queryObj, req, res) {
         }
     });
 }
-
+// Delete a user based on id from url
 router.delete("/:id", (req, res, next) => {
     const id = req.params.id;
     User.remove({_id: id}, (err, user) => {
         if(err) {
             res.status(500).json({error: err});
         } else {
-            res.status(200).send("Deleted successfully")
+            res.status(200).json({status:"Deleted successfully"})
         }
     })
 });

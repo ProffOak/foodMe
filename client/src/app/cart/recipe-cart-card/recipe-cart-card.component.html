@@ -1,19 +1,14 @@
 <mat-card class="recipe-cart-card">
-  <mat-grid-list cols="6" rowHeight="100px">
-    <mat-grid-tile [colspan]="1">
-      <img class="recipe-thumbnail" [src]="recipe?.imgUrl" (click)="viewDetails()">
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="4">
-      <h2 class="text-inside-grid mat-h2 pointer" (click)="viewDetails()">{{recipe?.name}}</h2>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="1">
-      <button mat-fab (click)="onRemoveClick(recipe)">
-        <mat-icon aria-label="Delete recipe from cart">delete</mat-icon>
-      </button>
-    </mat-grid-tile>
+  <div fxLayout="row" fxLayout.xs="row wrap" fxLayoutAlign="space-between stretch" fxLayoutGap="1%">
+    <img fxFlex="30" fxFlex.xs="100" class="recipe-thumbnail" [src]="recipe?.imgUrl" (click)="viewDetails()">
+    <div style="width: 100%">
+      <h2  class="mat-h2 pointer" (click)="viewDetails()">{{recipe?.name}}</h2>
+    </div>
+    <button mat-fab (click)="onRemoveClick(recipe)" color="warn">
+      <mat-icon aria-label="Delete recipe from cart">delete</mat-icon>
+    </button>
+  </div>
 
-
-  </mat-grid-list>
 
 
 </mat-card>

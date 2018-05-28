@@ -7,11 +7,13 @@ import {MatButtonModule, MatCardModule, MatGridListModule, MatIconModule, MatLis
 import { IngredientCartCardComponent } from './ingredient-cart-card/ingredient-cart-card.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    HttpClientModule,
 
     FlexLayoutModule,
 
