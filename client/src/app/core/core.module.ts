@@ -14,6 +14,8 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
 import {UserService} from './auth/user.service';
 import {FileService} from './file-upload/file.service';
 import {SnackbarService} from './snackbar/snackbar.service';
+import {TokenInterceptor} from './auth/http-interceptor/token-interceptor';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any> {
@@ -50,6 +52,11 @@ export class MyHammerConfig extends HammerGestureConfig {
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
     }
   ]
 })

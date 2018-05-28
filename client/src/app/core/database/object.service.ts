@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
-  import {environment} from '../../../environments/environment';
+import {environment} from '../../../environments/environment';
 
 
 
@@ -72,7 +72,7 @@ export abstract class ObjectService<ObjectClass> {
     let url = this.url;
     const options = httpOptions;
     if (id) {
-       url = `${this.url}/${id}`;
+      url = `${this.url}/${id}`;
     } else {
       options['params'] = queryObject;
     }
@@ -81,13 +81,12 @@ export abstract class ObjectService<ObjectClass> {
     );
   }
   /** DELETE: delete the object from the server */
-  deleteHero (object: ObjectClass | string): Observable<ObjectClass> {
+  deleteObject (object: ObjectClass | string): Observable<any> {
     const id = typeof object === 'string' ? object : object['_id'];
     const url = `${this.url}/${id}`;
 
-    return this.httpClient.delete<ObjectClass>(url, httpOptions).pipe(
-      // catchError(this.handleError<ObjectClass>('deleteObject'))
-      catchError(this.handleError<ObjectClass>('deleteHero'))
+    return this.httpClient.delete<any>(url, httpOptions).pipe(
+      catchError(this.handleError<any>('deleteObject'))
     );
   }
 
@@ -114,7 +113,7 @@ export abstract class ObjectService<ObjectClass> {
 
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
-    console.log('HeroService: ' + message);
+    console.log('ObjectService: ' + message);
   }
 
 }

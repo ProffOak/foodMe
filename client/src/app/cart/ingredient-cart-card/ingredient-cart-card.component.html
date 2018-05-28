@@ -1,5 +1,6 @@
 <h2 class="mat-h2"><b>Inköpslista</b></h2>
-<div>Varukorgen är tom!<button mat-button>Börja Swepa!</button></div>
+<div *ngIf="recipes && recipes.length==0"><span>Varukorgen är tom!</span>
+  <button mat-button routerLink="../recipes">Börja Swepa!</button></div>
 <mat-list role="list">
   <div *ngFor="let recipe of recipes">
     <mat-list-item *ngFor="let ingredient of recipe.ingredients" role="listitem">{{ingredient}}</mat-list-item>

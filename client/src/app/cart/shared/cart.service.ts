@@ -7,7 +7,7 @@ import {AuthService} from '../../core/auth/auth.service';
 import {User} from '../../core/auth/shared/user.model';
 import {Recipe} from '../../recipes/shared/recipe.model';
 import {RecipeService} from '../../recipes/shared/recipe.service';
-import {toArray, flatMap, switchMap} from 'rxjs/operators';
+import {toArray, flatMap, switchMap, take, tap} from 'rxjs/operators';
 
 @Injectable()
 export class CartService extends ObjectService<Cart> {
@@ -89,13 +89,14 @@ export class CartService extends ObjectService<Cart> {
 
   getCurrentRecipes(): Observable<Recipe[]> {
     return this.currentCartObs.pipe(switchMap(cart => {
-      if (!cart) return of (null);
+      if (!cart) { return of (null); }
       const arr = <[Observable<Recipe>]> [];
       for (const id of cart.recipeIds) {
         arr.push(this.recipeService.getRecipeById(<string>id));
       }
       return merge(...arr).pipe(
-        toArray()
+        take(arr.length),
+        toArray(),
       );
     }));
   }

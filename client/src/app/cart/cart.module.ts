@@ -24,6 +24,6 @@ import {RouterModule} from '@angular/router';
   ],
   declarations: [CartDetailsComponent, RecipeCartCardComponent, IngredientCartCardComponent],
   providers: [CartService],
-  exports: [CartDetailsComponent]
+  exports: [CartDetailsComponent, RecipeCartCardComponent]
 })
 export class CartModule { }

@@ -22,12 +22,6 @@ export class CuisineService extends ObjectService<Cuisine> {
     return this.getObjects();
   }
 
-    //get cuisine by ID
-    getCuisineByQid(id: string): Observable<Cuisine> {
-      return this.getObjectsById({_id: id}).pipe(
-        map(cuisines => cuisines[0])
-      );
-    }
 
   //checks if the cuisine is in the cuisineArray or not. Pushes if it is not and removes if it is.
   isSelected(cuisine){

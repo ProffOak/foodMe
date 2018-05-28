@@ -82,10 +82,11 @@ export class CreateRecipeFromComponent implements OnInit, OnDestroy {
     this.fileSub = this.fileService.uploadFile(this.imageFile).snapshotChanges().pipe(takeLast(1)).subscribe(snap => {
       snap.ref.getDownloadURL().then(url => {
         this.recipe.imgUrl = url;
-        this.recipeService.addRecipe(this.recipe).toPromise().then(res => {
+        // Add recipe to the database
+        this.recipeService.addRecipe(this.recipe).pipe(take(1)).subscribe(res => {
+          // Show Success Message when complete and navigate to main page
           this.snackbarService.showSnackBar(SnackbarStyle.Success, SnackbarMessage.Create);
-          this.router.navigate(['']);
-        });
+          this.router.navigate(['']);        });
       });
     });
   }
