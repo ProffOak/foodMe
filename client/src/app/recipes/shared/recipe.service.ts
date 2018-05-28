@@ -3,7 +3,7 @@ import {ObjectService} from '../../core/database/object.service';
 import {Recipe} from './recipe.model';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {Quisine} from '../../quisine/shared/quisine.model';
+import {Cuisine} from "../../cuisine/shared/cuisine.model";
 import {FileService} from '../../core/file-upload/file.service';
 import {subscribeToPromise} from 'rxjs/internal/util/subscribeToPromise';
 import {merge} from 'rxjs/operators';
@@ -32,9 +32,9 @@ export class RecipeService extends ObjectService<Recipe> {
     return this.getObjectsByQuery({limit: limit, random: true});
   }
 
-  getRandomQuisineRecipes(limit: number, quisines: string[]): Observable<Recipe[]> {
+  getRandomCuisineRecipes(limit: number, cuisines: string[]): Observable<Recipe[]> {
 
-    return this.getObjectsByQuery({limit: limit, random: true, quisines: quisines});
+    return this.getObjectsByQuery({limit: limit, random: true, cuisines: cuisines})
   }
 
   removeRecipe(recipe: Recipe): Observable<any> {

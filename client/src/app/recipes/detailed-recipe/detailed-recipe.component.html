@@ -11,7 +11,7 @@
   <mat-card-title>{{recipe?.name}}</mat-card-title>
   <mat-card-content>{{recipe?.description}}</mat-card-content>
         <mat-chip-list>
-          <mat-chip color="primary" selected="true" *ngFor="let q of recipe?.quisines">{{q?.name}}</mat-chip>
+          <mat-chip color="primary" selected="true" *ngFor="let q of recipe?.cuisines">{{q?.name}}</mat-chip>
         </mat-chip-list>
       </div>
   </mat-grid-tile>
@@ -46,7 +46,7 @@
           Visa {{panelOpenState2 ? 'mindre' : 'mer'}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>{{recipe?.instructions}}</p>
+      <pre class="mat-body">{{recipe?.instructions}}</pre>
     </mat-expansion-panel>
 
    </div>

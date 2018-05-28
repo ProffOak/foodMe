@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {QuisineComponent} from './quisine.component';
-import {QuisineService} from './shared/quisine.service';
+import {CuisineComponent} from './cuisine.component';
+import {CuisineService} from './shared/cuisine.service';
 import {MatButtonModule} from '@angular/material/button';
 import {RouterModule} from '@angular/router';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -19,8 +19,8 @@ import {MatCardModule, MatGridListModule} from '@angular/material';
     MatButtonModule
 
   ],
-  declarations: [QuisineComponent],
-  providers: [QuisineService],
-  exports: [QuisineComponent]
+  declarations: [CuisineComponent],
+  providers: [CuisineService],
+  exports: [CuisineComponent]
 })
-export class QuisineModule { }
+export class CuisineModule { }

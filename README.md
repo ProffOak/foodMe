@@ -23,7 +23,7 @@ Start Client only:  `npm run client`
 ## Functional Specification
 
 FoodMe will be a web application that offers an easy way to find recipes for the weekly grocery shopping.
-You will be able to search recipes based on different categories, such as quisine or dietary needs.
+You will be able to search recipes based on different categories, such as cuisine or dietary needs.
 For simple recipe selection recipes will be randomly displayed one at a time, where you will either save the recipe to shopping list or move on to the recipe.
 You will be able to create own recipes, that will be stored in our own database
 

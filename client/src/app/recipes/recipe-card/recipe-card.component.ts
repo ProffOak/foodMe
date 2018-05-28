@@ -5,9 +5,9 @@ import {CartService} from '../../cart/shared/cart.service';
 import {Observable} from 'rxjs';
 import {Cart} from '../../cart/shared/cart.model';
 import {Router} from '@angular/router';
-import {QuisineService} from '../../quisine/shared/quisine.service';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import * as kf from '../../shared/keyframes';
+import {CuisineService} from "../../cuisine/shared/cuisine.service";
 
 
 @Component({
@@ -35,15 +35,13 @@ export class RecipeCardComponent implements OnInit {
   cartObs: Observable<Cart>;
   animationState: string;
 
-  constructor(private recipeService: RecipeService, private cartService: CartService,
-              private router: Router, private quisineService: QuisineService) { }
+  constructor(private recipeService: RecipeService, private cartService: CartService, private router: Router, private cuisineService: CuisineService) { }
 
   private getRandomRecipes() {
-    this.recipeService.getRandomQuisineRecipes(this.numberOfRecipesPerLoad,
-      this.quisineService.getQuisindeIdArray() ).subscribe(recipes => {
+    this.recipeService.getRandomCuisineRecipes(this.numberOfRecipesPerLoad, this.cuisineService.getCuisinedeIdArray() ).subscribe(recipes => {
       this.recipes = recipes;
       this.currentRecipe = this.recipes.pop();
-      // console.log(this.currentRecipe.quisines[0].name);
+      //console.log(this.currentRecipe.cuisines[0].name);
     });
   }
 
