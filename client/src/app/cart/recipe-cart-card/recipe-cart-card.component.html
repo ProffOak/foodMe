@@ -1,7 +1,7 @@
 <mat-card class="recipe-cart-card">
   <mat-grid-list cols="6" rowHeight="100px">
     <mat-grid-tile [colspan]="1">
-      <img class="recipe-thumbnail" [src]="recipe.imgUrl">
+      <img class="recipe-thumbnail" [src]="recipe?.imgUrl">
     </mat-grid-tile>
     <mat-grid-tile [colspan]="4">
       <h2 class="text-inside-grid mat-h2">{{recipe?.name}}</h2>

@@ -70,6 +70,35 @@
       <mat-icon class="sidenav-icon">home</mat-icon>
       Hem
     </button>
+    <button mat-button routerLink="/recipes">
+      <mat-icon class="sidenav-icon">restaurant_menu</mat-icon>
+      Börja svepa
+    </button>
+    <button *ngIf="isLoggedIn" mat-button routerLink="profile">
+      <mat-icon class="sidenav-icon">account_circle</mat-icon>
+      Profile
+    </button>
+    <button *ngIf="isLoggedIn" mat-button routerLink="recipes/admin">
+      <mat-icon class="sidenav-icon">security</mat-icon>
+      Admin
+    </button>
+    <button mat-button routerLink="cart" >
+      <mat-icon class="sidenav-icon" [matBadge]="(cartObs | async)?.recipeIds.length"
+                matBadgePosition="after" matBadgeColor="accent">shopping_cart</mat-icon>
+      <span>Cart</span>
+    </button>
+    <button *ngIf="isLoggedIn" mat-button routerLink="recipes/add">
+      <mat-icon class="sidenav-icon">create</mat-icon>
+      Lägg till Recept
+    </button>
+    <button *ngIf="!isLoggedIn" mat-button routerLink="login">
+      <mat-icon class="sidenav-icon">person</mat-icon>
+      Login
+    </button>
+    <button *ngIf="isLoggedIn" mat-button>
+      <mat-icon class="sidenav-icon">person_outline</mat-icon>
+      Logout
+    </button>
   </mat-sidenav>
 
   <mat-sidenav-content>

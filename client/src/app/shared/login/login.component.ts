@@ -3,6 +3,8 @@ import {Observable} from 'rxjs';
 import {take} from 'rxjs/operators';
 import {User} from '../../core/auth/shared/user.model';
 import {Router} from '@angular/router';
+import {SnackbarService} from '../../core/snackbar/snackbar.service';
+import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +14,14 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private snackBarService: SnackbarService) { }
 
   ngOnInit() {
   }
 
   onLogin(user: Observable<User>) {
     user.pipe(take(1)).subscribe(res => {
+      this.snackBarService.showSnackBar(SnackbarStyle.Success, SnackbarMessage.Login);
       this.router.navigate(['']);
     });
   }
