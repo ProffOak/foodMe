@@ -67,6 +67,7 @@ export class AuthService {
       }));
   }
 
+  // Login user using email and password
   emailLogin(email: string, password: string): Observable<User> {
     return  from (this.afAuth.auth.signInWithEmailAndPassword(email, password)).pipe(
       switchMap(user => {
@@ -75,6 +76,7 @@ export class AuthService {
       }));
   }
 
+  // Register new user using email and password
   emailRegister(user: User, password: string): Observable<User> {
     return  from (this.afAuth.auth.createUserWithEmailAndPassword(user.email, password)).pipe(
       switchMap(res => {
@@ -101,7 +103,8 @@ export class AuthService {
     }
     return this.userService.patchObject(newUserData, {uid: newUserData.uid});
   }
-
+  
+  // Create a new User in DB
   private createUser(user, roles: Roles, name): Observable<User> {
     const data: User = {
       uid: user.uid,
@@ -112,7 +115,6 @@ export class AuthService {
       roles: roles,
       name: name,
     };
-    // Create a new User in DB
     return this.userService.addUser(data);
   }
 
