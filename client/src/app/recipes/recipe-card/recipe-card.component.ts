@@ -8,6 +8,8 @@ import {Router} from '@angular/router';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import * as kf from '../../shared/keyframes';
 import {CuisineService} from "../../cuisine/shared/cuisine.service";
+import {SnackbarService} from '../../core/snackbar/snackbar.service';
+import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
 
 
 @Component({
@@ -35,13 +37,14 @@ export class RecipeCardComponent implements OnInit {
   cartObs: Observable<Cart>;
   animationState: string;
 
-  constructor(private recipeService: RecipeService, private cartService: CartService, private router: Router, private cuisineService: CuisineService) { }
+  constructor(private recipeService: RecipeService, private cartService: CartService,
+              private router: Router, private cuisineService: CuisineService, private snackbarService: SnackbarService) { }
 
   private getRandomRecipes() {
-    this.recipeService.getRandomCuisineRecipes(this.numberOfRecipesPerLoad, this.cuisineService.getCuisinedeIdArray() ).subscribe(recipes => {
+    this.recipeService
+      .getRandomCuisineRecipes(this.numberOfRecipesPerLoad, this.cuisineService.getCuisinedeIdArray() ).subscribe(recipes => {
       this.recipes = recipes;
       this.currentRecipe = this.recipes.pop();
-      //console.log(this.currentRecipe.cuisines[0].name);
     });
   }
 
@@ -52,10 +55,11 @@ export class RecipeCardComponent implements OnInit {
 
 
   nextRecipe() {
-    this.currentRecipe = this.recipes.pop();
     // When out of recipes, get new ones
     if (this.recipes.length === 0) {
       this.getRandomRecipes();
+    } else {
+      this.currentRecipe = this.recipes.pop();
     }
   }
 
@@ -76,6 +80,7 @@ export class RecipeCardComponent implements OnInit {
     }
     if (state === 'zoomOutRight') {
       setTimeout(this.onAddClick(), 500);
+      this.snackbarService.showSnackBar(SnackbarStyle.Success, SnackbarMessage.AddedToCart);
     }
   }
 

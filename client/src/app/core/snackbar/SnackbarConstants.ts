@@ -17,7 +17,8 @@ const SnackbarMessage = {
   Register: 'Lyckad registrering' as 'Lyckad registrering',
   Logout: 'Lyckad utlogging' as 'Lyckad utlogging',
   EmailWrong: 'Emailen är ej registrerad' as 'Emailen är ej registrerad',
-  PasswordWrong: 'Fel lösenord' as 'Fel lösenord'
+  PasswordWrong: 'Fel lösenord' as 'Fel lösenord',
+  AddedToCart: 'Tillagd I kundvagnen' as 'Tillagd I kundvagnen'
 };
 type SnackbarMessage = (typeof SnackbarMessage)[keyof typeof SnackbarMessage];
 export { SnackbarMessage };

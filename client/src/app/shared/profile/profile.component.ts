@@ -12,7 +12,6 @@ import {Observable} from 'rxjs';
 })
 export class ProfileComponent implements OnInit {
   userObs: Observable<User>;
-  bytes: number;
   constructor(private authService: AuthService) { }
 
   ngOnInit() {

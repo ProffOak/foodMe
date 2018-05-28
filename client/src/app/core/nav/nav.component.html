@@ -5,21 +5,16 @@
     <!--Logo-->
     <button mat-button routerLink="/">
       <mat-icon>home</mat-icon>
-      Home
+      Välj Kök
     </button>
 
     <!--Larger screen - Left-->
     <div fxShow="false" fxShow.gt-xs>
       <button mat-button routerLink="/recipes">
-        Recepies
+        Hitta Recept
       </button>
     </div>
 
-    <div fxShow="false" fxShow.gt-xs>
-      <button mat-button routerLink="/cuisine">
-        Cuisines
-      </button>
-    </div>
 
     <!--Smaller screen - Left-->
     <div  fxHide="false" fxHide.gt-xs>
@@ -30,16 +25,16 @@
 
     <!--Larger screen - Right-->
     <div *ngIf="isLoggedIn" fxShow="false" fxShow.gt-xs>
-      <button mat-button routerLink="profile">Profile</button>
+      <button mat-button routerLink="profile">Profil</button>
     </div>
 
-    <div *ngIf="isLoggedIn" fxShow="false" fxShow.gt-xs>
+    <div *ngIf="isLoggedIn && (isAdminObs | async)" fxShow="false" fxShow.gt-xs>
       <button mat-button routerLink="recipes/admin">Admin</button>
     </div>
 
     <button mat-button [matBadge]="(cartObs | async)?.recipeIds.length" matBadgeOverlap="true"
             matBadgePosition="after" matBadgeColor="accent" routerLink="cart" >
-      <span>Cart</span>
+      <span>Kundvagn</span>
     </button>
 
 
@@ -53,7 +48,7 @@
     </div>
 
     <div *ngIf="isLoggedIn" fxShow="false" fxShow.gt-xs (click)="onLogoutClick()">
-      <button mat-button>Logout</button>
+      <button mat-button>Logga ut</button>
     </div>
 
     <!--Smaller screen - Right-->
