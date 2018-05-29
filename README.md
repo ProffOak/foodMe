@@ -29,8 +29,9 @@ You will be able to create own recipes, that will be stored in our own database
 
 ## Technical Specification
 
-* Front-end: Angular, Angular Material for design
-* Back-end: REST API written in NodeJS with Express
-* Database: MongoDB hosted via mongoDB Atlas on AWS server, Mongoose library is used for connecting database and server
-* Deployment: npm for dependencies and building, Travis CI for auto deployment
-* Hosting: Front-end hosted via Firebase, back-end hosted on Google App Engine
+* Front-end: [Angular](https://angular.io/), [Angular Material](https://material.angular.io/) and Angular [Flex-layout](https://github.com/angular/flex-layout) for design
+* Back-end: REST API written in [NodeJS](https://nodejs.org/en/) with [Express](https://expressjs.com/)
+* Database: [MongoDB](https://www.mongodb.com/) hosted via [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) on AWS server, [Mongoose](http://mongoosejs.com/) is used for object modelling and connecting database and server
+* Deployment: [npm](https://www.npmjs.com/) for dependencies, [Angular CLI](https://cli.angular.io/) building frontend, [Travis CI](https://travis-ci.org/) for continuous integration and auto deployment
+* Hosting: Front-end hosted via [Firebase](https://firebase.google.com/docs/hosting/), Back-end hosted on [Google App Engine](https://cloud.google.com/appengine/)
+* For authentication and user credentials [Firebase Authentication](https://firebase.google.com/docs/auth/) is used both in frontend and backend

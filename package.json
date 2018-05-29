@@ -4,7 +4,7 @@
   "description": "A MEAN stack app for recepies",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently --names \"Client,Server\" \"cd client && npm start\" \"cd server && npm start\"",
+    "start": "concurrently --names \"Client,Server\" \"cd client && npm start\" \"cd server && npm run dev\"",
     "server": "cd server & npm start",
     "client": "cd client & npm start",
     "dev": "concurrently --names \"Client,Server\" \"cd client && npm start\" \"cd server && npm run dev\"",
