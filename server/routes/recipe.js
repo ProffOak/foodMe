@@ -37,12 +37,12 @@ router.get("/", (req, res, next) => {
 
 // Get Recipe by _id
 router.get("/:id", (req, res, next) => {
-    Recipe.findOne({_id: req.params.id}).populate('cuisines').exec((err, user) => {
+    Recipe.findOne({_id: req.params.id}).populate('cuisines').exec((err, recipe) => {
         if(err) {
             res.status(500).json({error: err});
             res.end();
         }else {
-            res.status(200).json(user);
+            res.status(200).json(recipe);
             res.end();
         }
     });

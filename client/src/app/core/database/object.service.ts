@@ -8,6 +8,7 @@ import {environment} from '../../../environments/environment';
 
 
 const httpOptions = {
+  // Set content-type headers to JSON for CRUD-oberations
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
@@ -39,7 +40,7 @@ export abstract class ObjectService<ObjectClass> {
     const url = `${this.url}/${id}`;
     return this.httpClient.get<ObjectClass>(url)
       .pipe(
-        catchError(this.handleError<any>(`getHero id=${id}`))
+        catchError(this.handleError<any>(`getObject id=${id}`))
       );
   }
 
@@ -47,7 +48,7 @@ export abstract class ObjectService<ObjectClass> {
   getObjectsByQuery(queryParams: any): Observable<ObjectClass[]> {
     return this.httpClient.get<ObjectClass[]>(this.url, {params: queryParams})
       .pipe(
-        catchError(this.handleError<any>(`getHero query=${queryParams}`))
+        catchError(this.handleError<any>(`getObject query=${queryParams}`))
       );
   }
 
@@ -61,8 +62,8 @@ export abstract class ObjectService<ObjectClass> {
   }
 
   // PUT: update the object on the server, based on id
-  putObject (hero: ObjectClass, id: string): Observable<any> {
-    return this.httpClient.put(this.url + '/' + id, hero, httpOptions).pipe(
+  putObject (object: ObjectClass, id: string): Observable<any> {
+    return this.httpClient.put(this.url + '/' + id, object, httpOptions).pipe(
       catchError(this.handleError<any>('updateObject'))
     );
   }
@@ -104,10 +105,8 @@ export abstract class ObjectService<ObjectClass> {
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+      console.error(error); // log to console
 
-      // TODO: better job of transforming error for user consumption
       this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
@@ -115,7 +114,7 @@ export abstract class ObjectService<ObjectClass> {
     };
   }
 
-  /** Log a HeroService message with the MessageService */
+  /** Log a ObjectService message with the MessageService */
   private log(message: string) {
     console.log('ObjectService: ' + message);
   }
