@@ -8,9 +8,9 @@ Built with Angular 2+ and Node express.
 ## Live
 **Application at:** [https://foodme-199118.firebaseapp.com/#/](https://foodme-199118.firebaseapp.com/#/)
 
-**API at:** [https://foodme-199118.firebaseapp.com/#/](https://foodme-199118.appspot.com/)
+**API at:** [https://foodme-199118.appspot.com/](https://foodme-199118.appspot.com/)
 
-**Screen cast of project:** [https://foodme-199118.firebaseapp.com/#/](https://youtu.be/CMI8UIB2y7c)
+**Screen cast of project:** [https://youtu.be/CMI8UIB2y7c](https://youtu.be/CMI8UIB2y7c)
 
 
 ## Install and startup
