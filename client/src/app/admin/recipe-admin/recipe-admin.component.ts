@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {RecipeService} from '../shared/recipe.service';
+import {RecipeService} from '../../recipes/shared/recipe.service';
 import {AuthService} from '../../core/auth/auth.service';
 import {Observable} from 'rxjs/index';
-import {Recipe} from '../shared/recipe.model';
+import {Recipe} from '../../recipes/shared/recipe.model';
 
 @Component({
   selector: 'app-recipe-admin',

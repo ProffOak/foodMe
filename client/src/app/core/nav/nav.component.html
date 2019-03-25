@@ -29,7 +29,7 @@
     </div>
 
     <div *ngIf="isLoggedIn && (isAdminObs | async)" fxShow="false" fxShow.gt-xs>
-      <button mat-button routerLink="recipes/admin">Admin</button>
+      <button mat-button routerLink="admin">Admin</button>
     </div>
 
     <button mat-button [matBadge]="(cartObs | async)?.recipeIds.length" matBadgeOverlap="true"
@@ -79,7 +79,7 @@
       <mat-icon class="sidenav-icon">account_circle</mat-icon>
       Profile
     </button>
-    <button *ngIf="isLoggedIn" mat-button routerLink="recipes/admin">
+    <button *ngIf="isLoggedIn" mat-button routerLink="admin">
       <mat-icon class="sidenav-icon">security</mat-icon>
       Admin
     </button>

@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import {AngularFireAuth} from 'angularfire2/auth';
-import { firebase } from '@firebase/app';
+import { AngularFireAuth } from 'angularfire2/auth';
 import {User} from './shared/user.model';
 import {Observable, pipe, from, of} from 'rxjs';
 import {switchMap, map} from 'rxjs/operators';
-
 import {UserService} from './user.service';
 import {Roles} from './shared/roles';
+import {firebase} from '@firebase/app';
 
 
 @Injectable()
@@ -63,16 +62,26 @@ export class AuthService {
     return from(this.afAuth.auth.signInWithPopup(provider)).pipe(
       switchMap((credential) => {
         // Return the updated user object from own DB
-        return this.updateUserData(credential.user);
+        return this.userService.userExists(credential.user.uid).then(exists => {
+            if (!exists) {
+              // If first time Create User in DB
+              console.log(exists);
+              return this.createUser(credential.user, <Roles>{regular: true}, credential.user.displayName);
+            } else {
+              // If  no user object present, simply update
+              console.log(exists);
+              return this.updateUserData(credential.user);
+            }
+        });
       }));
   }
 
   // Login user using email and password
   emailLogin(email: string, password: string): Observable<User> {
     return  from (this.afAuth.auth.signInWithEmailAndPassword(email, password)).pipe(
-      switchMap(user => {
+      switchMap(res => {
         // Return the updated user object from own DB
-        return this.updateUserData(user);
+        return this.updateUserData(res.user);
       }));
   }
 
@@ -81,7 +90,7 @@ export class AuthService {
     return  from (this.afAuth.auth.createUserWithEmailAndPassword(user.email, password)).pipe(
       switchMap(res => {
         // Return a newly cratered user in the DB
-        return this.createUser(res, <Roles>{regular: true}, user.name);
+        return this.createUser(res.user, <Roles>{regular: true}, user.name);
       }));
   }
 
@@ -89,7 +98,7 @@ export class AuthService {
     return this.afAuth.auth.signOut();
   }
 
-  private updateUserData(user) {
+  private updateUserData(user): Promise<User> {
     // Sets user data to DB on login
     const newUserData = <User>{
       uid: user.uid,
@@ -101,11 +110,11 @@ export class AuthService {
     if (user.displayName) {
       newUserData.name = user.displayName;
     }
-    return this.userService.patchObject(newUserData, {uid: newUserData.uid});
+    return this.userService.upsertUser(newUserData);
   }
-  
+
   // Create a new User in DB
-  private createUser(user, roles: Roles, name): Observable<User> {
+  private createUser(user, roles: Roles, name): Promise<User> {
     const data: User = {
       uid: user.uid,
       email: user.email,
@@ -115,7 +124,7 @@ export class AuthService {
       roles: roles,
       name: name,
     };
-    return this.userService.addUser(data);
+    return this.userService.upsertUser(data);
   }
 
   // Return an Observable of the current JWT-token of current user

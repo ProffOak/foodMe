@@ -1,0 +1,9 @@
+<mat-card class="cuisine-admin-card" *ngFor="let cuisine of cuisines | async">
+  {{cuisine.name}}
+  <button color="warn" mat-fab (click)="onDeleteClick(cuisine)">
+    <mat-icon aria-label="">delete</mat-icon>
+  </button>
+</mat-card>
+<button mat-fab class="add-button" routerLink="../cuisines/add">
+  <mat-icon aria-label="">add</mat-icon>
+</button>

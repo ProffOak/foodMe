@@ -1,11 +1,12 @@
 <mat-card class="card-max-width auto-margin">
+  <h1 class="mat-h1" *ngIf="!isEdit">Skapa nytt Recept</h1>
   <form #createRecipe="ngForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="full-width">
-      <input #name="ngModel" matInput name="Name" placeholder="Name" [(ngModel)]="recipe.name" required>
+      <input #name="ngModel" matInput name="Name" placeholder="Namn" [(ngModel)]="recipe.name" required>
       <mat-error *ngIf="!recipe.name && (name.dirty || name.touched)">Namn är obligatoriskt</mat-error>
     </mat-form-field>
     <mat-form-field class="full-width">
-    <textarea #description matInput name="Description" placeholder="Short description"
+    <textarea #description matInput name="Description" placeholder="Kort Beskrivning"
               [(ngModel)]="recipe.description" maxlength="200" [rows]="2"></textarea>
       <mat-hint align="end">{{description.value.length}} / 200</mat-hint>
     </mat-form-field>
@@ -28,7 +29,7 @@
                 [(ngModel)]="recipe.instructions" [rows]="8"></textarea>
     </mat-form-field>
     <mat-form-field class="full-width">
-      <mat-select name="Quisnes" placeholder="Cuisines" [(ngModel)]="selectedCuisines" multiple>
+      <mat-select [compareWith]="compareCuisines" name="Quisnes" placeholder="Kategorier" [(ngModel)]="selectedCuisines" multiple>
         <mat-select-trigger>
           <div class="chip" *ngFor="let cuisine of selectedCuisines">{{cuisine.name}}</div>
         </mat-select-trigger>
@@ -38,18 +39,19 @@
     <div class="full-width">
       <img *ngIf="recipe.imgUrl" [src]="recipe.imgUrl" class="recipe-img">
     </div>
-    <div class="full-width center-wrapper">
-      <button mat-raised-button type="button" class="add-image-button"  color="accent" onclick="document.getElementById('fileInput').click()">
-        Välj BIld
-      </button>
+    <div class="full-width">
+      <app-drop-zone [isImage]="true" [isMultiple]="false" (fileListEvent)="fileSelected($event)"></app-drop-zone>
     </div>
-    <input style="display:none;" id="fileInput" [multiple]="false" [accept]="'image/*'" type="file"
-           (change)="fileSelected($event.target.files)">
     <button
       class="full-width"
       mat-raised-button
       color="primary"
       [disabled]="!createRecipe.form.valid"
-    ><mat-icon>restaurant</mat-icon>Skapa Recept</button>
+    >
+      <mat-icon>restaurant</mat-icon>
+      <span *ngIf="!isEdit">Skapa Recept!</span>
+      <span *ngIf="isEdit">Uppdatera Recept!</span>
+
+    </button>
   </form>
 </mat-card>

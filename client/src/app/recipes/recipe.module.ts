@@ -19,11 +19,9 @@ import {
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import {CartModule} from '../cart/cart.module';
 import { DetailedRecipeComponent } from './detailed-recipe/detailed-recipe.component';
-import {FlexLayoutModule} from "@angular/flex-layout";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {BrowserModule} from "@angular/platform-browser";
-import {AppComponent} from "../app.component";
-import { RecipeAdminComponent } from './recipe-admin/recipe-admin.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BrowserModule} from '@angular/platform-browser';
 import {SharedModule} from '../shared/shared.module';
 
 
@@ -39,7 +37,7 @@ import {SharedModule} from '../shared/shared.module';
     CartModule,
     SharedModule,
 
-   //Animations
+   // Animations
     BrowserAnimationsModule,
     BrowserModule,
     // Material imports
@@ -58,8 +56,7 @@ import {SharedModule} from '../shared/shared.module';
   declarations: [
     CreateRecipeFromComponent,
     RecipeCardComponent,
-    DetailedRecipeComponent,
-    RecipeAdminComponent],
+    DetailedRecipeComponent],
   providers: [RecipeService],
   bootstrap: [RecipeCardComponent]
 })

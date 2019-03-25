@@ -7,17 +7,20 @@ import {CreateRecipeFromComponent} from './recipes/create-recipe-from/create-rec
 import {RecipeCardComponent} from './recipes/recipe-card/recipe-card.component';
 import {DetailedRecipeComponent} from './recipes/detailed-recipe/detailed-recipe.component';
 import {CartDetailsComponent} from './cart/cart-details/cart-details.component';
-import {RecipeAdminComponent} from './recipes/recipe-admin/recipe-admin.component';
+import {AdminComponent} from './admin/admin.component';
+import {CreateCuisineFormComponent} from './cuisine/create-cuisine-form/create-cuisine-form.component';
 
 const routes: Routes = [
   { path: '', component: CuisineComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'recipes/add', component: CreateRecipeFromComponent },
+  { path: 'recipes/:id/edit', component: CreateRecipeFromComponent},
   { path: 'recipes', component: RecipeCardComponent},
-  { path: 'recipes/admin', component: RecipeAdminComponent},
+  { path: 'admin', component: AdminComponent},
   { path: 'recipes/:id', component: DetailedRecipeComponent},
   { path: 'cart', component: CartDetailsComponent},
+  { path: 'cuisines/add', component: CreateCuisineFormComponent}
 
 
 ];

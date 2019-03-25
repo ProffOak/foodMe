@@ -1,0 +1,15 @@
+<mat-card class="card-max-width auto-margin">
+  <h1 class="mat-h1">Skapa ny kategori</h1>
+  <form #createCuisine="ngForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="full-width">
+      <input #name="ngModel" matInput name="Name" placeholder="Namn" [(ngModel)]="cuisine.name" required>
+      <mat-error *ngIf="!cuisine.name && (name.dirty || name.touched)">Namn är obligatoriskt</mat-error>
+    </mat-form-field>
+    <button
+      class="full-width"
+      mat-raised-button
+      color="primary"
+      [disabled]="!createCuisine.form.valid"
+    ><mat-icon>restaurant</mat-icon>Skapa Kategori</button>
+  </form>
+</mat-card>

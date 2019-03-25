@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {log} from "util";
-import {Cuisine} from "./shared/cuisine.model";
+import {log} from 'util';
+import {Cuisine} from './shared/cuisine.model';
 import {Observable} from 'rxjs';
-import {CuisineService} from "./shared/cuisine.service";
-import {Router} from "@angular/router";
+import {CuisineService} from './shared/cuisine.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -13,13 +13,13 @@ import {Router} from "@angular/router";
 })
 export class CuisineComponent implements OnInit {
 
-  constructor(private cuisineService : CuisineService, private router : Router) {}
+  constructor(private cuisineService: CuisineService, private router: Router) {}
 
 cuisines: Cuisine[] = [];
 
   ngOnInit() {
   this.cuisineService.getCuisines().subscribe(cuisines => {
-    this.cuisines=cuisines;
+    this.cuisines = cuisines;
   });
   }
 

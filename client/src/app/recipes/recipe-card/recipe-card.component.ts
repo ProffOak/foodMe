@@ -10,6 +10,8 @@ import * as kf from '../../shared/keyframes';
 import {CuisineService} from '../../cuisine/shared/cuisine.service';
 import {SnackbarService} from '../../core/snackbar/snackbar.service';
 import {SnackbarMessage, SnackbarStyle} from '../../core/snackbar/SnackbarConstants';
+import {Subscription} from 'rxjs/internal/Subscription';
+import {map, take, tap} from 'rxjs/operators';
 
 
 @Component({
@@ -32,18 +34,20 @@ export class RecipeCardComponent implements OnInit {
 
   currentRecipe: Recipe;
   recipes: Recipe[];
-  numberOfRecipesPerLoad: 20;
+  numberOfRecipesPerLoad = 20;
 
   cartObs: Observable<Cart>;
   animationState: string;
+
 
   constructor(private recipeService: RecipeService, private cartService: CartService,
               private router: Router, private cuisineService: CuisineService, private snackbarService: SnackbarService) { }
 
   private getRandomRecipes() {
     this.recipeService
-      .getRandomCuisineRecipes(this.numberOfRecipesPerLoad, this.cuisineService.getCuisinedeIdArray() ).subscribe(recipes => {
+      .getRandomCuisineRecipes(this.numberOfRecipesPerLoad, this.cuisineService.getCuisineIdArray() ).subscribe(recipes => {
       this.recipes = recipes;
+      this.shuffleArray(this.recipes);
       this.currentRecipe = this.recipes.pop();
     });
   }
@@ -51,12 +55,26 @@ export class RecipeCardComponent implements OnInit {
   ngOnInit() {
     this.getRandomRecipes();
     this.cartObs = this.cartService.currentCartObs;
+    if (this.cuisineService.getCuisineIdArray().length === 0) {
+      this.router.navigate(['']);
+    }
   }
+
+  /*private loadCuisines() {
+    this.cuisineService.getCuisinesFromIds(this.currentRecipe.cuisines)
+      .pipe(
+        take(1),
+        tap(cuisines => {
+          this.currentRecipe.cuisines = cuisines;
+        })
+      ).subscribe(() => {return});
+  }*/
 
 
   nextRecipe() {
     // When out of recipes, get new ones
     if (this.recipes.length === 0) {
+      console.log('Slut på Recept!!');
       this.getRandomRecipes();
     } else {
       this.currentRecipe = this.recipes.pop();
@@ -65,7 +83,7 @@ export class RecipeCardComponent implements OnInit {
 
 
   onAddClick() {
-    this.cartService.addToCart(this.currentRecipe).subscribe(() => {
+    this.cartService.addToCart(this.currentRecipe).then(() => {
     });
     this.nextRecipe();
   }
@@ -91,5 +109,12 @@ export class RecipeCardComponent implements OnInit {
 
   moreInfo() {
     this.router.navigate(['recipes/' + this.currentRecipe._id]);
+  }
+
+  private shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
   }
 }

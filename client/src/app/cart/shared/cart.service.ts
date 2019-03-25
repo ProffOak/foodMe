@@ -7,7 +7,8 @@ import {AuthService} from '../../core/auth/auth.service';
 import {User} from '../../core/auth/shared/user.model';
 import {Recipe} from '../../recipes/shared/recipe.model';
 import {RecipeService} from '../../recipes/shared/recipe.service';
-import {toArray, flatMap, switchMap, take, tap} from 'rxjs/operators';
+import {toArray, flatMap, switchMap, take, tap, map} from 'rxjs/operators';
+import {FirestoreService} from '../../core/database/firestore.service';
 
 @Injectable()
 export class CartService extends ObjectService<Cart> {
@@ -16,74 +17,64 @@ export class CartService extends ObjectService<Cart> {
 
   private cartSubject = new BehaviorSubject<Cart>(null);
 
-  private currentUser: User;
+  // private currentUser: User;
 
-  constructor(private http: HttpClient, private authService: AuthService, private recipeService: RecipeService) {
-    super(http, 'carts');
+  constructor(private http: HttpClient, private authService: AuthService, private recipeService: RecipeService,
+              private firestoreService: FirestoreService<Cart>) {
+    super(http, 'carts', firestoreService);
+
     this.initializeCart();
   }
+
+  private initializeCart() {
+    this.authService.user$.pipe(switchMap(user => {
+      if (user) {
+        this.currentCart.uid = user.uid;
+        return this.getObjectsByQuery(ref => ref.where('uid', '==', user.uid)).pipe(map(carts => carts[0]));
+      }
+      // Reset Cart if user logs out
+      return of(<Cart>{date: new Date(), recipeIds: []});
+    })).subscribe(cart => {
+      if (cart) {
+        this.currentCart = cart;
+      }
+      // Send out new cart Value
+      this.cartSubject.next(this.currentCart);
+    });
+  }
+
 
   get currentCartObs(): Observable<Cart> {
     return this.cartSubject.asObservable();
   }
 
-  // Get the cart based on the User ID
-  private initializeCart() {
-    this.authService.user$.pipe(
-      switchMap(user => {
-        this.currentUser = user;
-        if (user) {
-          // Get cart from databse based on the CurrentUser's uid
-          return this.getObjectsByQuery({uid: user.uid});
-        } else {
-          // If no user signed in return null
-          return of(null);
-        }
-      })).subscribe((cart: Cart[]) => {
-      if (cart && cart[0]) {
-        this.currentCart = cart[0];
-        this.currentCart.date = new Date();
-        this.cartSubject.next(cart[0]);
-      } else {
-        // Reset cart and emit null
-        this.currentCart = <Cart>{date: new Date(), recipeIds: []};
-        this.cartSubject.next(this.currentCart);
-      }
-    });
-  }
-
-  addToCart(recipe: Recipe): Observable<Cart> {
-    // Check if current user is logged in
-    if (this.currentUser) {
-      this.currentCart.uid = this.currentUser.uid;
-    }
+  addToCart(recipe: Recipe): Promise<Cart> {
     this.currentCart.recipeIds.push(<string>recipe._id);
     return this.updateCartInDatabase();
   }
 
-  removeFromCart(recipeId: string): Observable<Cart> {
+  removeFromCart(recipeId: string): Promise<Cart> {
     this.currentCart.recipeIds.splice(this.currentCart.recipeIds.indexOf(recipeId), 1);
     // Output the updated value
     return this.updateCartInDatabase();
   }
 
-  removeAllFromCart(): Observable<Cart> {
+  removeAllFromCart(): Promise<Cart> {
     // Remove all recipes from cart
     this.currentCart.recipeIds = [];
     return this.updateCartInDatabase();
   }
 
-  private updateCartInDatabase(): Observable<Cart> {
-    // Output the updated cart as next
-    this.cartSubject.next(this.currentCart);
-    // Update the cart in the database if user is logged in
-    if (this.currentUser) {
-      // __v causes error when patching
-      delete this.currentCart['__v'];
-      return this.patchObject(this.currentCart, {uid: this.currentCart.uid});
-    } else {
-      return this.cartSubject.asObservable();
-    }
+  private updateCartInDatabase(): Promise<Cart> {
+    return this.authService.user$.pipe(switchMap(user => {
+      if (user) {
+        return this.patchObject(this.currentCart, this.currentCart._id);
+      } else {
+        this.cartSubject.next(this.currentCart);
+        return of(this.currentCart);
+      }
+    })).toPromise();
+
 
   }
 

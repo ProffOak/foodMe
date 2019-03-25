@@ -5,21 +5,26 @@ import {CuisineService} from './shared/cuisine.service';
 import {MatButtonModule} from '@angular/material/button';
 import {RouterModule} from '@angular/router';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {MatCardModule, MatGridListModule} from '@angular/material';
+import {MatCardModule, MatGridListModule, MatIconModule, MatInputModule} from '@angular/material';
+import { CreateCuisineFormComponent } from './create-cuisine-form/create-cuisine-form.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
+    MatInputModule,
     FlexLayoutModule,
     MatGridListModule,
     MatButtonModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
 
   ],
-  declarations: [CuisineComponent],
+  declarations: [CuisineComponent, CreateCuisineFormComponent],
   providers: [CuisineService],
   exports: [CuisineComponent]
 })

@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
+import {FirestoreService} from './firestore.service';
+import {QueryFn} from 'angularfire2/firestore';
 
 
 
@@ -18,81 +20,83 @@ export abstract class ObjectService<ObjectClass> {
   // The base url to the server: In dev environment it is localhost. In production it's live url on google cloud
   apiBase = environment.apiBaseUrl;
 
- // The url to the objects, ex. https://server.com/recipies
+  // The url to the objects, ex. https://server.com/recipies
   url: string;
 
-  protected constructor(private httpClient: HttpClient, objectName: String) {
+  protected constructor(private httpClient: HttpClient, private objectName: string,
+                        private firebaseService: FirestoreService<ObjectClass>) {
     // Add the object name to the base url to form the url to the object
     this.url = this.apiBase + objectName;
   }
 
-
   // GET Objects from the server
   getObjects (): Observable<ObjectClass[]> {
-    return this.httpClient.get<ObjectClass[]>(this.url)
+    /*return this.httpClient.get<ObjectClass[]>(this.url)
       .pipe(
         catchError(this.handleError('getObjects', []))
-      );
+      );*/
+    return this.firebaseService.getItems(this.objectName);
   }
 
   // GET object by id.
   getObjectById(id: string): Observable<ObjectClass> {
-    const url = `${this.url}/${id}`;
+    /*const url = `${this.url}/${id}`;
     return this.httpClient.get<ObjectClass>(url)
       .pipe(
         catchError(this.handleError<any>(`getObject id=${id}`))
-      );
+      );*/
+    return this.firebaseService.getItem(this.objectName, id);
   }
 
-  // GET objects by query params, ex. ?name="John"&email="email@email.com"
-  getObjectsByQuery(queryParams: any): Observable<ObjectClass[]> {
-    return this.httpClient.get<ObjectClass[]>(this.url, {params: queryParams})
-      .pipe(
-        catchError(this.handleError<any>(`getObject query=${queryParams}`))
-      );
+  // GET objects by firebase query function
+  getObjectsByQuery(queryFn: QueryFn): Observable<ObjectClass[]> {
+    return this.firebaseService.getItems(this.objectName, queryFn);
+  }
+
+  // Dynamically creates a query function from an regular javascript object
+  getObjectsByQueryObject(obj: any): Observable<ObjectClass[]> {
+    return this.firebaseService.getItems(this.objectName, ref => {
+      let query = null;
+      let i = 0;
+      Object.entries(obj).forEach(([key, val]) => {
+        if (i === 0) {
+          query = ref.where(key, '==', val);
+        } else {
+          query = query.where(key, '==', val);
+        }
+        i++;
+      });
+      return query;
+    });
+  }
+
+  getAll(ids: string[]): Observable<ObjectClass[]> {
+    return this.firebaseService.getAll(this.objectName, ids);
   }
 
 
   // POST: ad a new object to the db
-  addObject (object: ObjectClass): Observable<ObjectClass> {
-    return this.httpClient.post<ObjectClass>(this.url, object, httpOptions)
-      .pipe(
-        catchError(this.handleError<ObjectClass>('addObject'))
-      );
-  }
-
-  // PUT: update the object on the server, based on id
-  putObject (object: ObjectClass, id: string): Observable<any> {
-    return this.httpClient.put(this.url + '/' + id, object, httpOptions).pipe(
-      catchError(this.handleError<any>('updateObject'))
-    );
+  addObject (object: ObjectClass): Promise<ObjectClass> {
+    return this.firebaseService.insertItem(this.objectName, object);
   }
 
   // PATCH: update certain fields of the object, using query params or id
-  patchObject (objectData: any, queryObject: any | string): Observable<any> {
-    // Use id if a string is provided
-    const id = typeof queryObject === 'string' ? queryObject : null;
-    let url = this.url;
-    const options = httpOptions;
-    if (id) {
-      url = `${this.url}/${id}`;
-    } else {
-      // Use params if object is provided instead of id
-      options['params'] = queryObject;
-    }
-    return this.httpClient.patch(url, objectData, options).pipe(
-      catchError(this.handleError<any>('updateObject'))
-    );
+  patchObject (objectData: any, id: string): Promise<any> {
+    return this.firebaseService.upsertItem(this.objectName, id, objectData);
   }
 
   // DELETE: delete the object from the server using id or object with id field
-  deleteObject (object: ObjectClass | string): Observable<any> {
+  deleteObject (object: ObjectClass | string): Promise<any> {
     const id = typeof object === 'string' ? object : object['_id'];
-    const url = `${this.url}/${id}`;
+    return this.firebaseService.deleteItem(this.objectName, id);
+  }
 
-    return this.httpClient.delete<any>(url, httpOptions).pipe(
-      catchError(this.handleError<any>('deleteObject'))
-    );
+  objectExists(id: string): Promise<boolean> {
+    return this.firebaseService.itemExistId(this.objectName, id);
+  }
+
+  objectExistsQuery(queryFn: QueryFn): Promise<boolean> {
+    return this.firebaseService.itemsExistQuery(this.objectName, queryFn);
   }
 
 

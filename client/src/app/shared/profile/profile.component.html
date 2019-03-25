@@ -1,1 +1,16 @@
-<pre>{{userObs | async | json}}</pre>
+<mat-card *ngIf="userObs | async as user" class="card-margin">
+  <h1 class="mat-h1">Mitt konto</h1>
+  <mat-list>
+    <mat-list-item>Namn: {{user.name}}</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Email: {{user.email}}</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Konto skapat: {{user.createdAt | date:'yyyy-MM-dd'}}</mat-list-item>
+  </mat-list>
+</mat-card>
+
+<mat-card class="card-margin">
+  <h1 class="mat-h1">Mina Recept</h1>
+  <app-recipe-cart-card *ngFor="let recipe of recipiesObs | async"
+                        [recipe]="recipe" [removeFromDb]="true" [editable]="true"></app-recipe-cart-card>
+</mat-card>

@@ -1,4 +1,6 @@
 <div *ngFor="let recipe of recipes; let i = index" >
   <app-recipe-cart-card (recipeDeleted)="recipeDeleted(i)" [removeFromDb]="true" [recipe]="recipe"></app-recipe-cart-card>
 </div>
-
+<button mat-fab class="add-button" routerLink="../recipes/add">
+  <mat-icon aria-label="">add</mat-icon>
+</button>

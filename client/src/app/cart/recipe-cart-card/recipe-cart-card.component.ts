@@ -19,6 +19,8 @@ export class RecipeCartCardComponent implements OnInit {
 
   @Input() removeFromDb = false;
 
+  @Input() editable = false;
+
   @Output() recipeDeleted = new EventEmitter<Recipe>();
 
   constructor(private recipeService: RecipeService, private cartService: CartService,
@@ -29,7 +31,7 @@ export class RecipeCartCardComponent implements OnInit {
 
   onRemoveClick(recipe: Recipe) {
     if (!this.removeFromDb) {
-      this.cartService.removeFromCart(<string> recipe._id).pipe(take(1)).subscribe(() => {
+      this.cartService.removeFromCart(<string> recipe._id).then(() => {
         this.snackbarService.showSnackBar(SnackbarStyle.Success, SnackbarMessage.Delete);
 
       });
@@ -46,5 +48,9 @@ export class RecipeCartCardComponent implements OnInit {
 
   viewDetails() {
     this.router.navigate([`/recipes/${this.recipe._id}`]);
+  }
+
+  onEditClick(recipe: Recipe) {
+    this.router.navigate([`/recipes/${this.recipe._id}/edit`]);
   }
 }

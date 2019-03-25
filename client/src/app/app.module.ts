@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {SharedModule} from './shared/shared.module';
 import {CuisineModule} from './cuisine/cuisine.module';
 import {RecipeModule} from './recipes/recipe.module';
+import {AdminModule} from './admin/admin.module';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {RecipeModule} from './recipes/recipe.module';
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    RecipeModule
+    RecipeModule,
+    AdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]

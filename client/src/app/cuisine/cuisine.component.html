@@ -1,13 +1,16 @@
 
 <div fxLayout="column" fxLayoutAlign="center center">
-  <h1 class="mat-h1">Välkommen till FoodMe</h1>
-  <h2 class="mat-h2">Välj vilken typ av mat du vill ha</h2>
+  <div class="full-width hero-div">
+    <h1 class="mat-display-2 hero-text animated fadeIn">Välkommen till FoodMe</h1>
+    <img src="../../assets/imgs/hero.jpg" class="full-width min-width">
+  </div>
+  <h2 class="mat-h2">Välj vilka kategorier du är intresserad av</h2>
 </div>
 <div fxLayout="row wrap" fxLayoutGap="2%" style="padding-left: 2%">
   <div fxFlex="18" fxFlex.xs="31" *ngFor="let q of cuisines; let i = index">
     <button mat-raised-button
             style="margin-bottom: 5px; width: 100%"
-             [color]="clickColor(q) ? 'primary' : 'accent'"
+            [color]="clickColor(q) ? 'primary' : 'accent'"
             (click)="clickCuisine(q)">{{q?.name}}
     </button>
   </div>

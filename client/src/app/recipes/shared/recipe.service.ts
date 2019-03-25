@@ -2,18 +2,21 @@ import { Injectable } from '@angular/core';
 import {ObjectService} from '../../core/database/object.service';
 import {Recipe} from './recipe.model';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {Cuisine} from "../../cuisine/shared/cuisine.model";
+import {combineLatest, Observable, of} from 'rxjs';
+import {Cuisine} from '../../cuisine/shared/cuisine.model';
 import {FileService} from '../../core/file-upload/file.service';
 import {subscribeToPromise} from 'rxjs/internal/util/subscribeToPromise';
-import {merge} from 'rxjs/operators';
-import {concat, switchMap, toArray} from 'rxjs/internal/operators';
+import { take, combineAll} from 'rxjs/operators';
+import {concat, switchMap, toArray, merge, map} from 'rxjs/internal/operators';
+import {FirestoreService} from '../../core/database/firestore.service';
+import {AuthService} from '../../core/auth/auth.service';
 
 @Injectable()
 export class RecipeService extends ObjectService<Recipe> {
 
-  constructor(private http: HttpClient, private fileService: FileService) {
-    super(http, 'recipes');
+  constructor(private http: HttpClient, private fileService: FileService, private firestoreService: FirestoreService<Recipe>,
+              private authService: AuthService) {
+    super(http, 'recipes', firestoreService);
   }
 
   getRecipes(): Observable<Recipe[]> {
@@ -24,17 +27,31 @@ export class RecipeService extends ObjectService<Recipe> {
     return this.getObjectById(id);
   }
 
-  addRecipe(recipe: Recipe): Observable<Recipe> {
+  getMyRecipes(): Observable<Recipe[]> {
+    return this.authService.user$.pipe(switchMap(user => {
+      return this.getObjectsByQuery(ref => ref.where('uid', '==', user.uid));
+    }));
+  }
+
+  addRecipe(recipe: Recipe): Promise<Recipe> {
     return this.addObject(recipe);
   }
 
-  getRandomRecipes(limit: number): Observable<Recipe[]> {
-    return this.getObjectsByQuery({limit: limit, random: true});
+  updateRecipe(recipe: Recipe): Promise<any> {
+    return this.patchObject(recipe, recipe._id);
   }
 
+  // TODO: MAKE the function actually return random recipies
   getRandomCuisineRecipes(limit: number, cuisines: string[]): Observable<Recipe[]> {
+    const recipeObsArr = <Observable<Recipe[]>[]> [];
+    for (const cuisine of cuisines) {
+      recipeObsArr.push(this.getObjectsByQuery(
+        ref => ref.where('cuisineObj.' + cuisine, '==', true).limit(limit)));
+    }
+    // Combine all the arrays
+    return combineLatest(recipeObsArr, (...arrays) => arrays.reduce((acc, array) => [...acc, ...array], [])
+    );
 
-    return this.getObjectsByQuery({limit: limit, random: true, cuisines: cuisines})
   }
 
   removeRecipe(recipe: Recipe): Observable<any> {

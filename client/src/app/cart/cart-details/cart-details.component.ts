@@ -38,7 +38,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
   // For now in purchase click just empties the whole cart
   onPurchaseClick() {
     this.snackbarService.showSnackBar(SnackbarStyle.Success, SnackbarMessage.Custom, 'Tack för din beställning!');
-    this.cartService.removeAllFromCart().subscribe(() => {
+    this.cartService.removeAllFromCart().then( res => {
 
     });
 

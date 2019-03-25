@@ -16,6 +16,7 @@ import {FileService} from './file-upload/file.service';
 import {SnackbarService} from './snackbar/snackbar.service';
 import {TokenInterceptor} from './auth/http-interceptor/token-interceptor';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {FirestoreService} from './database/firestore.service';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any> {
@@ -49,6 +50,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     FileService,
     AuthService,
     UserService,
+    FirestoreService,
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
